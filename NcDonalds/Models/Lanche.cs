@@ -9,5 +9,11 @@ namespace NcDonalds.Models
     {
         public int Preco { get; set; }
         public string Nome { get; set; }
+
+
+        // Novos atributos
+        public int LancheId { get; set; }
+        public string ImagemURL { get; set; }
+
     }
 }
