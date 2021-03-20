@@ -8,5 +8,7 @@ namespace NcDonalds.Models
     public class CarinhoCompras
     {
         public string Item { get; set; }
+        public int Quantidade { get; set; }
+
     }
 }
