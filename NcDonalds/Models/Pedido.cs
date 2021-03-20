@@ -7,7 +7,9 @@ namespace NcDonalds.Models
 {
     public class Pedido
     {
-        public int Preco { get; set; }
-        public string Nome { get; set; }
+        //Essas são as variaveis que Tonho pediu pra eu colocar
+        public int Numero { get; set; }
+        public string Valor { get; set; }
+        //Adaptei as entidades para o pedido
     }
 }
