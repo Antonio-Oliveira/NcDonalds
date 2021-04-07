@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NcDonalds.Models;
+using NcDonalds.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,32 +14,104 @@ namespace NcDonalds.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: AccountController
-        public ActionResult Index()
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
-            return View();
+            _userManager = userManager;
+            _signInManager = signInManager;
+
         }
 
-        // GET: AccountController/Details/5
-        public ActionResult Details(int id)
+        // GET: Account/Register
+        [HttpGet]
+        public ActionResult Login(string returnUrl)
         {
-            return View();
+            return View(new LoginViewModel() 
+            {
+                ReturnUrl = returnUrl
+            });
         }
 
-        // GET: AccountController/Create
+        // POST: Account/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel loginVM)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return View(loginVM);
+
+                var user = await _userManager.FindByNameAsync(loginVM.UserName);
+
+                if(user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user,loginVM.Password, false, false);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Home","Index");
+                    }
+
+                    ModelState.AddModelError("","Usuário ou Senha não encontrados");
+                    return View(loginVM);
+                }
+
+
+                ModelState.AddModelError("", "Usuário ou Senha não encontrados");
+                return View(loginVM);
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Account/Login
+        [HttpGet]
         public ActionResult Register()
         {
             return View();
         }
 
-        // POST: AccountController/Create
+        // POST: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(IFormCollection collection)
+        public async Task<ActionResult> Register(RegisterViewModel registroVM)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid)
+                {
+                    ModelState.AddModelError("", "Usuário não cadastrado");
+                    return View(registroVM);
+                }
+
+                if(registroVM.Password != registroVM.Confirme_Password)
+                {
+                    ModelState.AddModelError("", "Senha de confirmação diferente");
+                    return View(registroVM);
+                }   
+
+                var user = new AppUser()
+                {
+                    UserName = registroVM.UserName,
+                    Cpf = registroVM.Cpf,
+                    Email = registroVM.Email,
+                    PhoneNumber = registroVM.Telefone
+                };
+
+                var result = await _userManager.CreateAsync(user,registroVM.Password);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Home", "Index");
+                }
+
+                ModelState.AddModelError("", "Erro: Conta não criada");
+                return View(registroVM);
             }
             catch
             {
@@ -42,46 +119,12 @@ namespace NcDonalds.Controllers
             }
         }
 
-        // GET: AccountController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Logout()
         {
-            return View();
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Home","Index");
         }
 
-        // POST: AccountController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: AccountController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AccountController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
