@@ -1,38 +1,17 @@
-﻿@model LoginViewModel
+﻿<section>
+    <img class="burger" src="~/media/Hamburger-pana (1).svg" width="75%" alt="burguer">
+</section>
 
-<table>
-    <tr>
-        <td><img src="~/images/login1.jpg" alt="Fazer o Login" class="center-block" /></td>
-        <td>
-            <div class="row loginForm">
-                <div class="col-md-12">
-                    <h4>Informe as credenciais do usuário</h4>
-                    <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" role="form">
-                        <hr />
-                        <input type="hidden" asp-for="ReturnUrl" />
-                        <div class="form-group">
-                            <label asp-for="UserName" class="col-md-2 control-label"></label>
-                            <div class="col-md-12">
-                                <input asp-for="UserName" class="form-control" />
-                                <span asp-validation-for="UserName" class="text-danger"></span>
-                            </div>
-                        </div>
+<section class="inputs">
+    <div class="field">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email">
+    </div>
 
-                        <div class="form-group">
-                            <label asp-for="Password" class="col-md-2 control-label"></label>
-                            <div class="col-md-12">
-                                <input asp-for="Password" class="form-control" />
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="form-group formPullRightButton">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" class="btn btn-success" value="Log in" />
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
+    <div class="field">
+        <label for="senha">Senha</label>
+        <input id="senha" name="senha" type="password">
+    </div>
+
+    <a href="/" class="botao-entrar">Entrar</a>
+</section>
