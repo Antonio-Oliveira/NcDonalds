@@ -51,15 +51,6 @@ namespace NcDonalds.Controllers
 
                     if (result.Succeeded)
                     {
-                        var roleMember = await _userManager.IsInRoleAsync(user, "Member");
-                        var roleAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-
-
-                        if (!roleMember && !roleAdmin)
-                        {
-                            await _userManager.AddToRoleAsync(user, "Member");
-                        }
-
                         return RedirectToAction("Index","Home");
                     }
 
