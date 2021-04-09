@@ -1,17 +1,35 @@
-﻿<section>
-    <img class="burger" src="~/media/Hamburger-pana (1).svg" width="75%" alt="burguer">
-</section>
+﻿@model LoginViewModel
 
-<section class="inputs">
-    <div class="field">
-        <label for="email">E-mail</label>
-        <input id="email" name="email" type="email">
-    </div>
+<section class="container-row">
 
-    <div class="field">
-        <label for="senha">Senha</label>
-        <input id="senha" name="senha" type="password">
-    </div>
+    <section class="img-login">
+        <img class="burger" src="~/media/Hamburger-pana (1).svg" alt="burguer">
+    </section>
 
-    <a href="/" class="botao-entrar">Entrar</a>
+    <form asp-controller="Account" asp-action="Login" method="post" role="form" class="inputs">
+
+        <input type="hidden" asp-for="ReturnUrl" />
+
+        <div class="">
+            <div class="field">
+                <label asp-for="Email" class=""></label>
+                <input asp-for="Email" id="email" />
+                <span asp-validation-for="Email" class=""></span>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="field">
+                <label asp-for="Password" class=""></label>
+                <input asp-for="Password" class="" />
+                <span asp-validation-for="Password" class=""></span>
+            </div>
+        </div>
+        <div class="">
+            <div class="field">
+                <input type="submit" class="botao-entrar" value="Entrar" />
+            </div>
+        </div>
+    </form>
+
 </section>

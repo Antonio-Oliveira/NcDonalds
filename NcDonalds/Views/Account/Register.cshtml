@@ -1,33 +1,50 @@
-﻿<section>
-    <img class="mulher" src="~/media/refreshing.svg" width="40%" alt="mulher bebendo suquinho">
-</section>
+﻿@model RegisterViewModel
 
-<section class="inputs">
+<section class="container-row">
 
-    <div class="field">
-        <label for="nome">Nome</label>
-        <input id="nome" name="nome" type="text">
-    </div>
+    <section>
+        <img class="mulher" src="~/media/refreshing.svg" width="40%" alt="mulher bebendo suquinho">
+    </section>
 
-    <div class="field">
-        <label for="telefone">Telefone</label>
-        <input id="telefone" name="telefone" type="tel">
-    </div>
+    <form asp-controller="Account" asp-action="Register" method="post" class="inputs" role="form">
 
-    <div class="field">
-        <label for="email">E-mail</label>
-        <input id="email" name="email" type="email">
-    </div>
+        <div class="field">
+            <label asp-for="UserName" class="col-md-2 control-label"></label>
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
 
-    <div class="field">
-        <label for="senha">Senha</label>
-        <input id="senha" name="senha" type="password">
-    </div>
+        <div class="field">
+            <label asp-for="Email" class="col-md-2 control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class=""></span>
+        </div>
 
-    <div class="field">
-        <label for="confirmaSenha">Confirme sua senha</label>
-        <input id="confirmaSenha" name="confirmaSenha" type="password">
-    </div>
+        <div class="field">
+            <label asp-for="Cpf" class="col-md-2 control-label"></label>
+            <input asp-for="Cpf" class="form-control" />
+            <span asp-validation-for="Cpf" class=""></span>
+        </div>
 
-    <a href="/" class="botao-cadastrar">Cadastrar</a>
+        <div class="field">
+            <label asp-for="Telefone" class="col-md-2 control-label"></label>
+            <input asp-for="Telefone" class="form-control" />
+            <span asp-validation-for="Telefone" class=""></span>
+        </div>
+
+        <div class="field">
+            <label asp-for="Password" class="col-md-2 control-label"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="field">
+            <label asp-for="Confirme_Password" class="col-md-2 control-label"></label>
+            <input asp-for="Confirme_Password" class="form-control" />
+            <span asp-validation-for="Confirme_Password" class="text-danger"></span>
+        </div>
+
+        <input type="submit" class="botao-cadastrar" value="Registrar" />
+ 
+    </form>
 </section>

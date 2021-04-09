@@ -21,10 +21,9 @@ namespace NcDonalds.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
-
         }
 
-        // GET: Account/Register
+        // GET: Account/Login
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {
@@ -34,7 +33,7 @@ namespace NcDonalds.Controllers
             });
         }
 
-        // POST: Account/Register
+        // POST: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel loginVM)
@@ -44,7 +43,7 @@ namespace NcDonalds.Controllers
                 if (!ModelState.IsValid)
                     return View(loginVM);
 
-                var user = await _userManager.FindByNameAsync(loginVM.UserName);
+                var user = await _userManager.FindByEmailAsync(loginVM.Email);
 
                 if(user != null)
                 {
@@ -52,7 +51,16 @@ namespace NcDonalds.Controllers
 
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Home","Index");
+                        var roleMember = await _userManager.IsInRoleAsync(user, "Member");
+                        var roleAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
+
+                        if (!roleMember && !roleAdmin)
+                        {
+                            await _userManager.AddToRoleAsync(user, "Member");
+                        }
+
+                        return RedirectToAction("Index","Home");
                     }
 
                     ModelState.AddModelError("","Usuário ou Senha não encontrados");
@@ -69,14 +77,14 @@ namespace NcDonalds.Controllers
             }
         }
 
-        // GET: Account/Login
+        // GET: Account/Register
         [HttpGet]
         public ActionResult Register()
         {
             return View();
         }
 
-        // POST: Account/Login
+        // POST: Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel registroVM)
@@ -107,7 +115,10 @@ namespace NcDonalds.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Home", "Index");
+                    await _userManager.AddToRoleAsync(user, "Member");
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    return RedirectToAction("Index", "Home");
                 }
 
                 ModelState.AddModelError("", "Erro: Conta não criada");

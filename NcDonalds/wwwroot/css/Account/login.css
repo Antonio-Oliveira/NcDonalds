@@ -50,18 +50,6 @@ button {
     cursor: pointer;
 }
 
-hr {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    font-size: 1.3rem;
-}
 
 .login-button {
     padding: 15px 20px;
@@ -78,7 +66,7 @@ header {
     width: 80%;
 }
 
-main {
+.container-row {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -90,29 +78,19 @@ main {
     flex-direction: column;
 }
 
-    .inputs label {
-        display: inherit;
-        justify-self: flex-start;
-    }
+.inputs label {
+    display: inherit;
+    justify-self: flex-start;
+ }
 
-    .inputs input {
-        color: var(--preto);
-        width: 65%;
-        border-radius: 999px;
-        padding: 16px;
-        border-width: 0px;
-        margin-bottom: 10px;
-    }
-
-/* .field {
-    width: 60%;
-} */
-
-section {
-    width: 80%;
+.inputs input {
+    color: var(--preto);
+    width: 65%;
+    border-radius: 999px;
+    padding: 16px;
+    border-width: 0px;
+    margin-bottom: 10px;
 }
-
-
 
 .botao-entrar {
     padding: 12px 20px;
@@ -120,4 +98,8 @@ section {
     background-color: var(--amarelo);
     border: 3px solid var(--amarelo);
     color: var(--preto);
+}
+
+.img-login{
+    width: 75%;
 }

@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Servicos\**" />
+    <Content Remove="Areas\Admin\Servicos\**" />
+    <EmbeddedResource Remove="Areas\Admin\Servicos\**" />
+    <None Remove="Areas\Admin\Servicos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.14" />
@@ -18,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Servicos\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

@@ -127,7 +127,7 @@ section {
 }
 
 footer {
-    position: absolute;
+    padding: 20px;
     bottom: 10px;
     width: 100%;
     text-align: center;
