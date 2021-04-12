@@ -1,4 +1,6 @@
 ﻿
+/* Configuration default */
+
 :root {
     --vermelho: #E92438;
     --preto: #141414;
@@ -27,6 +29,32 @@ body {
     background: var(--vermelho);
     -webkit-font-smoothing: antialiased;
 }
+
+a {
+    text-decoration: none !important;
+}
+
+p {
+    margin-bottom: 0rem;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+footer {
+    padding: 20px;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+
+
 
 
 

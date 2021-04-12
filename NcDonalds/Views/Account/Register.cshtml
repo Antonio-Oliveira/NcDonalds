@@ -1,51 +1,61 @@
-﻿
+﻿<!-- page setup -->
+
+@{
+    ViewData["Title"] = "Registro";
+    Layout = "~/Views/Shared/Account/_Layout.cshtml";
+}
+
+@section navMessage{
+    <span>Já tem conta?</span>
+    <a asp-controller="Account" asp-action="Login" class="login-button">Faça login</a>
+}
+
 @model RegisterViewModel
-
-<section class="container-row">
-
-    <section>
-        <img class="mulher" src="~/media/refreshing.svg" width="40%" alt="mulher bebendo suquinho">
-    </section>
-
-    <form asp-controller="Account" asp-action="Register" method="post" class="inputs" role="form">
-
-        <div class="field">
-            <label asp-for="UserName" class="col-md-2 control-label"></label>
-            <input asp-for="UserName" class="form-control" />
-            <span asp-validation-for="UserName" class="text-danger"></span>
-        </div>
-
-        <div class="field">
-            <label asp-for="Email" class="col-md-2 control-label"></label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class=""></span>
-        </div>
-
-        <div class="field">
-            <label asp-for="Cpf" class="col-md-2 control-label"></label>
-            <input asp-for="Cpf" class="form-control" />
-            <span asp-validation-for="Cpf" class=""></span>
-        </div>
-
-        <div class="field">
-            <label asp-for="Telefone" class="col-md-2 control-label"></label>
-            <input asp-for="Telefone" class="form-control" />
-            <span asp-validation-for="Telefone" class=""></span>
-        </div>
-
-        <div class="field">
-            <label asp-for="Password" class="col-md-2 control-label"></label>
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-
-        <div class="field">
-            <label asp-for="Confirme_Password" class="col-md-2 control-label"></label>
-            <input asp-for="Confirme_Password" class="form-control" />
-            <span asp-validation-for="Confirme_Password" class="text-danger"></span>
-        </div>
-
-        <input type="submit" class="botao-cadastrar" value="Registrar" />
- 
-    </form>
+<!-- page content -->
+<section>
+    <img class="img-mulher" src="~/images/refreshing.svg" alt="mulher bebendo suquinho">
 </section>
+
+<form asp-controller="Account" asp-action="Register" method="post" class="inputs" role="form">
+
+    <div class="field">
+        <label asp-for="UserName" class=""></label>
+        <input asp-for="UserName" class="" />
+        <span asp-validation-for="UserName" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Email" class=""></label>
+        <input asp-for="Email" class="" />
+        <span asp-validation-for="Email" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Cpf" class=""></label>
+        <input asp-for="Cpf" class="" />
+        <span asp-validation-for="Cpf" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Telefone" class=""></label>
+        <input asp-for="Telefone" class="" />
+        <span asp-validation-for="Telefone" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Password" class=""></label>
+        <input asp-for="Password" class="" />
+        <span asp-validation-for="Password" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Confirme_Password" class=""></label>
+        <input asp-for="Confirme_Password" class="" />
+        <span asp-validation-for="Confirme_Password" class=""></span>
+    </div>
+
+    <div class="submit-input">
+        <input type="submit" class="botao-cadastrar" value="Registrar" />
+    </div>
+
+</form>
