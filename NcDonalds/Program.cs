@@ -1,12 +1,6 @@
-using LanchesMac.Extensão;
+using NcDonalds.Extensão;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NcDonalds
 {
@@ -23,5 +17,6 @@ namespace NcDonalds
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }
