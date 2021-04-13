@@ -32,7 +32,7 @@ namespace NcDonalds.Models
         public int CategoriaId { get; set; }
         
         // Relacionamento 1 : N
-        public virtual Categoria categoria { get; set; }
+        public virtual Categoria Categoria { get; set; }
 
     }
 }

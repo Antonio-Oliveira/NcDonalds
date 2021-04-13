@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NcDonalds.Repositories
 {
-    interface ILancheRepository
+    public interface ILancheRepository
     {
         IEnumerable<Lanche> Lanches { get; }
         Lanche GetLancheById(int lancheId);

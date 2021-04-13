@@ -1,0 +1,17 @@
+﻿@model LancheListViewModel
+
+@{
+    ViewData["Title"] = "Lanches";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    <h2> @Model.CategoriaAtual </h2>
+</p>
+
+
+@foreach (var lanche in Model.Lanches)
+{
+    @await Html.PartialAsync("_LancheResumo", lanche);
+    
+}

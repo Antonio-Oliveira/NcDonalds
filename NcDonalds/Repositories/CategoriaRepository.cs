@@ -1,4 +1,5 @@
-﻿using NcDonalds.Models;
+﻿using NcDonalds.Context;
+using NcDonalds.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,13 @@ namespace NcDonalds.Repositories
 {
     public class CategoriaRepository : ICategoriaRepository
     {
-        public IEnumerable<Categoria> Categorias => throw new NotImplementedException();
+        private readonly AppDbContext _context;
+
+        public CategoriaRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public IEnumerable<Categoria> Categoria => _context.Categorias;
     }
 }

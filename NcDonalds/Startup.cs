@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NcDonalds.Context;
 using NcDonalds.Models;
+using NcDonalds.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +74,10 @@ namespace NcDonalds
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<AppDbContext>();
+
+            // Registros de serviços, para injeções de dependências.
+            services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+            services.AddTransient<ILancheRepository, LancheRepository>();
                 
 
 

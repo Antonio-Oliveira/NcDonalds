@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NcDonalds.Repositories
 {
-    interface ICategoriaRepository
+    public interface ICategoriaRepository
     {
-        public IEnumerable<Categoria> Categorias { get; }
+        public IEnumerable<Categoria> Categoria { get; }
 
     }
 }
