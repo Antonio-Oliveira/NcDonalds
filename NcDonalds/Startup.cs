@@ -79,7 +79,7 @@ namespace NcDonalds
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));
-           
+
             //configura o uso da Sessão
             services.AddMemoryCache();
             services.AddSession();
@@ -111,12 +111,21 @@ namespace NcDonalds
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+            endpoints.MapRazorPages();
+
+            endpoints.MapControllerRoute(
+                name: "AreaAdmin",
+                pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+                name: "Filtar",
+                pattern: "Lanche/{action}/{categoria?}",
+                defaults: new { Controller = "Lanche", action = "List" });
+
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+        });
         }
-    }
+}
 }
