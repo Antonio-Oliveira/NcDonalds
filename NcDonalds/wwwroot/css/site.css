@@ -15,9 +15,9 @@
     box-sizing: border-box;
 }
 
-*:focus {
-    outline: 0 !important;
-}
+    *:focus {
+        outline: 0 !important;
+    }
 
 html,
 body {
@@ -46,17 +46,19 @@ button {
     cursor: pointer;
 }
 
-footer {
-    padding: 20px;
-    bottom: 10px;
-    width: 100%;
-    text-align: center;
+.nav-principal ul {
+    display: flex;
+    align-items: center;
 }
 
+    .nav-principal ul li {
+        margin-left: 25px;
+    }
 
-
-
-
-
-
+        .nav-principal ul li a{
+            font-family: 'Montserrat';
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 1.35rem;
+        }
 

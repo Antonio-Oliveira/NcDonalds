@@ -10,7 +10,7 @@
 }
 
 .img-header {
-    width: 100px;
+    width: 120px;
 }
 
 
@@ -112,4 +112,6 @@ footer {
     bottom: 10px;
     width: 100%;
     text-align: center;
+
+    color: #ffffff;
 }

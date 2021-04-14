@@ -13,21 +13,35 @@
 
     <!-- Stylus -->
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/account.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-
 </head>
 <body>
-    <header>
-        <a href="/">
-            <img src="~/media/logo1.png" width="100px">
+    <header class="container-header">
+        <a asp-controller="Home" asp-action="Index">
+            <img src="/images/logo1.png" class="img-header">
         </a>
-        <div class="login">
-            <span>Já tem uma conta?</span>
-            <a href="/" class="login-button">Faça login</a>
-        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Ínicio</a>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="Contato">Contato</a>
+                </li>
+                <li>
+                    <a asp-controller="Lanche" asp-action="List">Cardápio</a>
+                </li>
+                <li>
+                    <a asp-controller="Account" asp-action="Login">Login</a>
+                </li>
+            </ul>
+        </nav>
+
     </header>
+
     <div class="">
         <main role="" class="">
             @RenderBody()
