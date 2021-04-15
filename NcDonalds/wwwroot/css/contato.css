@@ -1,3 +1,4 @@
+
 :root {
     --vermelho: #E92438;
     --preto: #141414;
@@ -5,85 +6,37 @@
     --amarelo: #F1B104;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    box-sizing: border-box;
-    font-weight: 300;
-}
-
-*:focus {
-    outline: 0!important;
-}
-
-html,
-body,
-#root {
-    height: 100%
-}
-
-body {
-    line-height: 1.43 !important;
-    background: var(--vermelho);
-    -webkit-font-smoothing: antialiased;
-}
-
-body,
-input,
-button {
-    color: var(--branco);
-    font: 14px 'Montserrat', sans-serif;
-}
-
-a {
-    text-decoration: none!important;
-    color: var(--branco);
-}
-
-p {
-    margin-bottom: 0rem;
-}
-
-ul {
-    list-style: none;
-}
-
-button {
-    cursor: pointer;
-}
-
 hr {
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-header {
+.container-row {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    font-size: 1.3rem;
 }
 
-.contato {
+.container-contato {
+    width: 100%;
+    margin: 0 auto;
+}
+
+    .container-contato section {
+        width: 50%;
+        margin: 0 30px;
+    }
+
+.contato-img {
     width: 90%;
 }
 
-section {
-    width: 50%;
-}
-
-main {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
 
 .titulo {
     text-align: center;
-    font-size: 40px;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
     padding: 0px 120px;
+    color: var(--branco);
 }
 
 .opcao {
@@ -93,18 +46,9 @@ main {
     align-items: center;
 }
 
-header nav a {
-    font-size: 30px;
-    text-decoration: none;
-    color: var(--branco);
-    margin-right: 15px;
-}
-
-header nav a:hover {
-    color: #AAA;
-}
 
 .opcao a {
+    color: var(--branco);
     padding: 25px;
 }
 
@@ -114,4 +58,8 @@ header nav a:hover {
 
 .opcao img {
     width: 60px;
+}
+
+section img .contato{
+    width: 90%;
 }
