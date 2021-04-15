@@ -30,6 +30,9 @@
             <nav class="nav-principal">
                 <ul>
                     <li>
+                        @await Component.InvokeAsync("CarrinhoCompraResumo")
+                    </li>
+                    <li>
                         <a asp-controller="Home" asp-action="Index">Ínicio</a>
                     </li>
                     <li>

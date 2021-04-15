@@ -1,0 +1,23 @@
+﻿@model CarrinhoCompraViewModel
+
+<a asp-controller="CarrinhoCompra">
+
+
+    @if (@Model.CarrinhoCompra.CarrinhoCompraItens.Count > 0)
+    {
+        <span style="color:yellow">
+            <img src="~/images/cart.svg" />
+        </span>
+
+        <span style="color:yellow" style="color:yellow">
+            @Model.CarrinhoCompra.CarrinhoCompraItens.Count
+        </span>
+    }
+    else
+    {
+        <span>
+            <img src="~/images/cart.svg" />
+        </span>
+    }
+
+</a>
