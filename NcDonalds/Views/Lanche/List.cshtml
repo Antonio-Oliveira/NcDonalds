@@ -9,9 +9,13 @@
     <h2> @Model.CategoriaAtual </h2>
 </p>
 
+<section>
 
-@foreach (var lanche in Model.Lanches)
-{
-    @await Html.PartialAsync("_LancheResumo", lanche);
-    
-}
+    @foreach (var lanche in Model.Lanches)
+    {
+        @await Html.PartialAsync("_LancheResumo", lanche);
+
+    }
+
+</section>
+
