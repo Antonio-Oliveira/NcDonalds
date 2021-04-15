@@ -1,7 +1,7 @@
 ﻿@model Lanche
 
 
-<div class="">
+<div class="container-row">
 
     <div class="img-thumbnail">
 
@@ -9,9 +9,7 @@
 
     </div>
 
-    <div class="">
-
-        <h3 class=""> @Model.Preco.ToString("c") </h3>
+    <div class="lanche-content">
 
         <h3>
             <a asp-controller="Lanche" asp-action="Details" asp-route-lancheId="@Model.LancheId">
@@ -21,14 +19,19 @@
 
         <p> @Model.DescricaoCurta </p>
 
-    </div>
+        <div class="container-row">
+            <h3 class=""> @Model.Preco.ToString("c") </h3>
 
-    <div >
-        <p>
-            <a class="" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
-                Incluir no Carrinho
-            </a>
-        </p>
+            <p>
+                <a class="" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
+                    Incluir no Carrinho
+                </a>
+            </p>
+
+        </div>
+
+
+
     </div>
 
 </div>
