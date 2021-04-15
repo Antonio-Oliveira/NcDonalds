@@ -1,0 +1,117 @@
+:root {
+    --vermelho: #E92438;
+    --preto: #141414;
+    --branco: #FFFFFF;
+    --amarelo: #F1B104;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    font-weight: 300;
+}
+
+*:focus {
+    outline: 0!important;
+}
+
+html,
+body,
+#root {
+    height: 100%
+}
+
+body {
+    line-height: 1.43 !important;
+    background: var(--vermelho);
+    -webkit-font-smoothing: antialiased;
+}
+
+body,
+input,
+button {
+    color: var(--branco);
+    font: 14px 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none!important;
+    color: var(--branco);
+}
+
+p {
+    margin-bottom: 0rem;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+hr {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    font-size: 1.3rem;
+}
+
+.contato {
+    width: 90%;
+}
+
+section {
+    width: 50%;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.titulo {
+    text-align: center;
+    font-size: 40px;
+    padding: 0px 120px;
+}
+
+.opcao {
+    font-size: 30px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+header nav a {
+    font-size: 30px;
+    text-decoration: none;
+    color: var(--branco);
+    margin-right: 15px;
+}
+
+header nav a:hover {
+    color: #AAA;
+}
+
+.opcao a {
+    padding: 25px;
+}
+
+.opcao a:hover {
+    color: #AAA;
+}
+
+.opcao img {
+    width: 60px;
+}
