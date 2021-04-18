@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Lanche>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="row">
+    <div class="col-md-10">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Nome
+                    </th>
+                    <th>
+                        Preco
+                    </th>
+                    <th>
+                        Descrição Curta
+                    </th>
+                    <th>
+                        Descrição Detalhada
+                    </th>
+                    <th>
+                        ImagemURL
+                    </th>
+                    <th>
+                        ImagemThumbURL
+                    </th>
+                    <th>
+                        Categoria
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @item.Nome
+                    </td>
+                    <td>
+                        @item.Preco
+                    </td>
+                    <td>
+                        @item.DescricaoCurta
+                    </td>
+                    <td>
+                        @item.DescricaoDetalhada
+                    </td>
+                    <td>
+                        @item.ImagemURL
+                    </td>
+                    <td>
+                        @item.ImagemThumbURL
+                    </td>
+                    <td>
+                        @item.Categoria
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.LancheId">Edita</a> |
+                        <a asp-action="Details" asp-route-id="@item.LancheId">Detalhes</a> |
+                        <a asp-action="Delete" asp-route-id="@item.LancheId">Deleta</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using NcDonalds.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using NcDonalds.Context;
 using NcDonalds.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace NcDonalds.Repositories
 {
@@ -17,12 +19,51 @@ namespace NcDonalds.Repositories
             _context = context;
         }
 
-        public IEnumerable<Lanche> Lanches => _context.Lanches.Include( c => c.Categoria);
+        public IEnumerable<Lanche> Lanches => _context.Lanches.Include(c => c.Categoria);
 
         public Lanche GetLancheById(int lancheId)
         {
-           return  _context.Lanches.FirstOrDefault( l => l.LancheId == lancheId);
+            return _context.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
         }
-            
+
+
+        public async Task<bool> AddLanche(Lanche lanche)
+        {
+            if (lanche != null)
+            {
+                _context.Lanches.Add(lanche);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> RemoveLanche(int lancheId)
+        {
+            var lanche =  await _context.Lanches.FindAsync(lancheId);
+
+            if (lanche != null)
+            {
+                _context.Lanches.Remove(lanche);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> UpdateLanche([Bind("LancheId,Nome,DescricaoCurta,DescricaoDetalhada,Preco,ImagemURL,ImagemThumbURL,EmEstoque,CategoriaId")] Lanche lanche)
+        {
+            if (lanche.LancheId != 0)
+            {
+                _context.Update(lanche);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

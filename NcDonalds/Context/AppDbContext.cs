@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using NcDonalds.Models;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,8 @@ namespace NcDonalds.Context
         public DbSet<Lanche> Lanches { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<CarrinhoCompraItem> CarrinhoCompraItens { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<PedidoDetalhe> PedidoDetalhes { get; set; }
+
     }
 }

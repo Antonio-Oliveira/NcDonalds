@@ -12,7 +12,7 @@ namespace NcDonalds.Models
     {
         public int PedidoId { get; set; }
 
-        public virtual List<PedidoDetalhe> PedidoItens { get; set; }
+        public string UserId { get; set; }
 
         [BindNever]
         [ScaffoldColumn(false)]
@@ -25,15 +25,18 @@ namespace NcDonalds.Models
         [Display(Name = "Itens no Pedido")]
         public int TotalItensPedido { get; set; }
 
-        [Display(Name = "Data/Hora de Recebimento do Pedido")]
+        [Display(Name = "Data/Hora do Recebimento do Pedido")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
-        public DateTime PedidoEnviado { get; set; }
+        public DateTime PedidoRecebido { get; set; }
 
-        [Display(Name = "Data/Hora da Entrega do Pedido")]
+        [Display(Name = "Data/Hora da Finalização do Pedido")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
-        public DateTime? PedidoEntregueEm { get; set; }
+        public DateTime PedidoFinalizado{ get; set; }
+
+        
+        public virtual List<PedidoDetalhe> PedidoItens { get; set; }
 
     }
 }
