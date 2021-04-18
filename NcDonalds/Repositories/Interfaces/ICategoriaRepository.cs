@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NcDonalds.Repositories
+namespace NcDonalds.Repositories.Interfaces
 {
     public interface ICategoriaRepository
     {
-        public IEnumerable<Categoria> Categoria { get; }
+        public IEnumerable<Categoria> Categorias { get; }
 
     }
 }

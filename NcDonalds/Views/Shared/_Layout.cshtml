@@ -11,9 +11,15 @@
     <link rel="stylesheet" href="~/css/Account/register.css" />
     <link rel="stylesheet" href="~/css/Account/login.css" />
 
+    @RenderSection("bootstrap", false);
+
     <!-- Stylus -->
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet "href="~/css/contato.css">
+    <link rel="stylesheet " href="~/css/contato.css">
+    <link rel="stylesheet " href="~/css/lanche.css">
+
+
+
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -42,7 +48,7 @@
                         <a asp-controller="Lanche" asp-action="List">Cardápio</a>
                     </li>
                     <li>
-                        <a asp-controller="Account" asp-action="Login">Login</a>
+                        @await Html.PartialAsync("_LoginPartial")
                     </li>
                 </ul>
             </nav>

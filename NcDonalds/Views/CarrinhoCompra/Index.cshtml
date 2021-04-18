@@ -5,8 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section bootstrap{
 
-<div class="row checkoutForm">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+}
+
+
+<div class="row checkoutForm" style="width:80%; margin:0 auto;">
 
     <img src="~/images/Full-Cart-icon.png" />
     <div>
@@ -33,7 +39,7 @@
                         @((item.Quantidade * item.Lanche.Preco).ToString("c"))
                     </td>
                     <td class="text-center">
-                        <a asp-controller="CarrinhoCompra" asp-action="RemoverItemDoCarrinhoCompra" asp-route-lancheId="@item.Lanche.LancheId"><img src="~/images/delete.png" /></a>
+                        <a asp-controller="CarrinhoCompra" asp-action="RemoverItem" asp-route-lancheId="@item.Lanche.LancheId"><img src="~/images/delete.png" /></a>
                     </td>
                 </tr>
             }

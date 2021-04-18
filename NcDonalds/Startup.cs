@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using NcDonalds.Context;
 using NcDonalds.Models;
 using NcDonalds.Repositories;
+using NcDonalds.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,11 +72,13 @@ namespace NcDonalds
                options.SignIn.RequireConfirmedEmail = false;
                options.SignIn.RequireConfirmedPhoneNumber = false;
 
-           }).AddDefaultUI().AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
+           }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
 
             // Registro de serviços, para injeções de dependências.
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ILancheRepository, LancheRepository>();
+            services.AddTransient<IPedidoRepository, PedidoRepository>();
+            services.AddTransient<IAppUserRepository, AppUserRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));

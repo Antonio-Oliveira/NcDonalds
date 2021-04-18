@@ -1,0 +1,67 @@
+﻿@model Lanche
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<form asp-area="Admin" asp-controller="AdminLanche" asp-action="Edit" method="post" class="inputs" role="form">
+
+    <input type="hidden" asp-for="LancheId" />
+
+    <div class="field">
+        <label asp-for="Nome" class=""></label>
+        <input asp-for="Nome" class="" />
+        <span asp-validation-for="Nome" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Preco"></label>
+        <input asp-for="Preco" />
+        <span asp-validation-for="Preco"></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="DescricaoCurta"></label>
+        <input asp-for="DescricaoCurta" />
+        <span asp-validation-for="DescricaoCurta"></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="DescricaoDetalhada"></label>
+        <input asp-for="DescricaoDetalhada" />
+        <span asp-validation-for="DescricaoDetalhada"></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="ImagemThumbURL"></label>
+        <input asp-for="ImagemThumbURL" />
+        <span asp-validation-for="ImagemThumbURL"></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="ImagemURL"></label>
+        <input asp-for="ImagemURL" />
+        <span asp-validation-for="ImagemURL"></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="EmEstoque"></label>
+        <input asp-for="EmEstoque" />
+        <span asp-validation-for="EmEstoque"></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="CategoriaId"></label>
+        <input asp-for="CategoriaId" />
+        <span asp-validation-for="CategoriaId"></span>
+    </div>
+
+    <div class="submit-input">
+        <input type="submit" class="botao-cadastrar" value="Salvar" />
+    </div>
+
+</form>
+
