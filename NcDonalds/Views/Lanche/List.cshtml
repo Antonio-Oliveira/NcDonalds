@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="~/css/site.css" />
 }
 
-<p>
-    <h2> @Model.CategoriaAtual </h2>
-</p>
+
+<h2 class="title-lanches"> @Model.CategoriaAtual </h2>
+
 
 
 @foreach (var lanche in Model.Lanches)
@@ -21,3 +21,4 @@
     @await Html.PartialAsync("_LancheResumo", lanche);
 
 }
+
