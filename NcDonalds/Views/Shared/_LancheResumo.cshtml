@@ -1,34 +1,30 @@
 ﻿@model Lanche
 
 
-<div class="">
+<div class="container-row container-page">
 
-    <div class="img-thumbnail">
-
-        <img src="@Model.ImagemThumbURL" class="" />
-
+    <div class="img-lanche">
+        <img src="@Model.ImagemURL" class="" alt="@Model.Nome" />
     </div>
+    
+    <div>
+        <h2 class="title">
+            <a asp-controller="Lanche" asp-action="Details" asp-route-lancheId="@Model.LancheId">@Model.Nome</a>
+        </h2>
 
-    <div class="">
+        <p class="descricao-curta"> @Model.DescricaoCurta </p>
 
-        <h3 class=""> @Model.Preco.ToString("c") </h3>
+        <p class="preco"> @Model.Preco.ToString("c") </p>
 
-        <h3>
-            <a asp-controller="Lanche" asp-action="Details" asp-route-lancheId="@Model.LancheId">
-                @Model.Nome
-            </a>
-        </h3>
-
-        <p> @Model.DescricaoCurta </p>
-
-    </div>
-
-    <div >
-        <p>
-            <a class="" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
+        <div>
+            <a class="btn-detalhes" asp-action="Details" asp-route-lancheId="@Model.LancheId">@Model.Nome</a>
+            <a class="btn-carrinho" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
                 Incluir no Carrinho
             </a>
-        </p>
+        </div>
     </div>
 
+ 
+
 </div>
+

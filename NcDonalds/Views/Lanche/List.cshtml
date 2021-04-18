@@ -5,17 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>
-    <h2> @Model.CategoriaAtual </h2>
-</p>
+@section bootstrap{
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+}
+
+
+<h2 class="title-lanches"> @Model.CategoriaAtual </h2>
+
 
 <section>
 
-    @foreach (var lanche in Model.Lanches)
-    {
-        @await Html.PartialAsync("_LancheResumo", lanche);
+@foreach (var lanche in Model.Lanches)
+{
+    @await Html.PartialAsync("_LancheResumo", lanche);
 
-    }
-
-</section>
+}
 

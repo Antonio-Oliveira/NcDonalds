@@ -124,7 +124,7 @@ namespace NcDonalds.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Home","Index");
+            return RedirectToAction("Index","Home");
         }
 
 

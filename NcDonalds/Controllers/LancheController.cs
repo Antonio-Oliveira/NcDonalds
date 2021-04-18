@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NcDonalds.Models;
 using NcDonalds.Repositories;
+using NcDonalds.Repositories.Interfaces;
 using NcDonalds.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace NcDonalds.Controllers
             if (string.IsNullOrEmpty(_categoria))
             {
                 lanches = _lancheRepository.Lanches.OrderBy(l => l.LancheId);
-                categoriaAtual = "Todas os Lanches";
+                categoriaAtual = "Todos os Lanches";
             }
             else
             {

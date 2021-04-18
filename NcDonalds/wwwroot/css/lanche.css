@@ -1,2 +1,56 @@
-﻿body {
+﻿
+.title-lanches {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 70px 0;
+}
+
+.container-page {
+    width: 80%;
+    margin: 15px auto;
+}
+
+.img-lanche {
+    margin-right: 20px;
+}
+
+    .img-lanche img {
+        width: 300px;
+        height: 300px;
+    }
+
+.title a {
+    font-size: 25px;
+    font-family: 'Montserrat';
+    color: white;
+}
+
+    .title a:hover {
+        font-size: 25px;
+        font-family: 'Montserrat';
+        color: gray;
+    }
+
+.descricao-curta {
+    font-size: 17px;
+    color: white;
+}
+
+.preco{
+    font-size:20px;
+    color:green;
+}
+
+.btn-carrinho{
+    background-color: yellow;
+    color: black;
+    padding:15px;
+    margin-left: 15px;
+    font-size: 10px;
+}
+
+.btn-detalhes {
+    color: white;
+    font-size: 10px;
 }

@@ -1,4 +1,5 @@
-﻿using NcDonalds.Context;
+﻿using NcDonalds.Repositories.Interfaces;
+using NcDonalds.Context;
 using NcDonalds.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,6 @@ namespace NcDonalds.Repositories
             _context = context;
         }
 
-        public IEnumerable<Categoria> Categoria => _context.Categorias;
+        public IEnumerable<Categoria> Categorias => _context.Categorias;
     }
 }

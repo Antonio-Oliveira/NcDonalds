@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NcDonalds.Models;
 using NcDonalds.Repositories;
+using NcDonalds.Repositories.Interfaces;
 using NcDonalds.ViewModel;
 using System;
 using System.Collections.Generic;
