@@ -12,5 +12,7 @@ namespace NcDonalds.ViewModel
 
         public string CategoriaAtual { get; set; }
 
+        public int Count { get; set; }
+
     }
 }

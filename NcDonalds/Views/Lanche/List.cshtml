@@ -15,11 +15,17 @@
 <h2 class="title-lanches"> @Model.CategoriaAtual </h2>
 
 
-<section>
-
 @foreach (var lanche in Model.Lanches)
 {
-    @await Html.PartialAsync("_LancheResumo", lanche);
+    if (Model.Count % 2 == 0)
+    {
+        @await Html.PartialAsync("_LancheResumo", lanche);
+    }
+    else
+    {
+        @await Html.PartialAsync("_LancheResumoTwo", lanche);
+    }
 
+    Model.Count++;
 }
 
