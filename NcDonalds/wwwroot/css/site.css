@@ -1,5 +1,5 @@
 ﻿
-/* Configuration default */
+/* default */
 
 :root {
     --vermelho: #E92438;
@@ -28,6 +28,9 @@ body {
     line-height: 1.43 !important;
     background: var(--vermelho);
     -webkit-font-smoothing: antialiased;
+    font-family: 'Montserrat';
+    color: var(--branco);
+    box-sizing: border-box;
 }
 
 a {
@@ -46,6 +49,20 @@ button {
     cursor: pointer;
 }
 
+/* Geral */
+
+.container-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.container-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+
 .container-header {
     display: flex;
     flex-direction: row;
@@ -57,83 +74,110 @@ button {
     margin: 0 auto;
 }
 
-.nav-principal ul {
-    display: flex;
-    align-items: center;
-}
-
-    .nav-principal ul li {
-        margin-left: 25px;
-    }
-
-        .nav-principal ul li a {
-            margin-right: 15px;
-            font-family: 'Montserrat';
-            text-decoration: none;
-            color: var(--branco);
-            font-size: 1.35rem;
-            transition: 0.3s;
-        }
-
-            .nav-principal ul li a:hover {
-                color: #AAA;
-            }
-
-section .container {
-    width: 100%;
-}
-
-.content {
-    width: 100%;
-    height: 600px;
-    background: linear-gradient(rgba(0,0,0,.50),rgba(0,0,0,.50) 100%), url(/images/pexels-horizon-content-3738755.jpg);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-    .content h2, .content p {
-        color: white;
-    }
-
-    .content h2 {
-        font-size: 1.50rem;
-        margin-bottom: 30px
-    }
-
-    .content p {
-        font-size: 1.20rem;
-    }
-
-
-    .content .container {
-        width: 50%;
-        height: 100%;
-        align-items: flex-start;
-        margin: 0 0 0 50px;
-    }
-
-
-
-        .content .container .container-column {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 70%;
-            height: 100%;
-        }
-
 .img-header {
     width: 120px;
 }
 
 
+/* Header Nav */
+
+header ul {
+    align-items: center;
+}
+
+.nav-principal ul li {
+    margin-left: 25px;
+}
+
+    .nav-principal ul li a {
+        margin-right: 15px;
+        font-family: 'Montserrat';
+        text-decoration: none;
+        color: var(--branco);
+        font-size: 1.35rem;
+        transition: 0.3s;
+    }
+
+        .nav-principal ul li a:hover {
+            color: #AAA;
+        }
+
+.header-profile {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid rgb(255, 255, 255);
+}
+
+.img-profile {
+    border-radius: 50%;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+    position: relative;
+}
+
+.carrinho-icon {
+    margin-right: 30px;
+}
+
+.login-button {
+    margin-left: 20px;
+    padding: 15px 20px;
+    border-radius: 999px;
+    background-color: transparent;
+    border: 4px solid var(--branco);
+    color: var(--branco);
+}
+
+/* Main */
+.img-home {
+    margin: 10px 15px 50px auto;
+}
+
+.container-content {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.text, .title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 30px;
+    text-align: justify;
+    color: #FFFFFF;
+}
+
+.title {
+    margin-bottom: 40px;
+}
+
+.content-home {
+    margin: 30px 25px 0px 25px;
+    align-items: center;
+}
+
+.img-graund {
+    background: linear-gradient(rgba(0,0,0,.80),rgba(0,0,0,.50) 100%),url(/images/lanchesCapa.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+
+
+/* Footer */
 footer {
     padding: 20px;
     bottom: 10px;
     width: 100%;
     text-align: center;
     color: #ffffff;
-
 }
