@@ -114,7 +114,7 @@ namespace NcDonalds.Areas.Admin.Controllers
 
             if (result)
             {
-                RedirectToAction("Index");
+               return RedirectToAction("Index","AdminLanche");
             }
 
             return View(lancheId);

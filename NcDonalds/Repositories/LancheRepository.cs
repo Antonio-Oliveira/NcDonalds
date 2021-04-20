@@ -45,7 +45,8 @@ namespace NcDonalds.Repositories
 
             if (lanche != null)
             {
-                _context.Lanches.Remove(lanche);
+                lanche.EmEstoque = false;
+                _context.Lanches.Update(lanche);
                 await _context.SaveChangesAsync();
                 return true;
             }

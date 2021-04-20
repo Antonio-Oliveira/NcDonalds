@@ -2,70 +2,41 @@
 
 @{
     ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Lanche</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DescricaoCurta)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DescricaoCurta)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DescricaoDetalhada)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DescricaoDetalhada)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Preco)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Preco)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImagemURL)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ImagemURL)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImagemThumbURL)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ImagemThumbURL)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EmEstoque)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EmEstoque)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Categoria.CategoriaId)
-        </dd>
-    </dl>
+<div class="lanche-action">
 
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="LancheId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <h3>Desejá realmente retirar <span> @Model.Nome  </span> do estoque? </h3>
+
+
+    <div class="container-row">
+
+        <section class="section-container">
+            <img class="" src="/images/remover-2.svg" alt="mulher bebendo suquinho">
+        </section>
+
+        <section>
+
+            <div class="lanche-remove">
+
+                <p>@Model.Nome</p>
+                <img src="@Model.ImagemThumbURL" />
+
+            </div>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="LancheId" />
+                <input type="submit" value="Tirar do estoque" class="btn btn-danger" /> |
+                <a asp-action="Index">Voltar para lanches</a>
+            </form>
+
+        </section>
+
+
+
+    </div>
+
 
 </div>
+
