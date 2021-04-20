@@ -11,8 +11,11 @@
 
     <!-- Stylus -->
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet " href="~/css/contato.css">
-    <link rel="stylesheet " href="~/css/lanche.css">
+    <link rel="stylesheet " href="~/css/contato.css" />
+    <link rel="stylesheet " href="~/css/lanche.css" />
+    <link rel="stylesheet" href="~/css/admin.css" />
+    <link rel="stylesheet " href="~/css/account.css" />
+
 
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -29,17 +32,24 @@
                 <ul class="container-row">
                     <li>
                         <a asp-controller="Admin" asp-action="Index">
-                            <img src="/images/Logo.png" class="img-header">
+                            <img src="/images/admin (1).svg" class="img-header">
                         </a>
+
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Index">NcDonalds</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Index">Home</a>
                     </li>
                     <li>
                         <a asp-controller="AdminLanche" asp-action="Index">Lanches</a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a asp-controller="AdminCategoria" asp-action="Index">Categorias</a>
                     </li>
                     <li>
-                        <a asp-controller="Lanche" asp-action="List">Cardápio</a>
+                        <a asp-controller="AdminPedidos" asp-action="Index">Pedidos</a>
                     </li>
                 </ul>
             </nav>

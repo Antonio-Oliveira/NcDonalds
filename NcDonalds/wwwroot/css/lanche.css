@@ -1,4 +1,10 @@
-﻿
+﻿:root {
+    --vermelho: #E92438;
+    --preto: #141414;
+    --branco: #FFFFFF;
+    --amarelo: #F1B104;
+}
+
 .title-lanches {
     display: flex;
     align-items: center;

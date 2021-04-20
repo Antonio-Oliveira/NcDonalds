@@ -1,0 +1,87 @@
+﻿:root {
+    --vermelho: #E92438;
+    --preto: #141414;
+    --branco: #FFFFFF;
+    --amarelo: #F1B104;
+}
+
+/* Lanche Index */
+.content-admin {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header-content {
+    margin-bottom: 100px;
+}
+
+    .header-content h2 {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+.header-form {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.body-form {
+    margin-bottom: 30px;
+}
+
+
+.form-admin .container-row {
+    align-items: start;
+}
+
+.content-admin .login-button {
+    background-color: var(--amarelo);
+    border-color: var(--amarelo);
+    margin-left: 0;
+}
+
+.content-form-1 {
+    width: 10%;
+}
+
+.content-form-2 {
+    width: 20%;
+}
+
+.content-form-3 {
+    width: 30%;
+}
+
+.content-form-4 {
+    width: 40%;
+}
+
+.content-form{
+    width: 90%;
+}
+
+.body-form tr {
+    margin-bottom: 70px;
+}
+
+
+
+.icons-form {
+    justify-content: flex-end;
+}
+
+    .icons-form a {
+        margin-left: 10px;
+    }
+
+/* Lanche */
+.title-content {
+    text-align: center;
+    width: 50%;
+    margin: 30px auto 70px;
+}
+
+.img-action{
+    margin-top: 0;
+}
