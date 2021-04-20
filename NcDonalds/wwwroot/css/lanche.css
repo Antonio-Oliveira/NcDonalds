@@ -8,8 +8,8 @@
 }
 
 .container-page {
-    margin: 20px auto;
-    width: 80%;
+    margin: 15px 50px;
+
 }
 
 .content-lanche{
@@ -54,7 +54,7 @@
     background-color: #F1B104;
     color: #573240;
     padding: 10px 12px;
-    font-size: 21px;
+    font-size: 22px;
     border-radius: 10px;
     font-weight: 300;
 }
