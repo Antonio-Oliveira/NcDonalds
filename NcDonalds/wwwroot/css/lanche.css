@@ -27,25 +27,25 @@
     .img-lanche img {
 
         width: 250px;
-        height: auto;
+        height: 200px;
         border-radius: 20px;
     }
 
 .title a {
-    font-size: 30px;
+    font-size: 25px;
     font-family: 'Montserrat';
     color: white;
 }
 
 
 .descricao-curta {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 300;
     color: white;
 }
 
 .preco {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 300;
     color: white;
 }
@@ -53,8 +53,8 @@
 .btn-carrinho {
     background-color: #F1B104;
     color: #573240;
-    padding: 17px 24px;
-    font-size: 25px;
+    padding: 10px 12px;
+    font-size: 21px;
     border-radius: 10px;
     font-weight: 300;
 }
