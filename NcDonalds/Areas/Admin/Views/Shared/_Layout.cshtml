@@ -28,37 +28,24 @@
             <nav class="nav-principal">
                 <ul class="container-row">
                     <li>
-                        <a asp-controller="Home" asp-action="Index">
+                        <a asp-controller="Admin" asp-action="Index">
                             <img src="/images/Logo.png" class="img-header">
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="Home" asp-action="Index">Ínicio</a>
+                        <a asp-controller="AdminLanche" asp-action="Index">Lanches</a>
                     </li>
                     <li>
-                        <a asp-controller="Home" asp-action="Contato">Contato</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li>
                         <a asp-controller="Lanche" asp-action="List">Cardápio</a>
                     </li>
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                    <li>
-                        <a asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
-                    </li>
-                    }
-
-
                 </ul>
             </nav>
 
             <nav class="nav-secundaria">
                 <ul class="container-row">
-                    <li class="carrinho-icon">
-                        @await Component.InvokeAsync("CarrinhoCompraResumo")
-                    </li>
-
                     @await Html.PartialAsync("_LoginPartial")
                 </ul>
             </nav>
