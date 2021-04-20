@@ -7,17 +7,17 @@
         <img src="@Model.ImagemURL" class="" alt="@Model.Nome" />
     </div>
     
-    <div>
+    <div class="info" >
         <h2 class="title">
             <a asp-controller="Lanche" asp-action="Details" asp-route-lancheId="@Model.LancheId">@Model.Nome</a>
         </h2>
 
         <p class="descricao-curta"> @Model.DescricaoCurta </p>
 
-        <p class="preco"> @Model.Preco.ToString("c") </p>
 
-        <div>
-            <a class="btn-detalhes" asp-action="Details" asp-route-lancheId="@Model.LancheId">@Model.Nome</a>
+        <div class="compra">
+            <span class="preco"> @Model.Preco.ToString("c") </span>
+
             <a class="btn-carrinho" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
                 Incluir no Carrinho
             </a>

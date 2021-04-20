@@ -17,15 +17,7 @@
 
 @foreach (var lanche in Model.Lanches)
 {
-    if (Model.Count % 2 == 0)
-    {
-        @await Html.PartialAsync("_LancheResumo", lanche);
-    }
-    else
-    {
-        @await Html.PartialAsync("_LancheResumoTwo", lanche);
-    }
+    @await Html.PartialAsync("_LancheResumo", lanche);
+ }
 
-    Model.Count++;
-}
 
