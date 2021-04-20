@@ -39,7 +39,7 @@
                         @((item.Quantidade * item.Lanche.Preco).ToString("c"))
                     </td>
                     <td class="text-center">
-                        <a asp-controller="CarrinhoCompra" asp-action="RemoverItem" asp-route-lancheId="@item.Lanche.LancheId"><img src="~/images/delete.png" /></a>
+                        <a asp-controller="CarrinhoCompra" asp-action="RemoverItem" asp-route-lancheId="@item.Lanche.LancheId"><img src="~/images/remove.svg" /></a>
                     </td>
                 </tr>
             }
