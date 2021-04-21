@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NcDonalds.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -11,8 +12,8 @@ namespace NcDonalds.Data
         public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             // Incluir perfis costumizados
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var RoleManager = serviceProvider.GetRequiredService< RoleManager<IdentityRole> >();
+            var UserManager = serviceProvider.GetRequiredService< UserManager<AppUser> >();
 
             // Define os perfis em um array de strings
             string[] roleNames = { "Admin", "Member" };
@@ -31,7 +32,7 @@ namespace NcDonalds.Data
             }
 
             // Cria um super usuário que pode manter a aplicação web
-            var poweruser = new IdentityUser
+            var poweruser = new AppUser
             {
                 UserName = configuration.GetSection("UserSettings")["UserName"],
                 Email = configuration.GetSection("UserSettings")["UserEmail"]

@@ -23,6 +23,7 @@ namespace NcDonalds.Extensão
                 }
                 catch (Exception exception)
                 {
+                    var exp = exception;
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(exception, "Ocorreu um erro na criação dos perfis dos usuários");
                 }
