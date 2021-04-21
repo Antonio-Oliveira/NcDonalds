@@ -44,7 +44,7 @@ namespace NcDonalds.Repositories
             _context.SaveChanges();
         }
 
-        public List<Pedido> GetPedido()
+        public List<Pedido> GetPedidos()
         {
             return _context.Pedidos.ToList();
         }

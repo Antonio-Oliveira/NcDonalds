@@ -10,5 +10,12 @@ namespace NcDonalds.Repositories.Interfaces
     {
         public IEnumerable<Categoria> Categorias { get; }
 
+        Categoria GetCategoriaById(int categoriaId);
+
+        Task<bool> AddCategoria(Categoria categoria);
+
+        Task<bool> RemoveCategoria(int categoriaId);
+
+        Task<bool> UpdateCategoria(Categoria categoria);
     }
 }

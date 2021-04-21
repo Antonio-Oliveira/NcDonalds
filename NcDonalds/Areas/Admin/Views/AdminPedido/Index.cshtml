@@ -1,0 +1,78 @@
+﻿@model List<Pedido>
+
+@{
+    ViewData["Title"] = "Pedido";
+}
+
+<div class="content-admin">
+
+    <div class="container-column">
+        <div class="header-content">
+            <h2> Gerenciamento de Lanches </h2>
+            <a class="login-button" asp-action="Pedidos" asp-controller="AdminPedido" asp-area="Admin"> Gerenciar Pedidos </a>
+        </div>
+
+        <div class="">
+            <div class="form-admin">
+                <table class="container-column">
+                    <thead class="header-form">
+                        <tr class="container-row">
+                            <th class="content-form-2">
+                                Cliente
+                            </th>
+                            <th class="content-form-1">
+                                Preço Total
+                            </th>
+
+                            <th class="content-form-2">
+                                Total Itens
+                            </th>
+
+                            <th class="content-form-2">
+                                Pedido Recebido
+                            </th>
+
+                            <th class="content-form-2">
+                                Pedido Finalizado
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="body-form">
+                        @foreach (var item in Model)
+                        {
+                            <tr class="container-row">
+                                <td class="content-form-2">
+                                    @item.UserId
+                                </td>
+
+                                <td class="content-form-1">
+                                    @item.PedidoTotal
+                                </td>
+
+                                <td class="content-form-2">
+                                    @item.TotalItensPedido
+
+                                </td>
+
+                                <td class="content-form-2">
+                                    @item.PedidoRecebido
+                                </td>
+
+                                <td class="content-form-2">
+                                    @item.PedidoFinalizado
+                                </td>
+
+                                <td class="content-form-1 icons-form container-row">
+                                    <a asp-action="ConfirmarPedido" asp-route-id="@item"><img src="~/images/confirme.svg" /> </a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,43 @@
+﻿@model Categoria
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="lanche-action">
+
+    <h1 class="title-content">Edição @Model.Nome</h1>
+
+    <div class="container-row">
+
+        <section class="section-container">
+            <img class="img-action" src="/images/editar-codigo.svg" alt="mulher bebendo suquinho">
+        </section>
+
+        <form asp-area="Admin" asp-controller="AdminCategoria" asp-action="Edit" method="post" class="inputs" role="form">
+
+            <input type="hidden" asp-for="CategoriaId" />
+
+            <div class="field">
+                <label asp-for="Nome" class=""></label>
+                <input asp-for="Nome" class="" />
+                <span asp-validation-for="Nome" class=""></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Descricao"></label>
+                <input asp-for="Descricao" />
+                <span asp-validation-for="Descricao"></span>
+            </div>
+
+            <div class="submit-input">
+                <input type="submit" class="botao-cadastrar" value="Salvar" />
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>
+

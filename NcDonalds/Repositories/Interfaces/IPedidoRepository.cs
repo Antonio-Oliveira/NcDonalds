@@ -10,7 +10,7 @@ namespace NcDonalds.Repositories.Interfaces
     {
         Pedido GetPedidoById(int pedidoId);
 
-        List<Pedido> GetPedido();
+        List<Pedido> GetPedidos();
 
         void CriarPedido(Pedido pedido);
     }
