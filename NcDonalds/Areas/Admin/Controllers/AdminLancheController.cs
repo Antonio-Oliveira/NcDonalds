@@ -50,7 +50,7 @@ namespace NcDonalds.Areas.Admin.Controllers
                 }
 
             }
-            return View();
+            return View(lanche);
         }
 
         [HttpGet]
@@ -66,7 +66,7 @@ namespace NcDonalds.Areas.Admin.Controllers
 
             if(lanche == null)
             {
-                ModelState.AddModelError("", "Lanche não criado");
+                ModelState.AddModelError("", "Lanche não encontrado");
                 return RedirectToAction("Index");
             }
 
