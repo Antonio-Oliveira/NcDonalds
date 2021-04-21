@@ -1,0 +1,79 @@
+:root {
+    --vermelho: #E92438;
+    --preto: #141414;
+    --branco: #FFFFFF;
+    --amarelo: #F1B104;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: 0!important;
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    line-height: 1.43 !important;
+    background: var(--vermelho);
+    -webkit-font-smoothing: antialiased;
+}
+
+body,
+input,
+button {
+    color: var(--branco);
+    font: 14px 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none!important;
+}
+
+p {
+    margin-bottom: 0rem;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+hr {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.inputs input {
+    color: var(--preto);
+    width: 100%;
+    border-radius: 999px;
+    padding: 15px;
+    border-width: 0px;
+    margin-bottom: 10px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.botao-editar {
+    padding: 10px 20px;
+    border-radius: 999px;
+    background-color: var(--amarelo);
+    border: 3px solid var(--amarelo);
+    color: var(--preto);
+}
