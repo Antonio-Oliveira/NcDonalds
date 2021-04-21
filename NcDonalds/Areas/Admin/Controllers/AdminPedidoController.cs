@@ -23,5 +23,7 @@ namespace NcDonalds.Areas.Admin.Controllers
             var pedidos = _pedidoRepository.GetPedidos();
             return View(pedidos);
         }
+
+
     }
 }

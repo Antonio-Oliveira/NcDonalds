@@ -58,13 +58,7 @@
         <div class="btn-group ">
             <a class="btn btn-success" asp-controller="Pedido" asp-action="Checkout">Encerrar Pedido</a>
             <a class="btn-group">
-                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    Adicionar mais lanches<span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menuitem">
-                    <li><a asp-controller="Lanche" asp-action="List" asp-route-categoria="Normal"><b>Normal</b></a></li>
-                    <li><a asp-controller="Lanche" asp-action="List" asp-route-categoria="Natural"><b>Natural</b></a></li>
-                </ul>
+               <a asp-controller="Lanche" asp-action="List"><b>Adicionar mais lanches</b></a>
             </a>
         </div>
     </div>
