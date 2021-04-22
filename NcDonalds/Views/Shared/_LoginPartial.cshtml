@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+@inject SignInManager<AppUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+
+    <li class="header-profile">
+        <a asp-area="" asp-controller="Account" asp-action="Logout" >
+            <img class="img-profile" src="~/images/perfil.jpg" />
+        </a>
+    </li>
+
+}
+else
+{
+    <li>
+        <a class="nav-link text-light" asp-controller="Account" asp-action="Login" style="color:white">Já Tem Registro?</a>
+    </li>
+
+    <li>
+        <a class="login-button" asp-controller="Account" asp-action="Login">Entrar</a>
+    </li>
+}

@@ -1,0 +1,88 @@
+﻿:root {
+    --vermelho: #E92438;
+    --preto: #141414;
+    --branco: #FFFFFF;
+    --amarelo: #F1B104;
+}
+
+.title-lanches {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 70px 0;
+    color: white;
+}
+
+.container-page {
+    margin: 20px auto;
+    width: 80%;
+}
+
+.content-lanche{
+    width: 70%;
+}
+
+.img-lanche {
+    display: flex;
+    margin-right: 80px;
+
+
+  
+}
+
+    .img-lanche img {
+
+        width: 250px;
+        height: 200px;
+        border-radius: 20px;
+    }
+
+.title a {
+    font-size: 25px;
+    font-family: 'Montserrat';
+    color: white;
+}
+
+
+.descricao-curta {
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+}
+
+.preco {
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+}
+
+.btn-carrinho {
+    background-color: #F1B104;
+    color: #573240;
+    padding: 10px 12px;
+    font-size: 21px;
+    border-radius: 10px;
+    font-weight: 300;
+}
+.btn-carrinho:hover {
+    color: #573240;
+}
+.btn-carrinho:visited {
+    color: #573240;
+}
+
+.btn-detalhes {
+    color: white;
+    font-size: 10px;
+}
+.compra {
+    display:flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.info{
+    width: 100%;
+    height: 100%;
+
+}

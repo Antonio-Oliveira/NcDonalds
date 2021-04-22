@@ -1,0 +1,42 @@
+﻿@model Lanche
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<div class="lanche-action">
+
+    <h3>Desejá realmente retirar <span> @Model.Nome  </span> do estoque? </h3>
+
+
+    <div class="container-row">
+
+        <section class="section-container">
+            <img class="" src="/images/remover-2.svg" alt="mulher bebendo suquinho">
+        </section>
+
+        <section>
+
+            <div class="lanche-remove">
+
+                <p>@Model.Nome</p>
+                <img src="@Model.ImagemThumbURL" />
+
+            </div>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="LancheId" />
+                <input type="submit" value="Tirar do estoque" class="btn btn-danger" /> |
+                <a asp-action="Index">Voltar para lanches</a>
+            </form>
+
+        </section>
+
+
+
+    </div>
+
+
+</div>
+

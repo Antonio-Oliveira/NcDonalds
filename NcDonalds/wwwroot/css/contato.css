@@ -1,0 +1,65 @@
+
+:root {
+    --vermelho: #E92438;
+    --preto: #141414;
+    --branco: #FFFFFF;
+    --amarelo: #F1B104;
+}
+
+hr {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.container-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.container-contato {
+    width: 100%;
+    margin: 0 auto;
+}
+
+    .container-contato section {
+        width: 50%;
+        margin: 0 30px;
+    }
+
+.contato-img {
+    width: 90%;
+}
+
+
+.titulo {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    padding: 0px 120px;
+    color: var(--branco);
+}
+
+.opcao {
+    font-size: 30px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+
+.opcao a {
+    color: var(--branco);
+    padding: 25px;
+}
+
+.opcao a:hover {
+    color: #AAA;
+}
+
+.opcao img {
+    width: 60px;
+}
+
+section img .contato{
+    width: 90%;
+}

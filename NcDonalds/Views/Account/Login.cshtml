@@ -1,0 +1,39 @@
+﻿<!-- Page setup -->
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/Account/_Layout.cshtml";
+}
+
+@model LoginViewModel
+
+@section navMessage{
+    <span>Não tem conta?</span>
+    <a asp-controller="Account" asp-action="Register" class="login-button">Faça Agora</a>
+}
+
+<!-- Page content -->
+
+<section class="img-login section-container">
+    <img class="burger" src="/images/Hamburger-pana (1).svg" alt="burguer">
+</section>
+
+<form asp-controller="Account" asp-action="Login" method="post" role="form" class="inputs">
+
+    <input type="hidden" asp-for="ReturnUrl" />
+
+    <div class="field">
+        <label asp-for="Email" class=""></label>
+        <input asp-for="Email" id="email" />
+        <span asp-validation-for="Email" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Password" class=""></label>
+        <input asp-for="Password" class="" />
+        <span asp-validation-for="Password" class=""></span>
+    </div>
+
+    <div class="field">
+        <input type="submit" class="botao-entrar" value="Entrar" />
+    </div>
+</form>
