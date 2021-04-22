@@ -23,6 +23,7 @@ namespace NcDonalds.Controllers
             _signInManager = signInManager;
         }
 
+
         // GET: Account/Login
         [HttpGet]
         public ActionResult Login(string returnUrl)
