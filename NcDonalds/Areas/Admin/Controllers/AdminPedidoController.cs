@@ -24,6 +24,24 @@ namespace NcDonalds.Areas.Admin.Controllers
             return View(pedidos);
         }
 
+        public async Task<IActionResult> ConfirmarPedido(int? pedidoId)
+        {
+            if(pedidoId == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _pedidoRepository.ConfirmarPedido((int)pedidoId);
+
+            if (!result)
+            {
+                ModelState.AddModelError("","Criação de lanche não finalizada");
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
 
     }
 }

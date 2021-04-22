@@ -44,18 +44,48 @@ namespace NcDonalds.Repositories
             _context.SaveChanges();
         }
 
-        public List<Pedido> GetPedidos()
+        public IEnumerable<Pedido> GetPedidos()
         {
             return _context.Pedidos.ToList();
         }
 
+        public IEnumerable<Pedido> GetPedidosPendentes()
+        {
+            var pedidos = _context.Pedidos.ToList();
+
+            foreach(var pedido in pedidos)
+            {
+                var teste = pedido.UserId;
+                var data = pedido.PedidoFinalizado;
+            }
+            
+            return pedidos;
+            
+        }
+
         public Pedido GetPedidoById(int pedidoId)
         {
-              var pedido = _context.Pedidos.Include(pd => pd.PedidoItens
-                         .Where(pd => pd.PedidoId == pedidoId))
-                         .FirstOrDefault(p => p.PedidoId == pedidoId);
+            var pedido = _context.Pedidos.Include(pd => pd.PedidoItens
+                       .Where(pd => pd.PedidoId == pedidoId))
+                       .FirstOrDefault(p => p.PedidoId == pedidoId);
 
             return pedido;
+        }
+
+        public async Task<bool> ConfirmarPedido(int pedidoId)
+        {
+            var pedido = await _context.Pedidos.FindAsync(pedidoId);
+
+            if (pedido != null)
+            {
+                pedido.PedidoFinalizado = DateTime.Now;
+                _context.Update(pedido);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+
+            return false;
         }
     }
 }
