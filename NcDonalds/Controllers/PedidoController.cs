@@ -8,6 +8,7 @@ using NcDonalds.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace NcDonalds.Controllers
@@ -28,12 +29,13 @@ namespace NcDonalds.Controllers
 
         public IActionResult Checkout(Pedido pedido)
         {
-            var userName = User.Identity.Name;
-            var user = _appUserRepository.GetUser(userName);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _appUserRepository.GetUserById(userId);
 
             if (user == null)
             {
                 ModelState.AddModelError("", "Erro em verificar o usuário");
+                return RedirectToAction("Index", "CarrinhoCompra");
             }
 
             decimal pedidoTotal = 0.0m;
@@ -53,7 +55,7 @@ namespace NcDonalds.Controllers
 
             pedido.PedidoTotal = pedidoTotal;
             pedido.TotalItensPedido = pedidoTotalItens;
-            pedido.UserId = user.Id;
+            pedido.UserId = user.UserName;
 
             if (ModelState.IsValid)
             {

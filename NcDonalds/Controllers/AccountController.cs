@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace NcDonalds.Controllers
@@ -30,8 +31,8 @@ namespace NcDonalds.Controllers
         [HttpGet]
         public IActionResult Profile()
         {
-            var userName = User.Identity.Name;
-            var user = _appUserRepository.GetUser(userName);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _appUserRepository.GetUserById(userId);
 
 
             if(user != null)

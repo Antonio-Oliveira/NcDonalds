@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<Pedido>
+
 @{
-    ViewData["Title"] = "Pedidos Pendentes";
+    ViewData["Title"] = "Pedidos";
 }
 
 <div class="content-admin">
 
     <div class="container-column">
         <div class="header-content">
-            <h2> Pedidos Pendentes  </h2>
-            <a class="login-button" asp-action="HistoricoPedidos" asp-controller="AdminPedido" asp-area="Admin"> Gerenciar Pedidos </a>
+            <h2> Todos os Pedidos  </h2>
         </div>
 
         <div class="">
@@ -61,9 +61,6 @@
                                     @item.PedidoFinalizado
                                 </td>
 
-                                <td class="content-form-1 icons-form container-row">
-                                    <a asp-action="ConfirmarPedido" asp-route-pedidoId="@item.PedidoId"><img src="~/images/confirme.svg" /> </a>
-                                </td>
                             </tr>
 
                         }

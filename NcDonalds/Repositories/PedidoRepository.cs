@@ -51,14 +51,10 @@ namespace NcDonalds.Repositories
 
         public IEnumerable<Pedido> GetPedidosPendentes()
         {
-            var pedidos = _context.Pedidos.ToList();
+            DateTime data = new DateTime(0001,01,01,00,00,00);
 
-            foreach(var pedido in pedidos)
-            {
-                var teste = pedido.UserId;
-                var data = pedido.PedidoFinalizado;
-            }
-            
+            var pedidos = _context.Pedidos.Where(p => DateTime.Compare(p.PedidoFinalizado, data) == 0).ToList();
+
             return pedidos;
             
         }
