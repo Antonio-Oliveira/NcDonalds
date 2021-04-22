@@ -1,0 +1,43 @@
+﻿@model ProfileViewModel
+
+@{ 
+    ViewData["Title"] = "Registro";
+}
+
+<form asp-controller="Account" asp-action="Register" method="post" class="inputs section-container" role="form">
+
+    <div class="field">
+        <label asp-for="UserName" class=""></label>
+        <input asp-for="UserName" class="" />
+        <span asp-validation-for="UserName" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Email" class=""></label>
+        <input asp-for="Email" class="" />
+        <span asp-validation-for="Email" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Cpf" class=""></label>
+        <input asp-for="Cpf" class="" />
+        <span asp-validation-for="Cpf" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Telefone" class=""></label>
+        <input asp-for="Telefone" class="" />
+        <span asp-validation-for="Telefone" class=""></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Password" class=""></label>
+        <input asp-for="Password" class="" />
+        <span asp-validation-for="Password" class=""></span>
+    </div>
+
+    <div class="submit-input">
+        <input type="submit" class="botao-entrar" value="editar" />
+    </div>
+
+</form>

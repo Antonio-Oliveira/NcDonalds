@@ -5,55 +5,6 @@
     --amarelo: #F1B104;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    box-sizing: border-box;
-}
-
-*:focus {
-    outline: 0!important;
-}
-
-html,
-body {
-    height: 100%
-}
-
-body {
-    line-height: 1.43 !important;
-    background: var(--vermelho);
-    -webkit-font-smoothing: antialiased;
-}
-
-body,
-input,
-button {
-    color: var(--branco);
-    font: 14px 'Montserrat', sans-serif;
-}
-
-a {
-    text-decoration: none!important;
-}
-
-p {
-    margin-bottom: 0rem;
-}
-
-ul {
-    list-style: none;
-}
-
-button {
-    cursor: pointer;
-}
-
-hr {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
 .inputs input {
     color: var(--preto);
     width: 100%;
