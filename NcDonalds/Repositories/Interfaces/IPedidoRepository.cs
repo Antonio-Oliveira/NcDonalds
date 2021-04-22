@@ -10,8 +10,13 @@ namespace NcDonalds.Repositories.Interfaces
     {
         Pedido GetPedidoById(int pedidoId);
 
-        List<Pedido> GetPedidos();
+        IEnumerable<Pedido> GetPedidos();
 
         void CriarPedido(Pedido pedido);
+        
+        IEnumerable<Pedido> GetPedidosPendentes();
+
+        Task<bool> ConfirmarPedido(int pedidoId);
+
     }
 }

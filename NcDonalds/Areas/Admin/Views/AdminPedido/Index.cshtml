@@ -1,5 +1,4 @@
-﻿@model List<Pedido>
-
+﻿@model IEnumerable<Pedido>
 @{
     ViewData["Title"] = "Pedidos Pendentes";
 }
@@ -8,8 +7,8 @@
 
     <div class="container-column">
         <div class="header-content">
-            <h2> Gerenciamento de Lanches </h2>
-            <a class="login-button" asp-action="Pedidos" asp-controller="AdminPedido" asp-area="Admin"> Gerenciar Pedidos </a>
+            <h2> Pedidos  </h2>
+            <a class="login-button" asp-action="Index" asp-controller="AdminPedido" asp-area="Admin"> Gerenciar Pedidos </a>
         </div>
 
         <div class="">
@@ -63,7 +62,7 @@
                                 </td>
 
                                 <td class="content-form-1 icons-form container-row">
-                                    <a asp-action="ConfirmarPedido" asp-route-id="@item"><img src="~/images/confirme.svg" /> </a>
+                                    <a asp-action="ConfirmarPedido" asp-route-pedidoId="@item.PedidoId"><img src="~/images/confirme.svg" /> </a>
                                 </td>
                             </tr>
 
