@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NcDonalds.Models;
+using NcDonalds.Repositories.Interfaces;
 using NcDonalds.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,40 @@ namespace NcDonalds.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IAppUserRepository _appUserRepository;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppUserRepository appUserRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _appUserRepository = appUserRepository;
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            var userName = User.Identity.Name;
+            var user = _appUserRepository.GetUser(userName);
+
+
+            if(user != null)
+            {
+                var profileVM = new ProfileViewModel()
+                {
+                    Cpf = user.Cpf,
+                    Email = user.Email,
+                    Password = user.PasswordHash,
+                    Telefone = user.PhoneNumber,
+                    UserName = user.UserName
+                };
+                return View(profileVM);
+            }
+
+            ModelState.AddModelError("","Usuário vazio");
+            return RedirectToAction("Index","Home");
+
+        }
 
         // GET: Account/Login
         [HttpGet]
