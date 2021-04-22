@@ -20,6 +20,12 @@ namespace NcDonalds.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
+            var pedidos = _pedidoRepository.GetPedidosPendentes();
+            return View(pedidos);
+        }
+
+        public IActionResult HistoricoPedidos()
+        {
             var pedidos = _pedidoRepository.GetPedidos();
             return View(pedidos);
         }
