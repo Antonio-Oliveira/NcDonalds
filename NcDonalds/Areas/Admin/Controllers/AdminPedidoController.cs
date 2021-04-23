@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NcDonalds.Repositories.Interfaces;
 using NcDonalds.ViewModel;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace NcDonalds.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminPedidoController : Controller
     {
         private readonly IPedidoRepository _pedidoRepository;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NcDonalds.Models;
 using NcDonalds.Repositories.Interfaces;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace NcDonalds.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminCategoriaController : Controller
     {
         private readonly ICategoriaRepository _categoriaRepository;
