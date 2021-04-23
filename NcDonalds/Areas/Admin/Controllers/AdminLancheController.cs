@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NcDonalds.Models;
 using NcDonalds.Repositories.Interfaces;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace NcDonalds.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminLancheController : Controller
     {
         private readonly ILancheRepository _lancheRepository;
