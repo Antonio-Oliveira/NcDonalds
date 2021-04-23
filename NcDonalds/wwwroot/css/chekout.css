@@ -6,6 +6,7 @@
     --amarelo: #F1B104;
 }
 
+/* chekout */
 .chekout {
     width: 80%;
     margin: 100px auto 200px auto;
@@ -30,7 +31,7 @@
     margin: 10px auto;
 }
 
-.chekout-user p{
+.chekout-user p {
     margin-bottom: 2rem;
 }
 
@@ -62,3 +63,41 @@ thead tr th {
 }
 
 
+/* carrinho */
+
+.carrinho-compra {
+    width: 80%;
+}
+
+    .carrinho-compra .title {
+        display: flex;
+        align-items: center;
+    }
+
+        .carrinho-compra .title h4 {
+            margin-left: 20px;
+        }
+
+.carrinho-itens {
+    width: 100%;
+}
+
+.carrinho-compra .carrinho-itens td {
+    padding: 20px 0;
+}
+
+.carrinho-op {
+    margin-top: 40px;
+}
+
+.carrinho-total{
+    background-color: var(--amarelo);
+    display: flex;
+    justify-content:space-between;
+}
+
+.carrinho-total {
+    background-color: var(--amarelo);
+    display: flex;
+    justify-content: space-between;
+}
