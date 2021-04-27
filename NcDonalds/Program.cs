@@ -8,7 +8,7 @@ namespace NcDonalds
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().CreateAdminRole().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
