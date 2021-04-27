@@ -10,6 +10,7 @@
 .container-page {
     margin: 15px 50px;
 
+
 }
 
 .content-lanche{
@@ -75,8 +76,29 @@
     width: 100%;
     align-items: center;
 }
-.info{
+.info {
     width: 100%;
     height: 100%;
-
 }
+
+a.btn.btn-success {
+    color: #fff;
+    background-color: #F1B104;
+    border-color: #F1B104;
+}
+body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    color: #FFFF;
+    text-align: left;
+}
+.table {
+    color: #FFFF;
+}
+.b {
+    color: #F1B104;
+    text-decoration: none;
+    background-color: #F1B104;
+}
+
