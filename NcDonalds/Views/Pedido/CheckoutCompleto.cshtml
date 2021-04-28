@@ -2,8 +2,13 @@
 
 @{
     ViewData["Title"] = "Pedido";
+     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section bootstrap{
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 
+}
 
 
 <div class="chekout">
@@ -13,40 +18,40 @@
     </div>
     <div class="chekout-content">
 
-            <div class="chekout-user">
-                <p>Cliente : <strong>@Model.User.UserName</strong>
-                <p>Data do Pedido :  <strong>@Model.pedido.PedidoRecebido</strong>
-                <p>Número do Pedido   : <strong>@Model.pedido.PedidoId</strong></p>
-            </div>
+        <div class="chekout-user">
+            <p>Cliente : <strong>@Model.User.UserName</strong>
+            <p>Data do Pedido :  <strong>@Model.pedido.PedidoRecebido</strong>
+            <p>Número do Pedido   : <strong>@Model.pedido.PedidoId</strong></p>
+        </div>
 
-            
-            <table class="chekout-lanche">
-                <thead>
+
+        <table class="chekout-lanche">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Quantidade</th>
+                    <th>Lanche</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.Itens)
+                {
                     <tr>
-                        <th></th>
-                        <th>Quantidade</th>
-                        <th>Lanche</th>
-                        <th>Preço</th>
+                        <td><img src="@item.Lanche.ImagemURL" width="40" height="40" /></td>
+                        <td>@item.Quantidade</td>
+                        <td>@item.Lanche.Nome</td>
+                        <td>@item.Lanche.Preco</td>
                     </tr>
-                </thead>
-                
-                <tbody>
-                    @foreach (var item in Model.Itens)
-                    {
-                        <tr>
-                            <td><img src="@item.Lanche.ImagemURL" width="40" height="40" /></td>
-                            <td>@item.Quantidade</td>
-                            <td>@item.Lanche.Nome</td>
-                            <td>@item.Lanche.Preco</td>
-                        </tr>
-                    }
-                </tbody>
-               
-            </table>
-            
-            <div class="chekout-preco">
-                <h4>Valor Total do Pedido: </h4>
-                <p> <strong>@Model.pedido.PedidoTotal.ToString("C2")) </strong> </p>
-            </div>
+                }
+            </tbody>
+
+        </table>
+
+        <div class="chekout-preco">
+            <h4>Valor Total do Pedido: </h4>
+            <p> <strong>@Model.pedido.PedidoTotal.ToString("C2")) </strong> </p>
+        </div>
     </div>
 </div>

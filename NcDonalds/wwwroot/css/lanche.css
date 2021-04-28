@@ -1,4 +1,4 @@
-﻿:root {
+﻿﻿:root {
     --vermelho: #E92438;
     --preto: #141414;
     --branco: #FFFFFF;
@@ -18,20 +18,16 @@
     width: 80%;
 }
 
-.content-lanche{
+.content-lanche {
     width: 70%;
 }
 
 .img-lanche {
     display: flex;
     margin-right: 80px;
-
-
-  
 }
 
     .img-lanche img {
-
         width: 250px;
         height: 200px;
         border-radius: 20px;
@@ -64,46 +60,31 @@
     border-radius: 10px;
     font-weight: 300;
 }
-.btn-carrinho:hover {
-    color: #573240;
-}
-.btn-carrinho:visited {
-    color: #573240;
-}
+
+    .btn-carrinho:hover {
+        color: #573240;
+    }
+
+    .btn-carrinho:visited {
+        color: #573240;
+    }
 
 .btn-detalhes {
     color: white;
     font-size: 10px;
 }
+
 .compra {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: center;
 }
+
 .info {
     width: 100%;
     height: 100%;
 }
 
-a.btn.btn-success {
-    color: #fff;
-    background-color: #F1B104;
-    border-color: #F1B104;
-}
-body {
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: 1rem;
-    font-weight: 400;
-    color: #FFFF;
-    text-align: left;
-}
-.table {
-    color: #FFFF;
-}
-.b {
-    color: #F1B104;
-    text-decoration: none;
-    background-color: #F1B104;
-}
+
 
