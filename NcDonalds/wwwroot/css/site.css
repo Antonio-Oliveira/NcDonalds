@@ -126,6 +126,17 @@ header ul {
     color: var(--branco);
 }
 
+/* Perfil Drop-Down */
+.dropdown-perfil .dropdown-item {
+    display: none;
+}
+
+    .dropdown-perfil .dropdown-item:hover{
+        display: block;
+    }
+
+
+
 /* Main */
 .img-home {
     margin: 60px 15px 100px auto;

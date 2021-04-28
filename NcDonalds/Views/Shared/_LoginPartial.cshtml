@@ -8,9 +8,20 @@
 
 
     <li class="header-profile">
-        <a asp-area="" asp-controller="Account" asp-action="Logout" >
+        <a asp-area="" asp-controller="Account" asp-action="Logout">
             <img class="img-profile" src="~/images/perfil.jpg" />
         </a>
+
+        <ul class="dropdown-perfil">
+            <li class="dropdown-item">
+                <a asp-area="" asp-controller="Account" asp-action="Profile"> Perfil </a>
+            </li>
+            <li class="dropdown-item">
+                <a asp-area="" asp-controller="Account" asp-action="Logout"> Sair </a>
+            </li>
+        </ul>
+
+
     </li>
 
 }

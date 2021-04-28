@@ -111,7 +111,7 @@
     align-items: center;
 }
 
-    .nav-admin a {
+    .nav-admin a{
         width: 400px;
         margin-bottom: 20px;
         padding: 15px 20px;
@@ -126,7 +126,7 @@
         transition: .5s;
     }
 
-        .nav-admin a:hover {
+        .nav-admin a:hover{
             background: var(--amarelo);
             border-color: transparent;
         }
