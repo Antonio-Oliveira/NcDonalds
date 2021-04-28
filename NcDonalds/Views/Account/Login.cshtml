@@ -7,33 +7,39 @@
 @model LoginViewModel
 
 @section navMessage{
-    <a>Não tem conta?</a>
-    <a asp-controller="Account" asp-action="Register" class="login-button">Faça Agora</a>
+    <a class="title-account" asp-area="" asp-controller="Account" asp-action="Register" style="color:white">Não Tem Registro?</a>
+    <a class="title-account login-button" asp-area="" asp-controller="Account" asp-action="Register">Registrar</a>
 }
 
 <!-- Page content -->
 
-<section class="img-login section-container">
-    <img class="burger" src="/images/Hamburger-pana (1).svg" alt="burguer">
-</section>
 
-<form asp-controller="Account" asp-action="Login" method="post" role="form" class="inputs">
+<div style="width:80%; margin:auto" class="container-row">
 
-    <input type="hidden" asp-for="ReturnUrl" />
+    <section class="img-login section-container">
+        <img class="burger" src="/images/Hamburger-pana (1).svg" alt="burguer">
+    </section>
 
-    <div class="field">
-        <label asp-for="Email" class=""></label>
-        <input asp-for="Email" id="email" />
-        <span asp-validation-for="Email" class=""></span>
-    </div>
+    <form asp-controller="Account" asp-action="Login" method="post" role="form" class="inputs">
 
-    <div class="field">
-        <label asp-for="Password" class=""></label>
-        <input asp-for="Password" class="" />
-        <span asp-validation-for="Password" class=""></span>
-    </div>
+        <input type="hidden" asp-for="ReturnUrl" />
 
-    <div class="field">
-        <input type="submit" class="botao-entrar" value="Entrar" />
-    </div>
-</form>
+        <div class="field">
+            <label asp-for="Email" class=""></label>
+            <input asp-for="Email" id="email" />
+            <span asp-validation-for="Email" class=""></span>
+        </div>
+
+        <div class="field">
+            <label asp-for="Password" class=""></label>
+            <input asp-for="Password" class="" />
+            <span asp-validation-for="Password" class=""></span>
+        </div>
+
+        <div class="field">
+            <input type="submit" class="botao-entrar" value="Entrar" />
+        </div>
+    </form>
+
+
+</div>
