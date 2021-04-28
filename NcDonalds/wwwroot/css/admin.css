@@ -57,7 +57,7 @@
     width: 40%;
 }
 
-.content-form{
+.content-form {
     width: 90%;
 }
 
@@ -82,6 +82,53 @@
     margin: 30px auto 70px;
 }
 
-.img-action{
-    margin-top: 0;
+.img-action {
+    margin-left: 30px;
+    margin-bottom: -40px;
+    width: 80%;
 }
+
+
+/* Admin Home */
+
+.home-admin {
+    width: 80%;
+    margin: auto;
+}
+
+    .home-admin section {
+        width: 50%;
+    }
+
+    .home-admin .content {
+        display: flex
+    }
+
+.nav-admin {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: center;
+}
+
+    .nav-admin a {
+        width: 400px;
+        margin-bottom: 20px;
+        padding: 15px 20px;
+        border: 2px solid var(--branco);
+        color: var(--branco);
+        background-color: transparent;
+        font-size: 1.3rem;
+        font-weight: 300;
+        text-align: center;
+        text-transform: uppercase;
+        position: relative;
+        transition: .5s;
+    }
+
+        .nav-admin a:hover {
+            background: var(--amarelo);
+            border-color: transparent;
+        }
+
+    

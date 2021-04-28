@@ -3,5 +3,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+
+<div class="home-admin">
+
+    <div class="content">
+
+        <section>
+            <img class="img-action" src="~/images/admin.svg" />
+        </section>
+
+        <section>
+            <nav class="nav-admin">
+                <a asp-area="Admin" asp-controller="AdminLanche" asp-action="Index">Gerenciar Lanches</a>
+                <a asp-area="Admin" asp-controller="AdminCategoria" asp-action="Index">Gerenciar Categorias</a>
+                <a asp-area="Admin" asp-controller="AdminPedido" asp-action="Index">Gerenciar Pedidos</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index">Voltar para NcDonalds</a>
+            </nav>
+        </section>
+
+    </div>
+</div>
 
