@@ -86,5 +86,29 @@
     height: 100%;
 }
 
+.btn.btn-success {
+    color: #FFFF;
+    font: 16px 'Montserrat';
+    background: #F1B104;
+    padding: 10px 15px;
+    border-radius: 12px;
+}
+.carrinho-total {
+    background-color: var(--amarelo);
+    display: flex;
+    justify-content: space-between;
+    border-radius: 12px;
+    padding: 10px 15px;
+}
+.a.btn.btn-success {
+    font-weight: bold;
+    color: #FFFFFF;
+    font: 16px 'Montserrat';
+}
+a {
+    text-decoration: none !important;
+    color: white;
+}
+
 
 
