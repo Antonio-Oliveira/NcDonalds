@@ -9,6 +9,7 @@
     <div class="container-column">
         <div class="header-content">
             <h2> Todos os Pedidos  </h2>
+            <a class="button-admin" asp-action="Index" asp-controller="AdminPedido" asp-area="Admin"> Voltar </a>
         </div>
 
         <div class="">
@@ -19,7 +20,7 @@
                             <th class="content-form-2">
                                 Cliente
                             </th>
-                            <th class="content-form-1">
+                            <th class="content-form-2">
                                 Preço Total
                             </th>
 
@@ -44,7 +45,7 @@
                                     @item.UserId
                                 </td>
 
-                                <td class="content-form-1">
+                                <td class="content-form-2">
                                     @item.PedidoTotal
                                 </td>
 

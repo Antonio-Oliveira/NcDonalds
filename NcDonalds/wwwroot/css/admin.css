@@ -12,12 +12,14 @@
 }
 
 .header-content {
-    margin-bottom: 100px;
+    margin-bottom: 90px;
 }
 
     .header-content h2 {
         text-align: center;
-        margin-bottom: 50px;
+        font-size: 1.90rem;
+        font-weight: 200;
+        margin-bottom: 80px;
     }
 
 .header-form {
@@ -33,6 +35,14 @@
 
 .form-admin .container-row {
     align-items: start;
+}
+
+.form-admin thead{
+    font-size: 1.5rem
+}
+
+.form-admin thead th{
+    font-weight: 300;
 }
 
 .content-admin .login-button {
@@ -80,6 +90,7 @@
     text-align: center;
     width: 50%;
     margin: 30px auto 70px;
+    font-weight: 300;
 }
 
 .img-action {
@@ -111,7 +122,7 @@
     align-items: center;
 }
 
-    .nav-admin a{
+    .nav-admin a, .button-admin {
         width: 400px;
         margin-bottom: 20px;
         padding: 15px 20px;
@@ -126,9 +137,19 @@
         transition: .5s;
     }
 
-        .nav-admin a:hover{
+        .nav-admin a:hover, .button-admin:hover {
             background: var(--amarelo);
             border-color: transparent;
+            color: var(--preto);
         }
 
-    
+.button-admin {
+    text-transform: capitalize;
+}
+
+
+
+.form-admin .button-admin:hover {
+    background-color: limegreen;
+    color: var(--branco);
+}

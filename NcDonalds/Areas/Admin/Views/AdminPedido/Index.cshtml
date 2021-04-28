@@ -8,10 +8,10 @@
     <div class="container-column">
         <div class="header-content">
             <h2> Pedidos Pendentes  </h2>
-            <a class="login-button" asp-action="HistoricoPedidos" asp-controller="AdminPedido" asp-area="Admin"> Gerenciar Pedidos </a>
+            <a class="button-admin" asp-action="HistoricoPedidos" asp-controller="AdminPedido" asp-area="Admin"> Gerenciar Pedidos </a>
         </div>
 
-        <div class="">
+        <div>
             <div class="form-admin">
                 <table class="container-column">
                     <thead class="header-form">
@@ -19,7 +19,7 @@
                             <th class="content-form-2">
                                 Cliente
                             </th>
-                            <th class="content-form-1">
+                            <th class="content-form-2">
                                 Preço Total
                             </th>
 
@@ -30,10 +30,9 @@
                             <th class="content-form-2">
                                 Pedido Recebido
                             </th>
-
                             <th class="content-form-2">
-                                Pedido Finalizado
                             </th>
+
                         </tr>
                     </thead>
                     <tbody class="body-form">
@@ -44,7 +43,7 @@
                                     @item.UserId
                                 </td>
 
-                                <td class="content-form-1">
+                                <td class="content-form-2">
                                     @item.PedidoTotal
                                 </td>
 
@@ -56,13 +55,8 @@
                                 <td class="content-form-2">
                                     @item.PedidoRecebido
                                 </td>
-
-                                <td class="content-form-2">
-                                    @item.PedidoFinalizado
-                                </td>
-
-                                <td class="content-form-1 icons-form container-row">
-                                    <a asp-action="ConfirmarPedido" asp-route-pedidoId="@item.PedidoId"><img src="~/images/confirme.svg" /> </a>
+                                <td class="content-form-2 ">
+                                    <a class="button-admin" asp-action="ConfirmarPedido" asp-route-pedidoId="@item.PedidoId">Finalizar </a>
                                 </td>
                             </tr>
 

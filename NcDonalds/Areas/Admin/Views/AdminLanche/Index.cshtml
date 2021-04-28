@@ -9,7 +9,7 @@
     <div class="container-column">
         <div class="header-content">
             <h2> Gerenciamento de Lanches </h2>
-            <a class="login-button" asp-action="Create" asp-controller="AdminLanche" asp-area="Admin"> Criar Lanche </a>
+            <a class="button-admin" asp-action="Create" asp-controller="AdminLanche" asp-area="Admin"> Criar Lanche </a>
         </div>
 
         <div class="">
@@ -42,7 +42,7 @@
                             </td>
 
                             <td class="content-form-1">
-                                @item.Preco
+                                @item.Preco.ToString("C2")
                             </td>
 
                             <td class="content-form-4">
