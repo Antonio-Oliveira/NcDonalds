@@ -45,12 +45,6 @@
             </div>
 
             <div class="field">
-                <label asp-for="ImagemThumbURL"></label>
-                <input asp-for="ImagemThumbURL" />
-                <span asp-validation-for="ImagemThumbURL"></span>
-            </div>
-
-            <div class="field">
                 <label asp-for="ImagemURL"></label>
                 <input asp-for="ImagemURL" />
                 <span asp-validation-for="ImagemURL"></span>
@@ -61,9 +55,8 @@
             </div>
 
             <div class="field">
-                <label asp-for="CategoriaId"></label>
-                <input asp-for="CategoriaId" />
-                <span asp-validation-for="CategoriaId"></span>
+                <label asp-for="CategoriaId" class=""></label>
+                <select asp-for="CategoriaId" class="" asp-items="ViewBag.CategoriaId"></select>
             </div>
 
             <div class="submit-input">

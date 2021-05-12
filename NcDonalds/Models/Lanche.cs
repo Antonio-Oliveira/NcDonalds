@@ -24,8 +24,6 @@ namespace NcDonalds.Models
 
         public string ImagemURL { get; set; }
 
-        public string ImagemThumbURL { get; set; }
-        
         public bool EmEstoque { get; set; }
 
         //Chave estrangeira

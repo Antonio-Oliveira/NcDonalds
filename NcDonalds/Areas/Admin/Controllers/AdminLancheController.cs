@@ -72,6 +72,8 @@ namespace NcDonalds.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
+            var categorias = _categoriaRepository.Categorias;
+            ViewData["CategoriaId"] = new SelectList(categorias, "CategoriaId", "Nome");
             return View(lanche);
         }
 
