@@ -105,6 +105,7 @@ header ul {
     border: 3px solid rgb(255, 255, 255);
 }
 
+
 .img-profile {
     border-radius: 50%;
     height: 100%;
@@ -126,14 +127,11 @@ header ul {
     color: var(--branco);
 }
 
-/* Perfil Drop-Down */
-.dropdown-perfil .dropdown-item {
-    display: none;
+.dropdown-nav-header{
+    background: none;
+    color: var(--branco);
+    border: none;
 }
-
-    .dropdown-perfil .dropdown-item:hover{
-        display: block;
-    }
 
 
 

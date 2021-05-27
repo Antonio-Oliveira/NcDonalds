@@ -51,12 +51,12 @@ namespace NcDonalds.Repositories
 
         public IEnumerable<Pedido> GetPedidosPendentes()
         {
-            DateTime data = new DateTime(0001,01,01,00,00,00);
+            DateTime data = new DateTime(0001, 01, 01, 00, 00, 00);
 
             var pedidos = _context.Pedidos.Where(p => DateTime.Compare(p.PedidoFinalizado, data) == 0).ToList();
 
             return pedidos;
-            
+
         }
 
         public Pedido GetPedidoById(int pedidoId)
@@ -80,6 +80,19 @@ namespace NcDonalds.Repositories
                 return true;
             }
 
+
+            return false;
+        }
+
+        public bool GetUserPedidos(string userName)
+        {
+            var result =  _context.Pedidos.FirstOrDefault(p => p.UserId == userName);
+
+            if(result != null)
+            {
+                return true;
+
+            }
 
             return false;
         }

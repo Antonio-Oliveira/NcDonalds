@@ -20,5 +20,8 @@ namespace NcDonalds.Context
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<PedidoDetalhe> PedidoDetalhes { get; set; }
 
+        public DbSet<UserCupom> UserCupons { get; set; }
+        public DbSet<Cupom> Cupons { get; set; }
+
     }
 }

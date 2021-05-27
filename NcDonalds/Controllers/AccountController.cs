@@ -16,14 +16,10 @@ namespace NcDonalds.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
         private readonly IAppUserRepository _appUserRepository;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppUserRepository appUserRepository)
+        public AccountController(IAppUserRepository appUserRepository)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _appUserRepository = appUserRepository;
         }
 
@@ -35,7 +31,7 @@ namespace NcDonalds.Controllers
             var user = _appUserRepository.GetUserById(userId);
 
 
-            if(user != null)
+            if (user != null)
             {
                 var profileVM = new ProfileViewModel()
                 {
@@ -48,8 +44,8 @@ namespace NcDonalds.Controllers
                 return View(profileVM);
             }
 
-            ModelState.AddModelError("","Usuário vazio");
-            return RedirectToAction("Index","Home");
+            ModelState.AddModelError("", "Usuário vazio");
+            return RedirectToAction("Index", "Home");
 
         }
 
@@ -57,7 +53,7 @@ namespace NcDonalds.Controllers
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {
-            return View(new LoginViewModel() 
+            return View(new LoginViewModel()
             {
                 ReturnUrl = returnUrl
             });
@@ -68,34 +64,19 @@ namespace NcDonalds.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel loginVM)
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return View(loginVM);
-
-                var user = await _userManager.FindByEmailAsync(loginVM.Email);
-
-                if(user != null)
-                {
-                    var result = await _signInManager.PasswordSignInAsync(user,loginVM.Password, false, false);
-
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index","Home");
-                    }
-
-                    ModelState.AddModelError("","Usuário ou Senha não encontrados");
-                    return View(loginVM);
-                }
-
-
-                ModelState.AddModelError("", "Usuário ou Senha não encontrados");
+            if (!ModelState.IsValid)
                 return View(loginVM);
-            }
-            catch
+
+            var login = await _appUserRepository.Login(loginVM);
+
+            if (login)
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
+
+            ModelState.AddModelError("", "Usuário ou Senha não encontrados");
+            return View(loginVM);
+
         }
 
         // GET: Account/Register
@@ -110,51 +91,34 @@ namespace NcDonalds.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel registroVM)
         {
-            try
+
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    ModelState.AddModelError("", "Usuário não cadastrado");
-                    return View(registroVM);
-                }
+                ModelState.AddModelError("", "Completa o formulario");
+                return View(registroVM);
+            }
 
-                if(registroVM.Password != registroVM.Confirme_Password)
-                {
-                    ModelState.AddModelError("", "Senha de confirmação diferente");
-                    return View(registroVM);
-                }   
+            if (registroVM.Password != registroVM.Confirme_Password)
+            {
+                ModelState.AddModelError("", "Senha de confirmação diferente");
+                return View(registroVM);
+            }
 
-                var user = new AppUser()
-                {
-                    UserName = registroVM.UserName,
-                    Cpf = registroVM.Cpf,
-                    Email = registroVM.Email,
-                    PhoneNumber = registroVM.Telefone
-                };
+            var register = await _appUserRepository.Register(registroVM);
 
-                var result = await _userManager.CreateAsync(user,registroVM.Password);
-
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, "Member");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-
-                    return RedirectToAction("Index", "Home");
-                }
-
+            if (!register)
+            {
                 ModelState.AddModelError("", "Erro: Conta não criada");
                 return View(registroVM);
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index","Home");
+            _appUserRepository.Logout();
+            return RedirectToAction("Index", "Home");
         }
 
 

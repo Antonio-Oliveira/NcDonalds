@@ -81,6 +81,7 @@ namespace NcDonalds
             services.AddTransient<IAppUserRepository, AppUserRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));
 
             //configura o uso da Sessão

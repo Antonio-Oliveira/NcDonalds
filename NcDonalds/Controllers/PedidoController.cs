@@ -4,6 +4,7 @@ using NcDonalds.Context;
 using NcDonalds.Models;
 using NcDonalds.Repositories;
 using NcDonalds.Repositories.Interfaces;
+using NcDonalds.services;
 using NcDonalds.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -19,15 +20,41 @@ namespace NcDonalds.Controllers
         private readonly IPedidoRepository _pedidoRepository;
         private readonly CarrinhoCompra _carrinhoCompra;
         private readonly IAppUserRepository _appUserRepository;
+        private readonly ValidarCupom _validarCupom;
 
-        public PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, IAppUserRepository appUserRepository)
+        public PedidoController(
+            IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, 
+            IAppUserRepository appUserRepository,ValidarCupom validarCupom)
+
         {
             _pedidoRepository = pedidoRepository;
             _carrinhoCompra = carrinhoCompra;
             _appUserRepository = appUserRepository;
+            _validarCupom = validarCupom;
         }
 
-        public IActionResult Checkout(Pedido pedido)
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ValidarCupom(string cupomName)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _appUserRepository.GetUserById(userId);
+            var result = _validarCupom.validar(user.UserName, cupomName, _carrinhoCompra);
+
+            if (result)
+            {
+                return RedirectToAction("Checkout", "Pedido");
+            }
+            
+            return View();
+        }
+
+        public IActionResult CheckoutFinal(Pedido pedido)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _appUserRepository.GetUserById(userId);
@@ -45,6 +72,7 @@ namespace NcDonalds.Controllers
             if (_carrinhoCompra.CarrinhoCompraItens.Count == 0)
             {
                 ModelState.AddModelError("", "Seu carrinho estar vazio, inclua um lanche");
+                return RedirectToAction("Index", "CarrinhoCompra");
             }
 
             foreach (var item in itens)

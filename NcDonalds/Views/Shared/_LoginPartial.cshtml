@@ -5,25 +5,20 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-
-
-    <li class="header-profile">
-        <a asp-area="" asp-controller="Account" asp-action="Logout">
+    <div class="btn-group">
+        <a asp-area="" asp-controller="Account" asp-action="Profile" class="header-profile" type="button">
             <img class="img-profile" src="~/images/perfil.jpg" />
         </a>
-
-        <ul class="dropdown-perfil">
-            <li class="dropdown-item">
-                <a asp-area="" asp-controller="Account" asp-action="Profile"> Perfil </a>
-            </li>
-            <li class="dropdown-item">
-                <a asp-area="" asp-controller="Account" asp-action="Logout"> Sair </a>
-            </li>
+        <button type="button" class="dropdown-nav-header dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a asp-area="" asp-controller="Account" asp-action="Profile" class="dropdown-item">Perfil</a></li>
+            <li><a class="dropdown-item">Pedidos</a></li>
+            <li><a class="dropdown-item">Endereços</a></li>
+            <li><a asp-area="" asp-controller="Account" asp-action="Logout" class="dropdown-item">Sair</a></li>
         </ul>
-
-
-    </li>
-
+    </div>
 }
 else
 {
