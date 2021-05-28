@@ -11,6 +11,8 @@ namespace NcDonalds.Models
 
         public string UserId { get; set; }
 
+        public string Detalhe { get; set; }
+
         public string Cep { get; set; }
 
         public string Estado { get; set; }

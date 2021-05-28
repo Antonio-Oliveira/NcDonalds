@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NcDonalds.Context;
 
 namespace NcDonalds.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210527232132_AjusteUser")]
+    partial class AjusteUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,9 +317,6 @@ namespace NcDonalds.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cidade")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Detalhe")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Estado")

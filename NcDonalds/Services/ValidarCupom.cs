@@ -20,48 +20,5 @@ namespace NcDonalds.services
         }
 
 
-        public bool validar(string userId, string cupomName, CarrinhoCompra cp)
-        {
-            if (string.IsNullOrEmpty(cupomName))
-            {
-                cupomName = cupomName.ToUpper();
-
-                var cupom = _context.Cupons.FirstOrDefault(c => c.Nome.Equals(cupomName));
-
-                if (cupom != null)
-                {
-                    if (!((decimal)cupom.CompraMinima <= cp.GetCarrinhoCompraTotal()))
-                        return false;
-
-                    if (cupom.CompraMaxima != 0)
-                    {
-                        if (!((decimal)cupom.CompraMaxima >= cp.GetCarrinhoCompraTotal()))
-                        {
-                            return false;
-                        }
-                    }
-
-                    if (!(cupom.Vencimento >= DateTime.Now))
-                        return false;
-
-                    if (cupom.PrimeiraPedido)
-                    {
-                       var isValid = _pedidoRepository.GetUserPedidos(userId);
-
-                        if (isValid)
-                        {
-                            return false;
-                        }
-                    }
-
-                    return true;
-
-                }
-
-            }
-
-            return false;
-        }
-
     }
 }

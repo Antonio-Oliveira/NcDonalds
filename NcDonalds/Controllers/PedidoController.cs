@@ -42,16 +42,7 @@ namespace NcDonalds.Controllers
         [HttpPost]
         public async Task<IActionResult> ValidarCupom(string cupomName)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = _appUserRepository.GetUserById(userId);
-            var result = _validarCupom.validar(user.UserName, cupomName, _carrinhoCompra);
-
-            if (result)
-            {
-                return RedirectToAction("Checkout", "Pedido");
-            }
-            
-            return View();
+            return null;
         }
 
         public IActionResult CheckoutFinal(Pedido pedido)

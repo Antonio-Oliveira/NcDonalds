@@ -21,11 +21,7 @@ namespace NcDonalds.Repositories
 
         public IEnumerable<Lanche> Lanches => _context.Lanches.Include(c => c.Categoria);
 
-        public Lanche GetLancheById(int lancheId)
-        {
-            return _context.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
-        }
-
+        public Lanche GetLancheById(int lancheId) => _context.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
 
         public async Task<bool> AddLanche(Lanche lanche)
         {
@@ -56,14 +52,14 @@ namespace NcDonalds.Repositories
 
         public async Task<bool> UpdateLanche([Bind("LancheId,Nome,DescricaoCurta,DescricaoDetalhada,Preco,ImagemURL,ImagemThumbURL,EmEstoque,CategoriaId")] Lanche lanche)
         {
-            if (lanche != null)
+
+            var result = _context.Lanches.FirstOrDefault(l => l.LancheId == lanche.LancheId);
+
+            if (result != null)
             {
-                if (lanche.LancheId != 0)
-                {
-                    _context.Update(lanche);
-                    await _context.SaveChangesAsync();
-                    return true;
-                }
+                _context.Update(lanche);
+                await _context.SaveChangesAsync();
+                return true;
             }
 
             return false;

@@ -11,5 +11,7 @@ namespace NcDonalds.Models
         [PersonalData]
         public string Cpf { get; set; }
 
+        public int EnderecoId { get; set; }
+
     }
 }

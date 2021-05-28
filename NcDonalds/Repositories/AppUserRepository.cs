@@ -23,17 +23,9 @@ namespace NcDonalds.Repositories
             _signInManager = signInManager;
         }
 
-        public AppUser GetUser(string userName)
-        {
-            var user = _context.Users.FirstOrDefault(user => user.UserName == userName);
-            return user;
-        }
-
-        public AppUser GetUserById(string id)
-        {
-            var user = _context.Users.FirstOrDefault(user => user.Id == id);
-            return user;
-        }
+        public AppUser GetUser(string userName) => _context.Users.FirstOrDefault(user => user.UserName == userName);
+    
+        public AppUser GetUserById(string id) => _context.Users.FirstOrDefault(user => user.Id == id);
 
         public async Task<bool> Login(LoginViewModel loginVM)
         {

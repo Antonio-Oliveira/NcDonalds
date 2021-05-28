@@ -44,29 +44,20 @@ namespace NcDonalds.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<Pedido> GetPedidos()
-        {
-            return _context.Pedidos.ToList();
-        }
+        public IEnumerable<Pedido> GetPedidos() => _context.Pedidos.ToList();
 
         public IEnumerable<Pedido> GetPedidosPendentes()
         {
             DateTime data = new DateTime(0001, 01, 01, 00, 00, 00);
 
-            var pedidos = _context.Pedidos.Where(p => DateTime.Compare(p.PedidoFinalizado, data) == 0).ToList();
-
-            return pedidos;
-
+            return _context.Pedidos.Where(p => DateTime.Compare(p.PedidoFinalizado, data) == 0).ToList();
         }
 
-        public Pedido GetPedidoById(int pedidoId)
-        {
-            var pedido = _context.Pedidos.Include(pd => pd.PedidoItens
-                       .Where(pd => pd.PedidoId == pedidoId))
-                       .FirstOrDefault(p => p.PedidoId == pedidoId);
-
-            return pedido;
-        }
+        public Pedido GetPedidoById(int pedidoId) =>
+            _context.Pedidos
+            .Include(pd => pd.PedidoItens
+            .Where(pd => pd.PedidoId == pedidoId))
+            .FirstOrDefault(p => p.PedidoId == pedidoId);
 
         public async Task<bool> ConfirmarPedido(int pedidoId)
         {
@@ -80,21 +71,10 @@ namespace NcDonalds.Repositories
                 return true;
             }
 
-
             return false;
         }
 
-        public bool GetUserPedidos(string userName)
-        {
-            var result =  _context.Pedidos.FirstOrDefault(p => p.UserId == userName);
-
-            if(result != null)
-            {
-                return true;
-
-            }
-
-            return false;
-        }
+        public IEnumerable<Pedido> GetUserPedidos(string userId) => _context.Pedidos.Where(p => p.UserId == userId).ToList();
+        
     }
 }
