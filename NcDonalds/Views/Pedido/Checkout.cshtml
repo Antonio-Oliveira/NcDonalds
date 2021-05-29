@@ -1,7 +1,45 @@
-﻿
+﻿@model CheckoutViewModel
+
 @{
-    ViewData["Title"] = "Checkout";
+    ViewData["Title"] = "Pedido";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h1>Checkout</h1>
+
+<form asp-controller="Pedido" asp-action="ValidarCupom" method="post" class="inputs" role="form">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="field">
+        <label class="">Cupom</label>
+        <input asp-for="cupomName" class="" />
+        <span asp-validation-for="cupomName" class=""></span>
+    </div>
+
+    <div class="submit-input">
+        <input type="submit" class="botao-cadastrar" value="Validar Cupom" />
+    </div>
+
+</form>
+
+
+@foreach (var lanche in Model.itens)
+{
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                @lanche.Lanche.Nome
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Incrementos <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+        </div>
+    </div>
+</div>
+}
+
+
 

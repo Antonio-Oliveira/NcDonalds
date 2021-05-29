@@ -20,29 +20,43 @@ namespace NcDonalds.Controllers
         private readonly IPedidoRepository _pedidoRepository;
         private readonly CarrinhoCompra _carrinhoCompra;
         private readonly IAppUserRepository _appUserRepository;
-        private readonly ValidarCupom _validarCupom;
+        private readonly PedidoService _pedidoService;
 
-        public PedidoController(
-            IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, 
-            IAppUserRepository appUserRepository,ValidarCupom validarCupom)
-
+        public PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, IAppUserRepository appUserRepository, PedidoService pedidoService)
         {
             _pedidoRepository = pedidoRepository;
             _carrinhoCompra = carrinhoCompra;
             _appUserRepository = appUserRepository;
-            _validarCupom = validarCupom;
+            _pedidoService = pedidoService;
         }
 
         [HttpGet]
-        public IActionResult Checkout()
+        public IActionResult Checkout(Cupom cupom)
         {
-            return View();
+            var teste = cupom;
+            List<CarrinhoCompraItem> itensCompra = _carrinhoCompra.GetCarrinhoCompraItens();
+
+            var checkoutVM = new CheckoutViewModel()
+            {
+                itens = itensCompra,
+                cupomName = cupom.Nome
+            };
+
+            return View(checkoutVM);
         }
 
         [HttpPost]
         public async Task<IActionResult> ValidarCupom(string cupomName)
         {
-            return null;
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Cupom Invalido");
+            }
+
+            var cupom = _pedidoService.validarCupom(cupomName);
+
+            return RedirectToAction("Checkout", "Pedido", cupom);
         }
 
         public IActionResult CheckoutFinal(Pedido pedido)
@@ -74,7 +88,7 @@ namespace NcDonalds.Controllers
 
             pedido.PedidoTotal = pedidoTotal;
             pedido.TotalItensPedido = pedidoTotalItens;
-            pedido.UserId = user.UserName;
+            pedido.UserId = user.Id;
 
             if (ModelState.IsValid)
             {

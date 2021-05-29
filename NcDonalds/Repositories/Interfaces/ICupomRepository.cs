@@ -15,7 +15,7 @@ namespace NcDonalds.Repositories.Interfaces
 
         Task<bool> UpdateCupom(Cupom cupom);
 
-        Cupom GetCupomByName(string cupomName);
+        Cupom GetCupomByName(string codigoCupom);
 
         IEnumerable<Cupom> GetCupons { get; }
 

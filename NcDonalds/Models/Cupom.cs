@@ -10,7 +10,9 @@ namespace NcDonalds.Models
     {
         public int CupomId { get; set; }
 
-        public string Nome { get; set; }
+        public string CodigoCupom { get; set; }
+
+        public string Descricao { get; set; }
 
         public string Tipo { get; set; }
 

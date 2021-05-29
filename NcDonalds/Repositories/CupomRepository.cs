@@ -19,7 +19,7 @@ namespace NcDonalds.Repositories
 
         public IEnumerable<Cupom> GetCupons => _context.Cupons.ToList();
 
-        public Cupom GetCupomByName(string cupomName) => _context.Cupons.FirstOrDefault(c => c.Nome == cupomName);
+        public Cupom GetCupomByName(string codigoCupom) => _context.Cupons.FirstOrDefault(c => c.Nome == codigoCupom);
 
         public async Task<bool> AddCupom(Cupom cupom)
         {
