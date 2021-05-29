@@ -39,7 +39,7 @@ namespace NcDonalds.Controllers
             var checkoutVM = new CheckoutViewModel()
             {
                 itens = itensCompra,
-                cupomName = cupom.Nome
+                cupomName = cupom.CodigoCupom
             };
 
             return View(checkoutVM);
@@ -54,7 +54,7 @@ namespace NcDonalds.Controllers
                 ModelState.AddModelError("", "Cupom Invalido");
             }
 
-            var cupom = _pedidoService.validarCupom(cupomName);
+            var cupom = _pedidoService.validarCupom(cupomName,null,null);
 
             return RedirectToAction("Checkout", "Pedido", cupom);
         }

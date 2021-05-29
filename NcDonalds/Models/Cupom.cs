@@ -22,7 +22,7 @@ namespace NcDonalds.Models
 
         public decimal CompraMaxima { get; set; }
 
-        public bool PrimeiraPedido { get; set; }
+        public bool PrimeiroPedido { get; set; }
 
         [Display(Name = "Data/Hora da Emissão do Cupom")]
         [DataType(DataType.DateTime)]

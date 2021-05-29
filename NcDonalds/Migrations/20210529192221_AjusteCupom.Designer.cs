@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NcDonalds.Context;
 
 namespace NcDonalds.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210529192221_AjusteCupom")]
+    partial class AjusteCupom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -287,7 +289,7 @@ namespace NcDonalds.Migrations
                     b.Property<DateTime>("Emissão")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("PrimeiroPedido")
+                    b.Property<bool>("PrimeiraPedido")
                         .HasColumnType("bit");
 
                     b.Property<string>("Tipo")
@@ -431,6 +433,24 @@ namespace NcDonalds.Migrations
                     b.HasIndex("PedidoId");
 
                     b.ToTable("PedidoDetalhes");
+                });
+
+            modelBuilder.Entity("NcDonalds.Models.UserCupom", b =>
+                {
+                    b.Property<int>("UserCupomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CupomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserCupomId");
+
+                    b.ToTable("UserCupons");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

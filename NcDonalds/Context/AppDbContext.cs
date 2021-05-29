@@ -19,7 +19,6 @@ namespace NcDonalds.Context
         public DbSet<CarrinhoCompraItem> CarrinhoCompraItens { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<PedidoDetalhe> PedidoDetalhes { get; set; }
-        public DbSet<UserCupom> UserCupons { get; set; }
         public DbSet<Cupom> Cupons { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
 
