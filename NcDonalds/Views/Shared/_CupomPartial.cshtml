@@ -1,0 +1,20 @@
+﻿
+@model Cupom
+
+<form asp-controller="Pedido" asp-action="ValidarCupom" asp-route-codigoCupom="@Model.CodigoCupom" method="post" class="inputs" role="form">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="field">
+
+        <label class="">Cupom</label>
+        <input asp-for="CodigoCupom" class="" />
+        <span asp-validation-for="CodigoCupom" class=""></span>
+
+    </div>
+
+    <div class="submit-input">
+        <input type="submit" class="botao-cadastrar" value="Validar Cupom"/>
+    </div>
+
+</form>

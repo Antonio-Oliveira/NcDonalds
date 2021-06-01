@@ -10,7 +10,13 @@ namespace NcDonalds.ViewModel
     {
         public List<CarrinhoCompraItem> itens { get; set; }
 
-        public string cupomName { get; set; }
+        public Cupom cupom { get; set; }
+
+        public string codCupom { get; set; }
+
+        public string tipoEntrega { get; set; }
+
+        public string formaPagamento { get; set; }
 
     }
 }

@@ -33,36 +33,48 @@ namespace NcDonalds.Controllers
         [HttpGet]
         public IActionResult Checkout(Cupom cupom)
         {
-            var teste = cupom;
-            List<CarrinhoCompraItem> itensCompra = _carrinhoCompra.GetCarrinhoCompraItens();
+            List<CarrinhoCompraItem> itensCarinho = _carrinhoCompra.GetCarrinhoCompraItens();
 
             var checkoutVM = new CheckoutViewModel()
             {
-                itens = itensCompra,
-                cupomName = cupom.CodigoCupom
+                itens = itensCarinho,
+                cupom = cupom,
+                codCupom = cupom.CodigoCupom
             };
 
             return View(checkoutVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ValidarCupom(string cupomName)
+        public async Task<IActionResult> ValidarCupom(string codigoCupom)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _appUserRepository.GetUserById(userId);
 
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Cupom Invalido");
+                return RedirectToAction("Checkout");
             }
 
-            var cupom = _pedidoService.validarCupom(cupomName,null,null);
+            if(string.IsNullOrEmpty(codigoCupom))
+            {
+                ModelState.AddModelError("", "Cupom Invalido");
+                return RedirectToAction("Checkout");
+            }
 
+            var cupom = _pedidoService.validarCupom(codigoCupom, _carrinhoCompra, userId);
+            
             return RedirectToAction("Checkout", "Pedido", cupom);
         }
 
-        public IActionResult CheckoutFinal(Pedido pedido)
+        [HttpPost]
+        public IActionResult CheckoutFinal(CheckoutViewModel checkoutVM)
         {
+            var teste = checkoutVM;
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _appUserRepository.GetUserById(userId);
+            var cupom = checkoutVM.cupom;
 
             if (user == null)
             {
@@ -86,9 +98,29 @@ namespace NcDonalds.Controllers
                 pedidoTotal += item.Lanche.Preco * item.Quantidade;
             }
 
-            pedido.PedidoTotal = pedidoTotal;
-            pedido.TotalItensPedido = pedidoTotalItens;
-            pedido.UserId = user.Id;
+            if (cupom != null)
+            {
+                if (cupom.Tipo.Equals("Porcetagem"))
+                {
+                    pedidoTotal = pedidoTotal - (pedidoTotal * cupom.Valor / 100);
+                }
+                else
+                {
+                    pedidoTotal = pedidoTotal - cupom.Valor;
+                }
+
+                pedidoTotal = pedidoTotal >= 0 ? pedidoTotal : pedidoTotal = 0;
+            }
+
+            
+
+            Pedido pedido = new Pedido()
+            {
+                PedidoTotal = pedidoTotal,
+                TotalItensPedido = pedidoTotalItens,
+                UserId = userId,
+                CupomId = cupom.CupomId
+            };
 
             if (ModelState.IsValid)
             {

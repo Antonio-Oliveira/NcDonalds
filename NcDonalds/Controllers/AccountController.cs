@@ -17,10 +17,12 @@ namespace NcDonalds.Controllers
     public class AccountController : Controller
     {
         private readonly IAppUserRepository _appUserRepository;
+        private readonly CarrinhoCompra _carrinhoCompra;
 
-        public AccountController(IAppUserRepository appUserRepository)
+        public AccountController(IAppUserRepository appUserRepository, CarrinhoCompra carrinhoCompra)
         {
             _appUserRepository = appUserRepository;
+            _carrinhoCompra = carrinhoCompra;
         }
 
         [Authorize]
@@ -118,6 +120,7 @@ namespace NcDonalds.Controllers
         public IActionResult Logout()
         {
             _appUserRepository.Logout();
+            _carrinhoCompra.LimparCarrinho();
             return RedirectToAction("Index", "Home");
         }
 

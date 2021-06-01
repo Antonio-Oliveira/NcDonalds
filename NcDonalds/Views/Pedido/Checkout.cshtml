@@ -8,38 +8,61 @@
 
 <h1>Checkout</h1>
 
-<form asp-controller="Pedido" asp-action="ValidarCupom" method="post" class="inputs" role="form">
+@await Html.PartialAsync("_CupomPartial", Model.cupom)
 
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <div class="field">
-        <label class="">Cupom</label>
-        <input asp-for="cupomName" class="" />
-        <span asp-validation-for="cupomName" class=""></span>
+<form asp-area="" asp-controller="Pedido" asp-action="CheckoutFinal" method="post" role="form" class="">
+
+
+    <input type="hidden" asp-for="cupom" />
+
+    <h2> Codido Cupom: @Model.codCupom </h2>
+    <h2> Codido Cupom do cupom: @Model.cupom.CodigoCupom</h2>
+
+    <input type="hidden" asp-for="codCupom" />
+    <input type="hidden" asp-for="cupom.CodigoCupom" />
+
+
+
+    <div class="form-pagamento">
+
+        <h2> Forma de Pagamento </h2>
+
+        <div class="form-check">
+            <input asp-for="formaPagamento" class="form-check-input" name="formaPagamento" type="radio" id="flexRadioDefault1" value="Dinheiro">
+            <label asp-for="formaPagamento" class="form-check-label">Dinheiro</label>
+        </div>
+
+        <div class="form-check">
+            <input asp-for="formaPagamento" class="form-check-input" name="formaPagamento" type="radio" id="flexRadioDefault1" value="Cartão">
+            <label asp-for="formaPagamento" class="form-check-label">Cartão</label>
+        </div>
+
+        <span asp-validation-for="tipoEntrega"></span>
+    </div>
+
+    <div class="form-entrega">
+
+        <h2> Tipo de entrega </h2>
+
+        <div class="form-check">
+            <input asp-for="tipoEntrega" class="form-check-input" type="radio" name="tipoEntrega" id="flexRadioDefault1" value="Entrega">
+            <label asp-for="tipoEntrega" class="form-check-label"> Entrega </label>
+        </div>
+
+        <div class="form-check">
+            <input asp-for="tipoEntrega" class="form-check-input" type="radio" name="tipoEntrega" id="flexRadioDefault1" value="Retirar no local">
+            <label asp-for="tipoEntrega" class="form-check-label"> Retirar no local </label>
+        </div>
+
+        <span asp-validation-for="tipoEntrega"></span>
     </div>
 
     <div class="submit-input">
-        <input type="submit" class="botao-cadastrar" value="Validar Cupom" />
+        <input asp-fragment="" type="submit" class="botao-cadastrar" value="Registrar" />
     </div>
 
 </form>
-
-
-@foreach (var lanche in Model.itens)
-{
-<div class="accordion accordion-flush" id="accordionFlushExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                @lanche.Lanche.Nome
-            </button>
-        </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Incrementos <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
-        </div>
-    </div>
-</div>
-}
 
 
 

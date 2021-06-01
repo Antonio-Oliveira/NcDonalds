@@ -14,6 +14,8 @@ namespace NcDonalds.Models
 
         public string UserId { get; set; }
 
+        public int CupomId { get; set; } 
+
         [BindNever]
         [ScaffoldColumn(false)]
         [Column(TypeName = "decimal(18,2)")]
