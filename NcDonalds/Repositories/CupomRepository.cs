@@ -49,7 +49,7 @@ namespace NcDonalds.Repositories
 
         public async Task<bool> UpdateCupom(Cupom cupom)
         {
-            var result = await _context.Cupons.FindAsync(cupom);
+            var result = await _context.Cupons.FindAsync(cupom.CupomId);
 
             if(result != null)
             {

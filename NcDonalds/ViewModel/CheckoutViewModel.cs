@@ -12,8 +12,6 @@ namespace NcDonalds.ViewModel
 
         public Cupom cupom { get; set; }
 
-        public string codCupom { get; set; }
-
         public string tipoEntrega { get; set; }
 
         public string formaPagamento { get; set; }

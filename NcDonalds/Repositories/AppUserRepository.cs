@@ -24,7 +24,7 @@ namespace NcDonalds.Repositories
         }
 
         public AppUser GetUser(string userName) => _context.Users.FirstOrDefault(user => user.UserName == userName);
-    
+
         public AppUser GetUserById(string id) => _context.Users.FirstOrDefault(user => user.Id == id);
 
         public async Task<bool> Login(LoginViewModel loginVM)
@@ -72,6 +72,50 @@ namespace NcDonalds.Repositories
         public async void Logout()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public IEnumerable<Endereco> GetEnderecosByUserId(string userId) => _context.Enderecos.Where(e => e.UserId == userId).ToList();
+
+        public Endereco GetEnderecosById(int enderecoId) =>  _context.Enderecos.Find(enderecoId);
+
+        public async Task<bool> AddEndereco(Endereco endereco)
+        {
+            if (endereco != null)
+            {
+                _context.Enderecos.Add(endereco);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> RemoveEndereco(int enderecoId)
+        {
+            var endereco = await _context.Enderecos.FindAsync(enderecoId);
+
+            if (endereco != null)
+            {
+                _context.Enderecos.Update(endereco);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> UpdateEndereco(Endereco endereco)
+        {
+            var result = await _context.Enderecos.FindAsync(endereco.EnderecoId);
+
+            if(result != null)
+            {
+                _context.Enderecos.Update(endereco);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
     }

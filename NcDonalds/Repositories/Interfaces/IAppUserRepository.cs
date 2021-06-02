@@ -19,5 +19,15 @@ namespace NcDonalds.Repositories.Interfaces
 
         void Logout();
 
+        IEnumerable<Endereco> GetEnderecosByUserId(string userId);
+
+        Endereco GetEnderecosById(int enderecoId);
+
+        Task<bool> AddEndereco(Endereco endereco);
+
+        Task<bool> RemoveEndereco(int enderecoId);
+
+        Task<bool> UpdateEndereco(Endereco endereco);
+
     }
 }

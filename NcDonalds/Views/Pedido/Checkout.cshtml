@@ -16,14 +16,6 @@
 
     <input type="hidden" asp-for="cupom" />
 
-    <h2> Codido Cupom: @Model.codCupom </h2>
-    <h2> Codido Cupom do cupom: @Model.cupom.CodigoCupom</h2>
-
-    <input type="hidden" asp-for="codCupom" />
-    <input type="hidden" asp-for="cupom.CodigoCupom" />
-
-
-
     <div class="form-pagamento">
 
         <h2> Forma de Pagamento </h2>
@@ -59,7 +51,7 @@
     </div>
 
     <div class="submit-input">
-        <input asp-fragment="" type="submit" class="botao-cadastrar" value="Registrar" />
+        <input type="submit" class="botao-cadastrar" value="Registrar" />
     </div>
 
 </form>

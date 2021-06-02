@@ -38,8 +38,7 @@ namespace NcDonalds.Controllers
             var checkoutVM = new CheckoutViewModel()
             {
                 itens = itensCarinho,
-                cupom = cupom,
-                codCupom = cupom.CodigoCupom
+                cupom = cupom
             };
 
             return View(checkoutVM);

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace NcDonalds.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly IAppUserRepository _appUserRepository;
@@ -25,7 +26,6 @@ namespace NcDonalds.Controllers
             _carrinhoCompra = carrinhoCompra;
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult Profile()
         {
@@ -53,6 +53,7 @@ namespace NcDonalds.Controllers
 
         // GET: Account/Login
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             return View(new LoginViewModel()
@@ -64,6 +65,7 @@ namespace NcDonalds.Controllers
         // POST: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel loginVM)
         {
             if (!ModelState.IsValid)
@@ -83,6 +85,7 @@ namespace NcDonalds.Controllers
 
         // GET: Account/Register
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -91,6 +94,7 @@ namespace NcDonalds.Controllers
         // POST: Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> Register(RegisterViewModel registroVM)
         {
 
@@ -124,6 +128,75 @@ namespace NcDonalds.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public IActionResult Enderecos()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var enderecos = _appUserRepository.GetEnderecosByUserId(userId);
+            return View(enderecos);
+        }
+
+        [HttpGet]
+        public IActionResult AdicionarEndereco()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task <IActionResult> AdicionarEndereco(Endereco endereco)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Campos do formulario preenchidos incorretamente");
+                return View(endereco);
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            endereco.UserId = userId;
+            var result = await _appUserRepository.AddEndereco(endereco);
+
+            if (!result)
+            {
+                ModelState.AddModelError("","Erro ao cadastrar Endereço");
+                return View(endereco);
+            }
+
+            return RedirectToAction("Enderecos", "Account");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateEndereco(int enderecoId)
+        {
+            var endereco = _appUserRepository.GetEnderecosById(enderecoId);
+            return View(endereco);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateEndereco(Endereco endereco)
+        {
+
+            if (!ModelState.IsValid){
+                ModelState.AddModelError("","Campos do formulario preenchidos incorretamente");
+                return View(endereco);
+            }
+
+            var result = await _appUserRepository.UpdateEndereco(endereco);
+
+            if (!result)
+            {
+                ModelState.AddModelError("", "Erro ao atualizar endereço");
+                return View(endereco);
+            }
+
+            return RedirectToAction("Enderecos", "Account");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoverEndereco(int enderecoId)
+        {
+            var result = await _appUserRepository.RemoveEndereco(enderecoId);
+            return RedirectToAction("Enderecos", "Account");
+        }
 
     }
 }

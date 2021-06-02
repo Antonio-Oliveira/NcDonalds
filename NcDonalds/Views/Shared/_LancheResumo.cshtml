@@ -1,13 +1,20 @@
 ﻿@model Lanche
 
+<script>
+
+    function addProduto(idProduto) {
+        alert(idProduto);
+    }
+
+</script>
 
 <div class="container-row container-page">
 
     <div class="img-lanche">
         <img src="@Model.ImagemURL" class="" alt="@Model.Nome" />
     </div>
-    
-    <div class="info" >
+
+    <div class="info">
         <h2 class="title">
             @Model.Nome
         </h2>
@@ -18,9 +25,11 @@
         <div class="compra">
             <span class="preco"> @Model.Preco.ToString("c") </span>
 
+
             <a class="btn-carrinho" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
                 Incluir no Carrinho
             </a>
+
         </div>
     </div>
 </div>

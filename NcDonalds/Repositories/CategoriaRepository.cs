@@ -50,7 +50,7 @@ namespace NcDonalds.Repositories
         public async Task<bool> UpdateCategoria(Categoria categoria)
         {
 
-            var result = await _context.Categorias.FindAsync(categoria);
+            var result = await _context.Categorias.FindAsync(categoria.CategoriaId);
 
             if (result != null)
             {
