@@ -1,0 +1,82 @@
+﻿
+@model Cupom
+
+@{
+    ViewData["Title"] = "Cupom Edit";
+}
+
+<div>
+
+    <h1 class="title-content">Editar Cupom</h1>
+
+
+    <div class="container-row">
+
+        <section class="section-container">
+            <img class="img-action" src="/images/creating.svg" alt="mulher bebendo suquinho">
+        </section>
+
+
+        <form asp-area="Admin" asp-controller="AdminCupom" asp-action="Edit" method="post" class="inputs" role="form">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="CupomId" class="" />
+            <input type="hidden" asp-for="Emissão" class="" />
+            <input type="hidden" asp-for="Vencimento" class="" />
+
+            <div class="field">
+                <label asp-for="CodigoCupom" class=""></label>
+                <input asp-for="CodigoCupom" class="" />
+                <span asp-validation-for="CodigoCupom" class=""></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Descricao"></label>
+                <input asp-for="Descricao" />
+                <span asp-validation-for="Descricao"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="CompraMaxima"></label>
+                <input asp-for="CompraMaxima" />
+                <span asp-validation-for="CompraMaxima"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="CompraMinima"></label>
+                <input asp-for="CompraMinima" />
+                <span asp-validation-for="CompraMinima"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Tipo"></label>
+                <input asp-for="Tipo" />
+                <span asp-validation-for="Tipo"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Valor"></label>
+                <input asp-for="Valor" />
+                <span asp-validation-for="Valor"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="PrimeiroPedido"></label>
+                <input type="checkbox" asp-for="PrimeiroPedido" />
+            </div>
+
+            <div class="submit-input">
+                <input type="submit" class="botao-cadastrar" value="Criar" />
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+
+</div>
+
+

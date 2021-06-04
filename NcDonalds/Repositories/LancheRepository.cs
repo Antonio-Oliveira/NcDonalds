@@ -53,9 +53,7 @@ namespace NcDonalds.Repositories
         public async Task<bool> UpdateLanche([Bind("LancheId,Nome,DescricaoCurta,DescricaoDetalhada,Preco,ImagemURL,ImagemThumbURL,EmEstoque,CategoriaId")] Lanche lanche)
         {
 
-            var result = _context.Lanches.FirstOrDefault(l => l.LancheId == lanche.LancheId);
-
-            if (result != null)
+            if (lanche.LancheId != 0)
             {
                 _context.Update(lanche);
                 await _context.SaveChangesAsync();

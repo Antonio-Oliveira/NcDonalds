@@ -74,7 +74,7 @@ namespace NcDonalds.Repositories
             return false;
         }
 
-        public IEnumerable<Pedido> GetUserPedidos(string userId) => _context.Pedidos.Where(p => p.UserId == userId).ToList();
+        public IEnumerable<Pedido> GetUserPedidos(string userId) => _context.Pedidos.Where(p => p.UserId == userId).OrderByDescending(p => p.PedidoRecebido).ToList();
         
     }
 }

@@ -1,0 +1,43 @@
+﻿
+@model IEnumerable<Cupom>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Cupons</h1>
+
+<a asp-area="Admin" asp-controller="AdminCupom" asp-action="Create"> Adicionar Cupom </a>
+
+<table class="table text-white table-hover">
+    <thead>
+        <tr>
+            <th scope="col">CodigoCupom</th>
+            <th scope="col">Descricao</th>
+            <th scope="col">CompraMaxima</th>
+            <th scope="col">CompraMinima</th>
+            <th scope="col">Emissão</th>
+            <th scope="col">Vencimento</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cupom in Model)
+        {
+            <tr>
+                <th> @cupom.CodigoCupom </th>
+                <td> @cupom.Descricao </td>
+                <td> @cupom.CompraMaxima   </td>
+                <td> @cupom.CompraMinima </td>
+                <td> @cupom.Emissão </td>
+                <td> @cupom.Vencimento </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@cupom.CupomId"> Ver</a>
+                    <a asp-action="Edit" asp-route-id="@cupom.CupomId">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@cupom.CupomId"> Remover</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

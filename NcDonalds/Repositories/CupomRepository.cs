@@ -21,6 +21,8 @@ namespace NcDonalds.Repositories
 
         public Cupom GetCupomByName(string codigoCupom) => _context.Cupons.FirstOrDefault(c => c.CodigoCupom == codigoCupom);
 
+        public Cupom GetCupomById(int cupomId) => _context.Cupons.FirstOrDefault(c => c.CupomId == cupomId);
+
         public async Task<bool> AddCupom(Cupom cupom)
         {
             if(cupom != null)
@@ -49,9 +51,8 @@ namespace NcDonalds.Repositories
 
         public async Task<bool> UpdateCupom(Cupom cupom)
         {
-            var result = await _context.Cupons.FindAsync(cupom.CupomId);
 
-            if(result != null)
+            if(cupom.CupomId != 0)
             {
                _context.Cupons.Update(cupom);
                await _context.SaveChangesAsync();

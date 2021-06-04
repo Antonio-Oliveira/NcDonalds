@@ -17,6 +17,8 @@ namespace NcDonalds.Repositories.Interfaces
 
         Cupom GetCupomByName(string codigoCupom);
 
+        Cupom GetCupomById(int cupomId);
+
         IEnumerable<Cupom> GetCupons { get; }
 
     }

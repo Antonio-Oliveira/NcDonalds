@@ -19,11 +19,13 @@ namespace NcDonalds.Controllers
     {
         private readonly IAppUserRepository _appUserRepository;
         private readonly CarrinhoCompra _carrinhoCompra;
+        private readonly IPedidoRepository _pedidoRepository;
 
-        public AccountController(IAppUserRepository appUserRepository, CarrinhoCompra carrinhoCompra)
+        public AccountController(IAppUserRepository appUserRepository, CarrinhoCompra carrinhoCompra, IPedidoRepository pedidoRepository)
         {
             _appUserRepository = appUserRepository;
             _carrinhoCompra = carrinhoCompra;
+            _pedidoRepository = pedidoRepository;
         }
 
         [HttpGet]
@@ -191,11 +193,18 @@ namespace NcDonalds.Controllers
             return RedirectToAction("Enderecos", "Account");
         }
 
-        [HttpPost]
         public async Task<IActionResult> RemoverEndereco(int enderecoId)
         {
             var result = await _appUserRepository.RemoveEndereco(enderecoId);
             return RedirectToAction("Enderecos", "Account");
+        }
+
+        [HttpGet]
+        public IActionResult Pedidos()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var pedidos = _pedidoRepository.GetUserPedidos(userId);
+            return View(pedidos);
         }
 
     }

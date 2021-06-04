@@ -52,10 +52,7 @@ namespace NcDonalds.Repositories
 
         public async Task<bool> UpdateEndereco(Endereco endereco)
         {
-
-            var result = await _context.Enderecos.FindAsync(endereco.EnderecoId);
-
-            if (result != null)
+            if (endereco.EnderecoId != 0)
             {
                 _context.Enderecos.Update(endereco);
                 await _context.SaveChangesAsync();
