@@ -40,7 +40,8 @@ namespace NcDonalds.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Cpf = table.Column<string>(nullable: true)
+                    Cpf = table.Column<string>(nullable: true),
+                    EnderecoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,6 +60,66 @@ namespace NcDonalds.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categorias", x => x.CategoriaId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cupons",
+                columns: table => new
+                {
+                    CupomId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CodigoCupom = table.Column<string>(nullable: true),
+                    Descricao = table.Column<string>(nullable: true),
+                    Tipo = table.Column<string>(nullable: true),
+                    Valor = table.Column<decimal>(nullable: false),
+                    CompraMinima = table.Column<decimal>(nullable: false),
+                    CompraMaxima = table.Column<decimal>(nullable: false),
+                    PrimeiroPedido = table.Column<bool>(nullable: false),
+                    Emissão = table.Column<DateTime>(nullable: false),
+                    Vencimento = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cupons", x => x.CupomId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Enderecos",
+                columns: table => new
+                {
+                    EnderecoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(nullable: true),
+                    Detalhe = table.Column<string>(nullable: false),
+                    Cep = table.Column<string>(nullable: false),
+                    Estado = table.Column<string>(nullable: false),
+                    Cidade = table.Column<string>(nullable: false),
+                    Bairro = table.Column<string>(nullable: false),
+                    Rua = table.Column<string>(nullable: false),
+                    Numero = table.Column<int>(nullable: false),
+                    Complemento = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enderecos", x => x.EnderecoId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pedidos",
+                columns: table => new
+                {
+                    PedidoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(nullable: true),
+                    CupomId = table.Column<int>(nullable: false),
+                    PedidoTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalItensPedido = table.Column<int>(nullable: false),
+                    PedidoRecebido = table.Column<DateTime>(nullable: false),
+                    PedidoFinalizado = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pedidos", x => x.PedidoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -178,7 +239,6 @@ namespace NcDonalds.Migrations
                     DescricaoCurta = table.Column<string>(maxLength: 200, nullable: true),
                     DescricaoDetalhada = table.Column<string>(maxLength: 200, nullable: true),
                     ImagemURL = table.Column<string>(nullable: true),
-                    ImagemThumbURL = table.Column<string>(nullable: true),
                     EmEstoque = table.Column<bool>(nullable: false),
                     CategoriaId = table.Column<int>(nullable: false)
                 },
@@ -190,6 +250,55 @@ namespace NcDonalds.Migrations
                         column: x => x.CategoriaId,
                         principalTable: "Categorias",
                         principalColumn: "CategoriaId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CarrinhoCompraItens",
+                columns: table => new
+                {
+                    CarrinhoCompraItemId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LancheId = table.Column<int>(nullable: true),
+                    Quantidade = table.Column<int>(nullable: false),
+                    CarrinhoCompraId = table.Column<string>(maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarrinhoCompraItens", x => x.CarrinhoCompraItemId);
+                    table.ForeignKey(
+                        name: "FK_CarrinhoCompraItens_Lanches_LancheId",
+                        column: x => x.LancheId,
+                        principalTable: "Lanches",
+                        principalColumn: "LancheId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PedidoDetalhes",
+                columns: table => new
+                {
+                    PedidoDetalheId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PedidoId = table.Column<int>(nullable: false),
+                    LancheId = table.Column<int>(nullable: false),
+                    Quantidade = table.Column<int>(nullable: false),
+                    Preco = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PedidoDetalhes", x => x.PedidoDetalheId);
+                    table.ForeignKey(
+                        name: "FK_PedidoDetalhes_Lanches_LancheId",
+                        column: x => x.LancheId,
+                        principalTable: "Lanches",
+                        principalColumn: "LancheId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PedidoDetalhes_Pedidos_PedidoId",
+                        column: x => x.PedidoId,
+                        principalTable: "Pedidos",
+                        principalColumn: "PedidoId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -233,9 +342,24 @@ namespace NcDonalds.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CarrinhoCompraItens_LancheId",
+                table: "CarrinhoCompraItens",
+                column: "LancheId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Lanches_CategoriaId",
                 table: "Lanches",
                 column: "CategoriaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PedidoDetalhes_LancheId",
+                table: "PedidoDetalhes",
+                column: "LancheId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PedidoDetalhes_PedidoId",
+                table: "PedidoDetalhes",
+                column: "PedidoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -256,13 +380,28 @@ namespace NcDonalds.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Lanches");
+                name: "CarrinhoCompraItens");
+
+            migrationBuilder.DropTable(
+                name: "Cupons");
+
+            migrationBuilder.DropTable(
+                name: "Enderecos");
+
+            migrationBuilder.DropTable(
+                name: "PedidoDetalhes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Lanches");
+
+            migrationBuilder.DropTable(
+                name: "Pedidos");
 
             migrationBuilder.DropTable(
                 name: "Categorias");

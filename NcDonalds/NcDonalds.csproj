@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20210513010824_Cupons.cs" />
-    <Compile Remove="Migrations\20210513010824_Cupons.Designer.cs" />
+    <Compile Remove="Migrations\20210605204106_Popular Tabelas.cs" />
+    <Compile Remove="Migrations\20210605204106_Popular Tabelas.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

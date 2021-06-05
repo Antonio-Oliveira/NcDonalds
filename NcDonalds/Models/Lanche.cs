@@ -14,6 +14,7 @@ namespace NcDonalds.Models
         [StringLength(200)]
         public string Nome { get; set; }
 
+        [Display(Name = "Preço")]
         public int Preco { get; set; }
 
         [StringLength(200)]

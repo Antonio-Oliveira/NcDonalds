@@ -10,7 +10,7 @@ using NcDonalds.Context;
 namespace NcDonalds.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210407142036_MigracaoInicial")]
+    [Migration("20210605204003_MigracaoInicial")]
     partial class MigracaoInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -174,6 +174,9 @@ namespace NcDonalds.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("EnderecoId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -220,6 +223,30 @@ namespace NcDonalds.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("NcDonalds.Models.CarrinhoCompraItem", b =>
+                {
+                    b.Property<int>("CarrinhoCompraItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CarrinhoCompraId")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<int?>("LancheId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("CarrinhoCompraItemId");
+
+                    b.HasIndex("LancheId");
+
+                    b.ToTable("CarrinhoCompraItens");
+                });
+
             modelBuilder.Entity("NcDonalds.Models.Categoria", b =>
                 {
                     b.Property<int>("CategoriaId")
@@ -238,6 +265,90 @@ namespace NcDonalds.Migrations
                     b.HasKey("CategoriaId");
 
                     b.ToTable("Categorias");
+                });
+
+            modelBuilder.Entity("NcDonalds.Models.Cupom", b =>
+                {
+                    b.Property<int>("CupomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CodigoCupom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("CompraMaxima")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CompraMinima")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Emissão")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("PrimeiroPedido")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Vencimento")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CupomId");
+
+                    b.ToTable("Cupons");
+                });
+
+            modelBuilder.Entity("NcDonalds.Models.Endereco", b =>
+                {
+                    b.Property<int>("EnderecoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Complemento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Detalhe")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Rua")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EnderecoId");
+
+                    b.ToTable("Enderecos");
                 });
 
             modelBuilder.Entity("NcDonalds.Models.Lanche", b =>
@@ -261,9 +372,6 @@ namespace NcDonalds.Migrations
                     b.Property<bool>("EmEstoque")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ImagemThumbURL")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ImagemURL")
                         .HasColumnType("nvarchar(max)");
 
@@ -279,6 +387,64 @@ namespace NcDonalds.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.ToTable("Lanches");
+                });
+
+            modelBuilder.Entity("NcDonalds.Models.Pedido", b =>
+                {
+                    b.Property<int>("PedidoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CupomId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PedidoFinalizado")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PedidoRecebido")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("PedidoTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TotalItensPedido")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PedidoId");
+
+                    b.ToTable("Pedidos");
+                });
+
+            modelBuilder.Entity("NcDonalds.Models.PedidoDetalhe", b =>
+                {
+                    b.Property<int>("PedidoDetalheId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LancheId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("PedidoDetalheId");
+
+                    b.HasIndex("LancheId");
+
+                    b.HasIndex("PedidoId");
+
+                    b.ToTable("PedidoDetalhes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -332,11 +498,33 @@ namespace NcDonalds.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NcDonalds.Models.CarrinhoCompraItem", b =>
+                {
+                    b.HasOne("NcDonalds.Models.Lanche", "Lanche")
+                        .WithMany()
+                        .HasForeignKey("LancheId");
+                });
+
             modelBuilder.Entity("NcDonalds.Models.Lanche", b =>
                 {
-                    b.HasOne("NcDonalds.Models.Categoria", "categoria")
+                    b.HasOne("NcDonalds.Models.Categoria", "Categoria")
                         .WithMany("Lanches")
                         .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("NcDonalds.Models.PedidoDetalhe", b =>
+                {
+                    b.HasOne("NcDonalds.Models.Lanche", "Lanche")
+                        .WithMany()
+                        .HasForeignKey("LancheId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NcDonalds.Models.Pedido", "Pedido")
+                        .WithMany("PedidoItens")
+                        .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

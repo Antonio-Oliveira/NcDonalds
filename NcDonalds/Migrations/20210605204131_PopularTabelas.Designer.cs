@@ -10,8 +10,8 @@ using NcDonalds.Context;
 namespace NcDonalds.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210513011158_Cupons")]
-    partial class Cupons
+    [Migration("20210605204131_PopularTabelas")]
+    partial class PopularTabelas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -160,12 +160,6 @@ namespace NcDonalds.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Cep")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cidade")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -180,11 +174,8 @@ namespace NcDonalds.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Endereco")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Estado")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("EnderecoId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -283,23 +274,29 @@ namespace NcDonalds.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("CompraMaxima")
-                        .HasColumnType("float");
+                    b.Property<string>("CodigoCupom")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("CompraMinima")
-                        .HasColumnType("float");
+                    b.Property<decimal>("CompraMaxima")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CompraMinima")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Emissão")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("PrimeiroPedido")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Tipo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Valor")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("Vencimento")
                         .HasColumnType("datetime2");
@@ -307,6 +304,51 @@ namespace NcDonalds.Migrations
                     b.HasKey("CupomId");
 
                     b.ToTable("Cupons");
+                });
+
+            modelBuilder.Entity("NcDonalds.Models.Endereco", b =>
+                {
+                    b.Property<int>("EnderecoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Complemento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Detalhe")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Rua")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EnderecoId");
+
+                    b.ToTable("Enderecos");
                 });
 
             modelBuilder.Entity("NcDonalds.Models.Lanche", b =>
@@ -354,6 +396,9 @@ namespace NcDonalds.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CupomId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PedidoFinalizado")
                         .HasColumnType("datetime2");
 
@@ -400,24 +445,6 @@ namespace NcDonalds.Migrations
                     b.HasIndex("PedidoId");
 
                     b.ToTable("PedidoDetalhes");
-                });
-
-            modelBuilder.Entity("NcDonalds.Models.UserCupom", b =>
-                {
-                    b.Property<int>("UserCupomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CupomId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserCupomId");
-
-                    b.ToTable("UserCupons");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
