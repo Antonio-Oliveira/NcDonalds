@@ -12,63 +12,48 @@
             <a class="button-admin" asp-action="Index" asp-controller="AdminPedido" asp-area="Admin"> Voltar </a>
         </div>
 
-        <div class="">
-            <div class="form-admin">
-                <table class="container-column">
-                    <thead class="header-form">
-                        <tr class="container-row">
-                            <th class="content-form-2">
-                                Cliente
-                            </th>
-                            <th class="content-form-2">
-                                Preço Total
-                            </th>
+        <div class="accordion" id="accordionFlushExample">
 
-                            <th class="content-form-2">
-                                Total Itens
-                            </th>
+            @foreach (var pedido in Model)
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="@String.Concat("flush-headingOne", pedido.PedidoId)">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@String.Concat("flush-collapse", pedido.PedidoId)" aria-expanded="false" aria-controls="@String.Concat("flush-collapse", pedido.PedidoId)">
+                            <span>Pedido Nº: </span>
+                            <span>@pedido.PedidoId</span>
+                        </button>
+                    </h2>
 
-                            <th class="content-form-2">
-                                Pedido Recebido
-                            </th>
-
-                            <th class="content-form-2">
-                                Pedido Finalizado
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="body-form">
-                        @foreach (var item in Model)
-                        {
-                            <tr class="container-row">
-                                <td class="content-form-2">
-                                    @item.UserId
-                                </td>
-
-                                <td class="content-form-2">
-                                    @item.PedidoTotal
-                                </td>
-
-                                <td class="content-form-2">
-                                    @item.TotalItensPedido
-
-                                </td>
-
-                                <td class="content-form-2">
-                                    @item.PedidoRecebido
-                                </td>
-
-                                <td class="content-form-2">
-                                    @item.PedidoFinalizado
-                                </td>
-
-                            </tr>
-
-                        }
-                    </tbody>
-                </table>
-
-            </div>
+                    <div id="@String.Concat("flush-collapse", pedido.PedidoId)" class="accordion-collapse collapse" aria-labelledby="@String.Concat("flush-headingOne", pedido.PedidoId)">
+                        <div class="accordion-body text-dark">
+                            <p>
+                                @Html.DisplayNameFor(model => pedido.UserId)
+                                @Html.DisplayFor(model => pedido.UserId)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => pedido.TotalItensPedido)
+                                @Html.DisplayFor(model => pedido.TotalItensPedido)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => pedido.PedidoTotal)
+                                @Html.DisplayFor(model => pedido.PedidoTotal)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => pedido.CupomId)
+                                @Html.DisplayFor(model => pedido.CupomId)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => pedido.PedidoRecebido)
+                                @Html.DisplayFor(model => pedido.PedidoRecebido)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => pedido.PedidoFinalizado)
+                                @Html.DisplayFor(model => pedido.PedidoFinalizado)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
 
     </div>

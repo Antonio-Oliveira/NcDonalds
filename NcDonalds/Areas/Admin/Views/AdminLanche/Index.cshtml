@@ -36,31 +36,42 @@
                     <div id="@String.Concat("flush-collapse", lanche.LancheId)" class="accordion-collapse collapse" aria-labelledby="@String.Concat("flush-headingOne", lanche.LancheId)">
                         <div class="accordion-body text-dark">
                             <p>
-                                @Html.DisplayNameFor(model => lanche.Preco);
+                                @Html.DisplayNameFor(model => lanche.Preco)
                                 @Html.DisplayFor(model => lanche.Preco)
                             </p>
                             <p>
-                                @Html.DisplayNameFor(model => lanche.CategoriaId);
+                                @Html.DisplayNameFor(model => lanche.CategoriaId)
                                 @Html.DisplayFor(model => lanche.CategoriaId)
                             </p>
                             <p>
-                                @Html.DisplayNameFor(model => lanche.DescricaoCurta);
+                                @Html.DisplayNameFor(model => lanche.DescricaoCurta)
                                 @Html.DisplayFor(model => lanche.DescricaoCurta)
                             </p>
                             <p>
-                                @Html.DisplayNameFor(model => lanche.DescricaoDetalhada);
+                                @Html.DisplayNameFor(model => lanche.DescricaoDetalhada)
                                 @Html.DisplayFor(model => lanche.DescricaoDetalhada)
                             </p>
                             <p>
-                                @Html.DisplayNameFor(model => lanche.ImagemURL);
+                                @Html.DisplayNameFor(model => lanche.ImagemURL)
                                 <div class="img-lanche">
                                     <img src="@lanche.ImagemURL" class="" alt="@lanche.Nome" />
                                 </div>
                             </p>
-                            <nav >
+                            <nav>
                                 <ul>
                                     <li><a class="text-dark" asp-action="Edit" asp-route-id="@lanche.LancheId">Editar</a></li>
-                                    <li><a class="text-dark" asp-action="Delete" asp-route-id="@lanche.LancheId">Tirar de Produção </a></li>
+                                    <li>
+                                        <a class="text-dark" asp-action="Delete" asp-route-id="@lanche.LancheId">
+                                            @if (lanche.EmEstoque)
+                                            {
+                                                <span>Tirar do estoque</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Adicionar ao estoque</span>
+                                            }
+                                        </a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>

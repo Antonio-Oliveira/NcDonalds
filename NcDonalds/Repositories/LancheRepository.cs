@@ -35,13 +35,13 @@ namespace NcDonalds.Repositories
             return false;
         }
 
-        public async Task<bool> RemoveLanche(int lancheId)
+        public async Task<bool> EmEstoque(int lancheId)
         {
             var lanche = await _context.Lanches.FindAsync(lancheId);
 
             if (lanche != null)
             {
-                lanche.EmEstoque = false;
+                lanche.EmEstoque = !lanche.EmEstoque;
                 _context.Lanches.Update(lanche);
                 await _context.SaveChangesAsync();
                 return true;

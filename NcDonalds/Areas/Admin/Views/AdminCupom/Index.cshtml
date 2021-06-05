@@ -1,43 +1,86 @@
-﻿
-@model IEnumerable<Cupom>
+﻿@model IEnumerable<Cupom>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cupom";
 }
 
-<h1>Cupons</h1>
+<div class="content-admin">
 
-<a asp-area="Admin" asp-controller="AdminCupom" asp-action="Create"> Adicionar Cupom </a>
+    <div class="container-column">
+        <div class="header-content">
+            <h2> Gerenciamento de Cupons </h2>
+            <a class="button-admin" asp-action="Create" asp-controller="AdminCupom" asp-area="Admin"> Criar Cupom </a>
+        </div>
 
-<table class="table text-white table-hover">
-    <thead>
-        <tr>
-            <th scope="col">CodigoCupom</th>
-            <th scope="col">Descricao</th>
-            <th scope="col">CompraMaxima</th>
-            <th scope="col">CompraMinima</th>
-            <th scope="col">Emissão</th>
-            <th scope="col">Vencimento</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var cupom in Model)
-        {
-            <tr>
-                <th> @cupom.CodigoCupom </th>
-                <td> @cupom.Descricao </td>
-                <td> @cupom.CompraMaxima   </td>
-                <td> @cupom.CompraMinima </td>
-                <td> @cupom.Emissão </td>
-                <td> @cupom.Vencimento </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@cupom.CupomId"> Ver</a>
-                    <a asp-action="Edit" asp-route-id="@cupom.CupomId">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@cupom.CupomId"> Remover</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <div class="accordion" id="accordionFlushExample">
+
+            @foreach (var cupom in Model)
+            {
+                <div class="accordion-item" accordion-color>
+                    <h2 class="accordion-header" id="@String.Concat("flush-headingOne", cupom.CupomId)">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@String.Concat("flush-collapse", cupom.CupomId)" aria-expanded="false" aria-controls="@String.Concat("flush-collapse", cupom.CupomId)">
+                            <p>
+                                <span>@cupom.CodigoCupom</span>
+                            </p>
+                        </button>
+                    </h2>
+
+                    <div id="@String.Concat("flush-collapse", cupom.CupomId)" class="accordion-collapse collapse" aria-labelledby="@String.Concat("flush-headingOne", cupom.CupomId)">
+                        <div class="accordion-body text-dark">
+                            <p>
+                                @Html.DisplayNameFor(model => cupom.Descricao):
+                                @Html.DisplayFor(model => cupom.Descricao)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => cupom.Valor):
+                                @Html.DisplayFor(model => cupom.Valor)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => cupom.CompraMaxima):
+                                @Html.DisplayFor(model => cupom.CompraMaxima)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => cupom.CompraMinima):
+                                @Html.DisplayFor(model => cupom.CompraMinima)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => cupom.Emissão):
+                                @Html.DisplayFor(model => cupom.Emissão)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => cupom.Vencimento):
+                                @Html.DisplayFor(model => cupom.Vencimento)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => cupom.Tipo):
+                                @Html.DisplayFor(model => cupom.Tipo)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => cupom.PrimeiroPedido):
+
+                                @if (cupom.PrimeiroPedido)
+                                {
+                                    <span>SIM</span>
+                                }
+                                else
+                                {
+                                    <span>Não</span>
+                                }
+                            </p>
+                            <nav>
+                                <ul>
+                                    <li><a class="text-dark" asp-action="Edit" asp-route-id="@cupom.CupomId">Editar</a></li>
+                                    <li><a class="text-dark" asp-action="Delete" asp-route-id="@cupom.CupomId">Tirar de Produção </a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+
 

@@ -105,7 +105,7 @@ namespace NcDonalds.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var result = await _lancheRepository.RemoveLanche((int)id);
+            var result = await _lancheRepository.EmEstoque((int)id);
 
             if (!result)
             {
