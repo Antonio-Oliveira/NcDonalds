@@ -96,6 +96,7 @@ namespace NcDonalds.Repositories
 
             if (endereco != null)
             {
+                endereco.UserId = null;
                 _context.Enderecos.Update(endereco);
                 await _context.SaveChangesAsync();
                 return true;

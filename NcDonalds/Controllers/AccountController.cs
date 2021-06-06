@@ -167,14 +167,19 @@ namespace NcDonalds.Controllers
         }
 
         [HttpGet]
-        public IActionResult UpdateEndereco(int enderecoId)
+        public IActionResult EditEndereco(int? id)
         {
-            var endereco = _appUserRepository.GetEnderecosById(enderecoId);
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var endereco = _appUserRepository.GetEnderecosById((int)id);
             return View(endereco);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateEndereco(Endereco endereco)
+        public async Task<IActionResult> EditEndereco(Endereco endereco)
         {
 
             if (!ModelState.IsValid){
@@ -193,9 +198,14 @@ namespace NcDonalds.Controllers
             return RedirectToAction("Enderecos", "Account");
         }
 
-        public async Task<IActionResult> RemoverEndereco(int enderecoId)
+        public async Task<IActionResult> RemoverEndereco(int? id)
         {
-            var result = await _appUserRepository.RemoveEndereco(enderecoId);
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var result = await _appUserRepository.RemoveEndereco((int)id);
             return RedirectToAction("Enderecos", "Account");
         }
 
