@@ -179,6 +179,7 @@ namespace NcDonalds.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditEndereco(Endereco endereco)
         {
 
