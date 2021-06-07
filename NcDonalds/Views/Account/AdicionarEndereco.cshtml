@@ -1,0 +1,66 @@
+﻿@model Endereco
+
+@{
+    ViewData["Title"] = "Endereços";
+}
+
+<h1>Adicionar Endereco</h1>
+
+<form asp-area="" asp-controller="Account" asp-action="AdicionarEndereco" method="post" class="inputs" role="form">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="field">
+        <label asp-for="Detalhe" class=""></label>
+        <span asp-validation-for="Detalhe" class=""></span>
+        <input asp-for="Detalhe" class="" />
+    </div>
+
+    <div class="field">
+        <label asp-for="Estado" class=""></label>
+        <span asp-validation-for="Estado" class=""></span>
+        <input asp-for="Estado" class="" />
+    </div>
+
+    <div class="field">
+        <label asp-for="Cidade" class=""></label>
+        <span asp-validation-for="Cidade" class=""></span>
+        <input asp-for="Cidade" class="" />
+    </div>
+
+    <div class="field">
+        <label asp-for="Bairro" class=""></label>
+        <span asp-validation-for="Bairro" class=""></span>
+        <input asp-for="Bairro" class="" />
+    </div>
+
+    <div class="field">
+        <label asp-for="Rua" class=""></label>
+        <span asp-validation-for="Rua" class=""></span>
+        <input asp-for="Rua" class="" />
+    </div>
+
+    <div class="field">
+        <label asp-for="Numero" class=""></label>
+        <span asp-validation-for="Numero" class=""></span>
+        <input asp-for="Numero" class="" />
+    </div>
+
+    <div class="field">
+        <label asp-for="Complemento" class=""></label>
+        <span asp-validation-for="Complemento" class=""></span>
+        <input asp-for="Complemento" class="" />
+    </div>
+
+    <div class="field">
+        <label asp-for="Cep" class=""></label>
+        <span asp-validation-for="Cep" class=""></span>
+        <input asp-for="Cep" class="" />
+    </div>
+
+    <div class="submit-input">
+        <input type="submit" class="botao-cadastrar" value="Enviar" />
+    </div>
+
+</form>
+

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Lanche>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lanches";
 }
 
 <div class="content-admin">
@@ -9,65 +9,75 @@
     <div class="container-column">
         <div class="header-content">
             <h2> Gerenciamento de Lanches </h2>
-            <a class="login-button" asp-action="Create" asp-controller="AdminLanche" asp-area="Admin"> Criar Lanche </a>
+            <a class="button-admin" asp-action="Create" asp-controller="AdminLanche" asp-area="Admin"> Criar Lanche </a>
         </div>
 
-        <div class="">
-            <div class="form-admin">
-                <table class="container-column">
-                    <thead class="header-form">
-                        <tr class="container-row">
-                            <th class="content-form-2">
-                                Nome
-                            </th>
-                            <th class="content-form-1">
-                                Preco
-                            </th>
+        <div class="accordion" id="accordionFlushExample">
 
-                            <th class="content-form-4">
-                                Descrição Curta
-                            </th>
-                            
-                            <th class="content-form-2">
-                                Categoria
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="body-form">
-                        @foreach (var item in Model)
-                        {
-                        <tr class="container-row">
-                            <td class="content-form-2">
-                                @item.Nome
-                            </td>
+            @foreach (var lanche in Model)
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="@String.Concat("flush-headingOne", lanche.LancheId)">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@String.Concat("flush-collapse", lanche.LancheId)" aria-expanded="false" aria-controls="@String.Concat("flush-collapse", lanche.LancheId)">
+                            <p>
+                                <span>@lanche.Nome</span>
+                                @if (lanche.EmEstoque)
+                                {
+                                    <span class="text-success">Em estoque</span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger"> Fora de produção </span>
+                                }
+                            </p>
+                        </button>
+                    </h2>
 
-                            <td class="content-form-1">
-                                @item.Preco
-                            </td>
-
-                            <td class="content-form-4">
-                                <div class="content-form">
-                                    @item.DescricaoCurta
+                    <div id="@String.Concat("flush-collapse", lanche.LancheId)" class="accordion-collapse collapse" aria-labelledby="@String.Concat("flush-headingOne", lanche.LancheId)">
+                        <div class="accordion-body text-dark">
+                            <p>
+                                @Html.DisplayNameFor(model => lanche.Preco)
+                                @Html.DisplayFor(model => lanche.Preco)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => lanche.CategoriaId)
+                                @Html.DisplayFor(model => lanche.CategoriaId)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => lanche.DescricaoCurta)
+                                @Html.DisplayFor(model => lanche.DescricaoCurta)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => lanche.DescricaoDetalhada)
+                                @Html.DisplayFor(model => lanche.DescricaoDetalhada)
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => lanche.ImagemURL)
+                                <div class="img-lanche">
+                                    <img src="@lanche.ImagemURL" class="" alt="@lanche.Nome" />
                                 </div>
-                            </td>
-
-                            <td class="content-form-2">
-                                @item.Categoria
-                            </td>
-                            <td class="content-form-1 icons-form container-row">
-                                <a asp-action="Edit" asp-route-id="@item.LancheId"><img src="~/images/editar-arquivo.svg" /> </a>
-
-                                <a asp-action="Details" asp-route-id="@item.LancheId"><img src="~/images/visualizador.svg" /> </a>
-
-                                <a asp-action="Delete" asp-route-id="@item.LancheId"><img src="~/images/remove.svg" /> </a>
-                            </td>
-                        </tr>
-                            
-                        }
-                    </tbody>
-                </table>
-
-            </div>
+                            </p>
+                            <nav>
+                                <ul>
+                                    <li><a class="text-dark" asp-action="Edit" asp-route-id="@lanche.LancheId">Editar</a></li>
+                                    <li>
+                                        <a class="text-dark" asp-action="Delete" asp-route-id="@lanche.LancheId">
+                                            @if (lanche.EmEstoque)
+                                            {
+                                                <span>Tirar do estoque</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Adicionar ao estoque</span>
+                                            }
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
 
     </div>

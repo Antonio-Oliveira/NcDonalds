@@ -77,6 +77,9 @@
         margin-bottom: 10px;
     }
 
+.inputs span{
+    color: var(--amarelo);
+}
 
 .field {
     width: 50%;
@@ -107,4 +110,8 @@
     width: 15%
 }
 
+.title-account{
+    font-size: 1.5rem;
+    font-weight: 400;
+}
 

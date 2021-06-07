@@ -14,20 +14,20 @@ using System.Threading.Tasks;
 
 namespace NcDonalds.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
         private readonly IAppUserRepository _appUserRepository;
+        private readonly CarrinhoCompra _carrinhoCompra;
+        private readonly IPedidoRepository _pedidoRepository;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppUserRepository appUserRepository)
+        public AccountController(IAppUserRepository appUserRepository, CarrinhoCompra carrinhoCompra, IPedidoRepository pedidoRepository)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _appUserRepository = appUserRepository;
+            _carrinhoCompra = carrinhoCompra;
+            _pedidoRepository = pedidoRepository;
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult Profile()
         {
@@ -35,7 +35,7 @@ namespace NcDonalds.Controllers
             var user = _appUserRepository.GetUserById(userId);
 
 
-            if(user != null)
+            if (user != null)
             {
                 var profileVM = new ProfileViewModel()
                 {
@@ -48,16 +48,17 @@ namespace NcDonalds.Controllers
                 return View(profileVM);
             }
 
-            ModelState.AddModelError("","Usuário vazio");
-            return RedirectToAction("Index","Home");
+            ModelState.AddModelError("", "Usuário vazio");
+            return RedirectToAction("Index", "Home");
 
         }
 
         // GET: Account/Login
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            return View(new LoginViewModel() 
+            return View(new LoginViewModel()
             {
                 ReturnUrl = returnUrl
             });
@@ -66,40 +67,27 @@ namespace NcDonalds.Controllers
         // POST: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel loginVM)
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return View(loginVM);
-
-                var user = await _userManager.FindByEmailAsync(loginVM.Email);
-
-                if(user != null)
-                {
-                    var result = await _signInManager.PasswordSignInAsync(user,loginVM.Password, false, false);
-
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index","Home");
-                    }
-
-                    ModelState.AddModelError("","Usuário ou Senha não encontrados");
-                    return View(loginVM);
-                }
-
-
-                ModelState.AddModelError("", "Usuário ou Senha não encontrados");
+            if (!ModelState.IsValid)
                 return View(loginVM);
-            }
-            catch
+
+            var login = await _appUserRepository.Login(loginVM);
+
+            if (login)
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
+
+            ModelState.AddModelError("", "Usuário ou Senha não encontrados");
+            return View(loginVM);
+
         }
 
         // GET: Account/Register
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -108,55 +96,127 @@ namespace NcDonalds.Controllers
         // POST: Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> Register(RegisterViewModel registroVM)
         {
-            try
+
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    ModelState.AddModelError("", "Usuário não cadastrado");
-                    return View(registroVM);
-                }
+                ModelState.AddModelError("", "Completa o formulario");
+                return View(registroVM);
+            }
 
-                if(registroVM.Password != registroVM.Confirme_Password)
-                {
-                    ModelState.AddModelError("", "Senha de confirmação diferente");
-                    return View(registroVM);
-                }   
+            if (registroVM.Password != registroVM.Confirme_Password)
+            {
+                ModelState.AddModelError("", "Senha de confirmação diferente");
+                return View(registroVM);
+            }
 
-                var user = new AppUser()
-                {
-                    UserName = registroVM.UserName,
-                    Cpf = registroVM.Cpf,
-                    Email = registroVM.Email,
-                    PhoneNumber = registroVM.Telefone
-                };
+            var register = await _appUserRepository.Register(registroVM);
 
-                var result = await _userManager.CreateAsync(user,registroVM.Password);
-
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, "Member");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-
-                    return RedirectToAction("Index", "Home");
-                }
-
+            if (!register)
+            {
                 ModelState.AddModelError("", "Erro: Conta não criada");
                 return View(registroVM);
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index","Home");
+            _appUserRepository.Logout();
+            _carrinhoCompra.LimparCarrinho();
+            return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public IActionResult Enderecos()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var enderecos = _appUserRepository.GetEnderecosByUserId(userId);
+            return View(enderecos);
+        }
+
+        [HttpGet]
+        public IActionResult AdicionarEndereco()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task <IActionResult> AdicionarEndereco(Endereco endereco)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Campos do formulario preenchidos incorretamente");
+                return View(endereco);
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            endereco.UserId = userId;
+            var result = await _appUserRepository.AddEndereco(endereco);
+
+            if (!result)
+            {
+                ModelState.AddModelError("","Erro ao cadastrar Endereço");
+                return View(endereco);
+            }
+
+            return RedirectToAction("Enderecos", "Account");
+        }
+
+        [HttpGet]
+        public IActionResult EditEndereco(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var endereco = _appUserRepository.GetEnderecosById((int)id);
+            return View(endereco);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditEndereco(Endereco endereco)
+        {
+
+            if (!ModelState.IsValid){
+                ModelState.AddModelError("","Campos do formulario preenchidos incorretamente");
+                return View(endereco);
+            }
+
+            var result = await _appUserRepository.UpdateEndereco(endereco);
+
+            if (!result)
+            {
+                ModelState.AddModelError("", "Erro ao atualizar endereço");
+                return View(endereco);
+            }
+
+            return RedirectToAction("Enderecos", "Account");
+        }
+
+        public async Task<IActionResult> RemoverEndereco(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var result = await _appUserRepository.RemoveEndereco((int)id);
+            return RedirectToAction("Enderecos", "Account");
+        }
+
+        [HttpGet]
+        public IActionResult Pedidos()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var pedidos = _pedidoRepository.GetUserPedidos(userId);
+            return View(pedidos);
+        }
 
     }
 }

@@ -14,6 +14,7 @@ namespace NcDonalds.Models
         [StringLength(200)]
         public string Nome { get; set; }
 
+        [Display(Name = "Preço")]
         public int Preco { get; set; }
 
         [StringLength(200)]
@@ -24,8 +25,6 @@ namespace NcDonalds.Models
 
         public string ImagemURL { get; set; }
 
-        public string ImagemThumbURL { get; set; }
-        
         public bool EmEstoque { get; set; }
 
         //Chave estrangeira

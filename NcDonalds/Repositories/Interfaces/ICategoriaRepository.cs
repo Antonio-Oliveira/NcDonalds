@@ -8,7 +8,7 @@ namespace NcDonalds.Repositories.Interfaces
 {
     public interface ICategoriaRepository
     {
-        public IEnumerable<Categoria> Categorias { get; }
+        IEnumerable<Categoria> Categorias { get; }
 
         Categoria GetCategoriaById(int categoriaId);
 

@@ -1,24 +1,13 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - NcDonalds</title>
 
-    @RenderSection("bootstrap", false)
-
-    <!-- Stylus -->
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet " href="~/css/contato.css">
-    <link rel="stylesheet " href="~/css/lanche.css">
-    <link rel="stylesheet " href="~/css/account.css">
-    <link rel="stylesheet " href="~/css/userProfile.css">
-    <link rel="stylesheet " href="~/css/chekout.css">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
+    <partial name="_Stylus" />
+    <partial name="_Fonts" />
 
 </head>
 <body>
@@ -43,9 +32,9 @@
 
                     @if (User.IsInRole("Admin"))
                     {
-                    <li>
-                        <a asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
-                    </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
+                        </li>
                     }
 
 
@@ -70,12 +59,13 @@
     </main>
 
     <footer>
-        <p>Copyright © NcDonald’s 2021</p>
+        <div class="container">
+            &copy; 2021 - NcDonald’s
+        </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <partial name="_Scripts" />
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>

@@ -18,5 +18,7 @@ namespace NcDonalds.Repositories.Interfaces
 
         Task<bool> ConfirmarPedido(int pedidoId);
 
+        IEnumerable<Pedido> GetUserPedidos(string userId);
+
     }
 }

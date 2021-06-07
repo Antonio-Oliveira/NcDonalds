@@ -13,7 +13,7 @@ namespace NcDonalds.Repositories.Interfaces
 
         Task<bool> AddLanche(Lanche lanche);
 
-        Task<bool> RemoveLanche(int lancheId);
+        Task<bool> EmEstoque(int lancheId);
 
         Task<bool> UpdateLanche(Lanche lanche);
 

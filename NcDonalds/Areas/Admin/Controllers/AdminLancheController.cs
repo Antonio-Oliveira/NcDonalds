@@ -72,6 +72,8 @@ namespace NcDonalds.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
+            var categorias = _categoriaRepository.Categorias;
+            ViewData["CategoriaId"] = new SelectList(categorias, "CategoriaId", "Nome");
             return View(lanche);
         }
 
@@ -95,35 +97,23 @@ namespace NcDonalds.Areas.Admin.Controllers
             return View(lanche);
         }
 
-        [HttpGet]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         { 
             if(id == null)
             {
+                ModelState.AddModelError("","Id do lanche vázio");
                 return RedirectToAction("Index");
             }
 
-            var lanche = _lancheRepository.GetLancheById((int)id);
-            return View(lanche);
-        }
+            var result = await _lancheRepository.EmEstoque((int)id);
 
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(int lancheId)
-        {
-
-            var result = await _lancheRepository.RemoveLanche(lancheId);
-
-            if (result)
+            if (!result)
             {
-               return RedirectToAction("Index","AdminLanche");
+                ModelState.AddModelError("", "Erro ao tirar lanche do estoque");
+                return RedirectToAction("Index", "AdminLanche");
             }
 
-            return View(lancheId);
+            return RedirectToAction("Index", "AdminLanche");
         }
-
-
-
-
     }
 }

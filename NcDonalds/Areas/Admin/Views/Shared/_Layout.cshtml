@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - NcDonalds</title>
 
-    <!--Account CSS -->
-    <link rel="stylesheet" href="~/css/Account/register.css" />
-    <link rel="stylesheet" href="~/css/Account/login.css" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
 
     <!-- Stylus -->
     <link rel="stylesheet" href="~/css/site.css" />
@@ -22,8 +22,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    @RenderSection("bootstrap", false)
-
 </head>
 <body>
     <header>
@@ -37,16 +35,19 @@
 
                     </li>
                     <li>
-                        <a asp-controller="Admin" asp-action="Index">Home</a>
+                        <a asp-area="Admin" asp-controller="Admin" asp-action="Index">Home</a>
                     </li>
                     <li>
-                        <a asp-controller="AdminLanche" asp-action="Index">Lanches</a>
+                        <a asp-area="Admin" asp-controller="AdminLanche" asp-action="Index">Lanches</a>
                     </li>
                     <li>
-                        <a asp-controller="AdminCategoria" asp-action="Index">Categorias</a>
+                        <a asp-area="Admin" asp-controller="AdminCategoria" asp-action="Index">Categorias</a>
                     </li>
                     <li>
-                        <a asp-controller="AdminPedido" asp-action="Index">Pedidos</a>
+                        <a asp-area="Admin" asp-controller="AdminCupom" asp-action="Index">Cupons</a>
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="AdminPedido" asp-action="Index">Pedidos</a>
                     </li>
                 </ul>
             </nav>
@@ -68,8 +69,8 @@
         <p>Copyright © NcDonald’s 2021</p>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

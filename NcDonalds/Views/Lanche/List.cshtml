@@ -10,7 +10,10 @@
 
 @foreach (var lanche in Model.Lanches)
 {
-    @await Html.PartialAsync("_LancheResumo", lanche);
- }
+    if (lanche.EmEstoque)
+    {
+        @await Html.PartialAsync("_LancheResumo", lanche);
+    }
+}
 
 

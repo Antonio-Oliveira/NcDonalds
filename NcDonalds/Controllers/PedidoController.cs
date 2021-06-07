@@ -4,6 +4,7 @@ using NcDonalds.Context;
 using NcDonalds.Models;
 using NcDonalds.Repositories;
 using NcDonalds.Repositories.Interfaces;
+using NcDonalds.services;
 using NcDonalds.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -19,18 +20,60 @@ namespace NcDonalds.Controllers
         private readonly IPedidoRepository _pedidoRepository;
         private readonly CarrinhoCompra _carrinhoCompra;
         private readonly IAppUserRepository _appUserRepository;
+        private readonly PedidoService _pedidoService;
 
-        public PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, IAppUserRepository appUserRepository)
+        public PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, IAppUserRepository appUserRepository, PedidoService pedidoService)
         {
             _pedidoRepository = pedidoRepository;
             _carrinhoCompra = carrinhoCompra;
             _appUserRepository = appUserRepository;
+            _pedidoService = pedidoService;
         }
 
-        public IActionResult Checkout(Pedido pedido)
+        [HttpGet]
+        public IActionResult Checkout(Cupom cupom)
+        {
+            List<CarrinhoCompraItem> itensCarinho = _carrinhoCompra.GetCarrinhoCompraItens();
+
+            var checkoutVM = new CheckoutViewModel()
+            {
+                itens = itensCarinho,
+                cupom = cupom
+            };
+
+            return View(checkoutVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ValidarCupom(string codigoCupom)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _appUserRepository.GetUserById(userId);
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Cupom Invalido");
+                return RedirectToAction("Checkout");
+            }
+
+            if(string.IsNullOrEmpty(codigoCupom))
+            {
+                ModelState.AddModelError("", "Cupom Invalido");
+                return RedirectToAction("Checkout");
+            }
+
+            var cupom = _pedidoService.validarCupom(codigoCupom, _carrinhoCompra, userId);
+            
+            return RedirectToAction("Checkout", "Pedido", cupom);
+        }
+
+        [HttpPost]
+        public IActionResult CheckoutFinal(CheckoutViewModel checkoutVM)
+        {
+            var teste = checkoutVM;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _appUserRepository.GetUserById(userId);
+            var cupom = checkoutVM.cupom;
 
             if (user == null)
             {
@@ -45,6 +88,7 @@ namespace NcDonalds.Controllers
             if (_carrinhoCompra.CarrinhoCompraItens.Count == 0)
             {
                 ModelState.AddModelError("", "Seu carrinho estar vazio, inclua um lanche");
+                return RedirectToAction("Index", "CarrinhoCompra");
             }
 
             foreach (var item in itens)
@@ -53,9 +97,29 @@ namespace NcDonalds.Controllers
                 pedidoTotal += item.Lanche.Preco * item.Quantidade;
             }
 
-            pedido.PedidoTotal = pedidoTotal;
-            pedido.TotalItensPedido = pedidoTotalItens;
-            pedido.UserId = user.UserName;
+            if (cupom != null)
+            {
+                if (cupom.Tipo.Equals("Porcetagem"))
+                {
+                    pedidoTotal = pedidoTotal - (pedidoTotal * cupom.Valor / 100);
+                }
+                else
+                {
+                    pedidoTotal = pedidoTotal - cupom.Valor;
+                }
+
+                pedidoTotal = pedidoTotal >= 0 ? pedidoTotal : pedidoTotal = 0;
+            }
+
+            
+
+            Pedido pedido = new Pedido()
+            {
+                PedidoTotal = pedidoTotal,
+                TotalItensPedido = pedidoTotalItens,
+                UserId = userId,
+                CupomId = cupom.CupomId
+            };
 
             if (ModelState.IsValid)
             {

@@ -1,0 +1,60 @@
+﻿@model CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Pedido";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>Checkout</h1>
+
+@await Html.PartialAsync("_CupomPartial", Model.cupom)
+
+
+<form asp-area="" asp-controller="Pedido" asp-action="CheckoutFinal" method="post" role="form" class="">
+
+
+    <input type="hidden" asp-for="cupom" />
+
+    <div class="form-pagamento">
+
+        <h2> Forma de Pagamento </h2>
+
+        <div class="form-check">
+            <input asp-for="formaPagamento" class="form-check-input" name="formaPagamento" type="radio" id="flexRadioDefault1" value="Dinheiro">
+            <label asp-for="formaPagamento" class="form-check-label">Dinheiro</label>
+        </div>
+
+        <div class="form-check">
+            <input asp-for="formaPagamento" class="form-check-input" name="formaPagamento" type="radio" id="flexRadioDefault1" value="Cartão">
+            <label asp-for="formaPagamento" class="form-check-label">Cartão</label>
+        </div>
+
+        <span asp-validation-for="tipoEntrega"></span>
+    </div>
+
+    <div class="form-entrega">
+
+        <h2> Tipo de entrega </h2>
+
+        <div class="form-check">
+            <input asp-for="tipoEntrega" class="form-check-input" type="radio" name="tipoEntrega" id="flexRadioDefault1" value="Entrega">
+            <label asp-for="tipoEntrega" class="form-check-label"> Entrega </label>
+        </div>
+
+        <div class="form-check">
+            <input asp-for="tipoEntrega" class="form-check-input" type="radio" name="tipoEntrega" id="flexRadioDefault1" value="Retirar no local">
+            <label asp-for="tipoEntrega" class="form-check-label"> Retirar no local </label>
+        </div>
+
+        <span asp-validation-for="tipoEntrega"></span>
+    </div>
+
+    <div class="submit-input">
+        <input type="submit" class="botao-cadastrar" value="Registrar" />
+    </div>
+
+</form>
+
+
+

@@ -90,39 +90,22 @@ namespace NcDonalds.Areas.Admin.Controllers
             return View(categoria);
         }
 
-        [HttpGet]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction("Index");
             }
 
-            var categoria = _categoriaRepository.GetCategoriaById((int)id);
+            var result = await _categoriaRepository.RemoveCategoria((int)id);
 
-            if(categoria != null)
+            if (!result)
             {
-                return View(categoria);
+                ModelState.AddModelError("","Erro ao retirar categoria do estoque");
+                return RedirectToAction("Index");
             }
 
             return RedirectToAction("Index");
         }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int categoriaId)
-        {
-
-            var result = await _categoriaRepository.RemoveCategoria(categoriaId);
-
-            if (result)
-            {
-                return RedirectToAction("Index", "AdminLanche");
-            }
-
-            return View(categoriaId);
-        }
-
     }
 }

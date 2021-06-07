@@ -12,6 +12,7 @@ using NcDonalds.Context;
 using NcDonalds.Models;
 using NcDonalds.Repositories;
 using NcDonalds.Repositories.Interfaces;
+using NcDonalds.services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,9 +80,14 @@ namespace NcDonalds
             services.AddTransient<ILancheRepository, LancheRepository>();
             services.AddTransient<IPedidoRepository, PedidoRepository>();
             services.AddTransient<IAppUserRepository, AppUserRepository>();
+            services.AddTransient<IEnderecoRepository, EnderecoRepository>();
+            services.AddTransient<ICupomRepository, CupomRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));
+            services.AddScoped<PedidoService>();
+
 
             //configura o uso da Sessão
             services.AddMemoryCache();

@@ -7,8 +7,8 @@
 }
 
 @section navMessage{
-    <span>Já tem conta?</span>
-    <a asp-controller="Account" asp-action="Login" class="login-button">Faça login</a>
+    <a class="title-account" asp-controller="Account" asp-action="Login" style="color:white">Já Tem Registro?</a>
+    <a class="title-account login-button" asp-controller="Account" asp-action="Login" >Entrar</a>
 }
 
 <!-- page content -->
@@ -18,40 +18,42 @@
 
 <form asp-controller="Account" asp-action="Register" method="post" class="inputs" role="form">
 
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <div class="field">
         <label asp-for="UserName" class=""></label>
+        <span asp-validation-for="UserName" class="validação"></span>
         <input asp-for="UserName" class="" />
-        <span asp-validation-for="UserName" class=""></span>
     </div>
 
     <div class="field">
         <label asp-for="Email" class=""></label>
-        <input asp-for="Email" class="" />
         <span asp-validation-for="Email" class=""></span>
+        <input asp-for="Email" class="" />
     </div>
 
     <div class="field">
         <label asp-for="Cpf" class=""></label>
-        <input asp-for="Cpf" class="" />
         <span asp-validation-for="Cpf" class=""></span>
+        <input asp-for="Cpf" class="" />
     </div>
 
     <div class="field">
         <label asp-for="Telefone" class=""></label>
-        <input asp-for="Telefone" class="" />
         <span asp-validation-for="Telefone" class=""></span>
+        <input asp-for="Telefone" class="" />
     </div>
 
     <div class="field">
         <label asp-for="Password" class=""></label>
-        <input asp-for="Password" class="" />
         <span asp-validation-for="Password" class=""></span>
+        <input asp-for="Password" class="" />
     </div>
 
     <div class="field">
         <label asp-for="Confirme_Password" class=""></label>
-        <input asp-for="Confirme_Password" class="" />
         <span asp-validation-for="Confirme_Password" class=""></span>
+        <input asp-for="Confirme_Password" class="" />
     </div>
 
     <div class="submit-input">

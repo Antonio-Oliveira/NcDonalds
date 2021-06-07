@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Pedido>
+@{
+    ViewData["Title"] = "Pedidos";
+}
+
+<h1>Pedidos</h1>
+
+<table class="table text-white table-hover">
+    <thead>
+        <tr>
+            <th scope="col">User</th>
+            <th scope="col">Pedido Recebido</th>
+            <th scope="col">Pedido Finalizado</th>
+            <th scope="col">Total de itens</th>
+            <th scope="col">Total do pedido</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pedido in Model)
+        {
+            <tr>
+                <th> @pedido.UserId</th>
+                <td> @pedido.PedidoRecebido </td>
+                <td> @pedido.PedidoFinalizado </td>
+                <td> @pedido.TotalItensPedido </td>
+                <td> @pedido.PedidoTotal </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -17,12 +17,9 @@ namespace NcDonalds.Repositories
             _context = context;
         }
 
-        public IEnumerable<Categoria> Categorias => _context.Categorias;
+        public IEnumerable<Categoria> Categorias => _context.Categorias.ToList();
 
-        public Categoria GetCategoriaById(int categoriaId)
-        {
-            return _context.Categorias.FirstOrDefault(c => c.CategoriaId == categoriaId);
-        }
+        public Categoria GetCategoriaById(int categoriaId) => _context.Categorias.FirstOrDefault(c => c.CategoriaId == categoriaId);
 
         public async Task<bool> AddCategoria(Categoria categoria)
         {
@@ -52,15 +49,13 @@ namespace NcDonalds.Repositories
 
         public async Task<bool> UpdateCategoria(Categoria categoria)
         {
-            if(categoria != null)
+            if (categoria.CategoriaId != 0)
             {
-                if (categoria.CategoriaId != 0)
-                {
-                    _context.Update(categoria);
-                    await _context.SaveChangesAsync();
-                    return true;
-                }
+                _context.Update(categoria);
+                await _context.SaveChangesAsync();
+                return true;
             }
+
             return false;
         }
     }
