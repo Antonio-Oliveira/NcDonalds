@@ -25,11 +25,14 @@
         <div class="compra">
             <span class="preco"> @Model.Preco.ToString("c") </span>
 
-
-            <a class="btn-carrinho" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
+            <!--
+                 <a class="btn-carrinho" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
                 Incluir no Carrinho
             </a>
+            -->
 
+
+            <button class="btn-carrinho" onclick="incluirLanche(@Model.LancheId)">Incluir no Carrinho</button>
         </div>
     </div>
 </div>

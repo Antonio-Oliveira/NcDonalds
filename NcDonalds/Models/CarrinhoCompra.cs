@@ -46,7 +46,7 @@ namespace NcDonalds.Models
         public void AdicionarAoCarrinho(Lanche lanche, int quantidade)
         {
             var carrinhoCompraItem =
-                    _context.CarrinhoCompraItens.SingleOrDefault(
+                    _context.CarrinhoCompraItens.FirstOrDefault(
                         cp => cp.Lanche.LancheId == lanche.LancheId && cp.CarrinhoCompraId == CarrinhoCompraId);
 
             //verifica se o carrinho existe e senão cria um
@@ -118,6 +118,14 @@ namespace NcDonalds.Models
                         .Sum();
 
             return total;
+        }
+
+        public int GetCarrinhoTotalItens()
+        {
+            return _context.CarrinhoCompraItens
+                .Where(cp => cp.CarrinhoCompraId == CarrinhoCompraId)
+                    .Select(l => l.Quantidade)
+                        .Sum();
         }
 
 

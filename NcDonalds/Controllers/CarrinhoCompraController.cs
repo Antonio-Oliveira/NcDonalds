@@ -41,16 +41,17 @@ namespace NcDonalds.Controllers
             return View(carrinhoCompraVM);
         }
 
-        public RedirectToActionResult AdicionarItem(int lancheId)
+        [HttpPost]
+        public decimal AdicionarItem(int lancheId)
         {
-            var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault( l => l.LancheId == lancheId);
+            var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
 
             if (lancheSelecionado != null)
             {
                 _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado, 1);
             }
 
-            return RedirectToAction("Index");
+            return _carrinhoCompra.GetCarrinhoTotalItens();
         }
 
         public RedirectToActionResult RemoverItem(int lancheId)

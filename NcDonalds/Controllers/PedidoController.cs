@@ -45,7 +45,7 @@ namespace NcDonalds.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ValidarCupom(string codigoCupom)
+        public IActionResult ValidarCupom(string codigoCupom)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _appUserRepository.GetUserById(userId);
@@ -53,18 +53,18 @@ namespace NcDonalds.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Cupom Invalido");
-                return RedirectToAction("Checkout");
+                //return RedirectToAction("Checkout", "Pedido");
+                return Json("Cupom Invalido");
             }
 
-            if(string.IsNullOrEmpty(codigoCupom))
+            if (string.IsNullOrEmpty(codigoCupom))
             {
                 ModelState.AddModelError("", "Cupom Invalido");
-                return RedirectToAction("Checkout");
+                return Json("Cupom Invalido");
             }
 
             var cupom = _pedidoService.validarCupom(codigoCupom, _carrinhoCompra, userId);
-            
-            return RedirectToAction("Checkout", "Pedido", cupom);
+            return Json(cupom);
         }
 
         [HttpPost]

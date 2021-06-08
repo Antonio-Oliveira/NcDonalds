@@ -26,7 +26,7 @@ namespace NcDonalds.services
 
             if (cupom != null)
             {
-                if ( (cupom.Vencimento != null && cupom.Vencimento > DateTime.Now) || cupom.Vencimento == null)
+                if ((cupom.Vencimento != null && cupom.Vencimento > DateTime.Now) || cupom.Vencimento == null)
                 {
                     if ((cupom.PrimeiroPedido && pedidos.Count() == 0) || (cupom.PrimeiroPedido == false))
                     {
