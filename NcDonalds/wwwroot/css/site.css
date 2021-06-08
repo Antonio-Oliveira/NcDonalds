@@ -50,6 +50,7 @@ button, a{
 .container-row {
     display: flex;
     flex-direction: row;
+
 }
 
 .container-column {

@@ -9,7 +9,7 @@
 <div class="carrinho-compra" style="width:80%; margin:0 auto; padding: 20px;">
 
     <div>
-        <h2> Seu carrinho de compras: </h2>
+        <h2 style="padding: 20px; font-size: 1.5rem;"> Seu carrinho de compras: </h2>
     </div>
 
 
@@ -48,11 +48,8 @@
         <p>@Model.CarrinhoCompraTotal.ToString("C2") </p>
     </div>
 
-    <div class="carrinho-op">
-        <div class="btn-group ">
+    <div class="carrinho-op" role="group" aria-label="basic">
             <a class="btn btn-success" asp-controller="Pedido" asp-action="Checkout">Encerrar Pedido</a>
             <a asp-controller="Lanche" asp-action="List"><b>Adicionar mais lanches</b></a>
         </div>
     </div>
-</div>
-
