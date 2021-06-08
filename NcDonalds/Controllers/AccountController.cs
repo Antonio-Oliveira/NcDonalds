@@ -145,7 +145,7 @@ namespace NcDonalds.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> AdicionarEndereco(Endereco endereco)
+        public async Task<IActionResult> AdicionarEndereco(Endereco endereco)
         {
             if (!ModelState.IsValid)
             {
@@ -159,7 +159,7 @@ namespace NcDonalds.Controllers
 
             if (!result)
             {
-                ModelState.AddModelError("","Erro ao cadastrar Endereço");
+                ModelState.AddModelError("", "Erro ao cadastrar Endereço");
                 return View(endereco);
             }
 
@@ -169,7 +169,7 @@ namespace NcDonalds.Controllers
         [HttpGet]
         public IActionResult EditEndereco(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
@@ -183,8 +183,9 @@ namespace NcDonalds.Controllers
         public async Task<IActionResult> EditEndereco(Endereco endereco)
         {
 
-            if (!ModelState.IsValid){
-                ModelState.AddModelError("","Campos do formulario preenchidos incorretamente");
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Campos do formulario preenchidos incorretamente");
                 return View(endereco);
             }
 
@@ -195,6 +196,7 @@ namespace NcDonalds.Controllers
                 ModelState.AddModelError("", "Erro ao atualizar endereço");
                 return View(endereco);
             }
+
 
             return RedirectToAction("Enderecos", "Account");
         }
@@ -217,6 +219,16 @@ namespace NcDonalds.Controllers
             var pedidos = _pedidoRepository.GetUserPedidos(userId);
             return View(pedidos);
         }
+
+        [HttpPost]
+        public IActionResult GetEnderecosUser()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var enderecos = _appUserRepository.GetEnderecosByUserId(userId);
+
+            return Json(enderecos);
+        }
+
 
     }
 }
