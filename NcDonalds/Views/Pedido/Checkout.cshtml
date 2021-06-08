@@ -8,11 +8,24 @@
 
 <h1>Checkout</h1>
 
-@await Html.PartialAsync("_CupomPartial", Model.cupom)
+<button onclick="getEnderecos()">sasasasa</button>
 
 
-<form asp-area="" asp-controller="Pedido" asp-action="CheckoutFinal" method="post" role="form" class="">
+<div>
+    <div class="field">
 
+        <label class="">Cupom</label>
+        <input id="codigo-cupom" asp-for="cupom.CodigoCupom" class="" />
+        <span asp-validation-for="cupom.CodigoCupom" class=""></span>
+
+    </div>
+
+    <div class="submit-input">
+        <input type="submit" class="botao-cadastrar" value="Validar Cupom" onclick="validarCupom(@Model.cupom.CodigoCupom)" />
+    </div>
+</div>
+
+<form method="post" role="form" class="">
 
     <input type="hidden" asp-for="cupom" />
 
@@ -44,9 +57,8 @@
 
         <div class="form-check">
             <input asp-for="tipoEntrega" class="form-check-input" type="radio" name="tipoEntrega" id="flexRadioDefault1" value="Retirar no local">
-            <label asp-for="tipoEntrega" class="form-check-label"> Retirar no local </label>
+            <label asp-for="tipoEntrega" class="form-check-label" onclick="getEnderecos()"> Retirada </label>
         </div>
-
         <span asp-validation-for="tipoEntrega"></span>
     </div>
 
