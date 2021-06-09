@@ -51,11 +51,20 @@ namespace NcDonalds.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 Lanche lanche = new Lanche()
                 {
-                    
+                    Nome = adminLancheVM.Nome,
+                    Preco = adminLancheVM.Preco,
+                    LancheId = adminLancheVM.LancheId,
+                    CategoriaId = adminLancheVM.CategoriaId,
+                    DescricaoCurta = adminLancheVM.DescricaoCurta,
+                    DescricaoDetalhada = adminLancheVM.DescricaoDetalhada,
+                    EmEstoque = adminLancheVM.EmEstoque,
                 };
-                lanche = (Lanche) await Save(adminLancheVM.Image, adminLancheVM);
+                
+
+                lanche = (Lanche) await Save(lanche.Image, lanche);
                 var result = await _lancheRepository.AddLanche(lanche);
 
                 if (result)

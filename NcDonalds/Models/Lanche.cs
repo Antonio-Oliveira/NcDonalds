@@ -26,8 +26,6 @@ namespace NcDonalds.Models
 
         public string ImagemURL { get; set; }
 
-        public virtual IFormFile Image { get; set; }
-
         public bool EmEstoque { get; set; }
 
         //Chave estrangeira
