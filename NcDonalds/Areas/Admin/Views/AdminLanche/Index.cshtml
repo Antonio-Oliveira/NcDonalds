@@ -57,9 +57,9 @@
                                 </div>
                             </p>
                             <nav>
-                                <ul>
-                                    <li><a class="text-dark" asp-action="Edit" asp-route-id="@lanche.LancheId">Editar</a></li>
-                                    <li>
+                                <ul class="quadrado">
+                                    <li class ="quadrado"><a class="text-dark" asp-action="Edit" asp-route-id="@lanche.LancheId">Editar</a></li>
+                                    <li class="quadrado">
                                         <a class="text-dark" asp-action="Delete" asp-route-id="@lanche.LancheId">
                                             @if (lanche.EmEstoque)
                                             {
