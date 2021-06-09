@@ -170,7 +170,7 @@ header ul {
 }
 
 .img-graund {
-    background: linear-gradient(rgba(0,0,0,.80),rgba(0,0,0,.80) 100%),url(/images/lanchesCapa.jpg);
+    background: linear-gradient(rgba(0,0,0,.80),rgba(0,0,0,.80) 100%),url(https://ncdonalds.blob.core.windows.net/images-webdesign/images_webdesign-fundoaboutus.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
