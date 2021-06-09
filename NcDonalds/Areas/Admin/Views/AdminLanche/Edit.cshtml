@@ -1,4 +1,4 @@
-﻿@model Lanche
+﻿@model AdminLancheViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -14,7 +14,7 @@
             <img class="img-action" src="/images/editar-codigo.svg" alt="mulher bebendo suquinho">
         </section>
 
-        <form asp-area="Admin" asp-controller="AdminLanche" asp-action="Edit" method="post" class="inputs" role="form">
+        <form asp-area="Admin" asp-controller="AdminLanche" asp-action="Edit" method="post" class="inputs" role="form" enctype="multipart/form-data">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -44,14 +44,14 @@
                 <span asp-validation-for="DescricaoDetalhada"></span>
             </div>
 
-            <div class="field">
-                <label asp-for="ImagemURL"></label>
-                <input asp-for="ImagemURL" />
-                <span asp-validation-for="ImagemURL"></span>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Escolha a imagem do lanche:</label>
+                <input asp-for="Image" class="form-control" type="file" id="formFile">
             </div>
 
             <div class="field">
-                <input type="hidden" asp-for="EmEstoque" />
+                <label asp-for="EmEstoque" class=""></label>
+                <input asp-for="EmEstoque" />
             </div>
 
             <div class="field">

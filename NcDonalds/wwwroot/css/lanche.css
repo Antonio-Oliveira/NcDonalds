@@ -98,6 +98,15 @@
     padding: 10px 15px;
     border-radius: 12px;
 }
+.btn-success {
+    border-color: #F1B104;
+}
+
+.btn-success:hover {
+    color: #fff;
+    border-color: #F1B104;
+}
+
 .carrinho-total {
     background-color: var(--amarelo);
     display: flex;

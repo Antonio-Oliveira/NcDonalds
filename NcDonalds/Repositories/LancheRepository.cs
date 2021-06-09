@@ -50,7 +50,7 @@ namespace NcDonalds.Repositories
             return false;
         }
 
-        public async Task<bool> UpdateLanche([Bind("LancheId,Nome,DescricaoCurta,DescricaoDetalhada,Preco,ImagemURL,ImagemThumbURL,EmEstoque,CategoriaId")] Lanche lanche)
+        public async Task<bool> UpdateLanche(Lanche lanche)
         {
 
             if (lanche.LancheId != 0)
