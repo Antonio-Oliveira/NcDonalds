@@ -79,7 +79,7 @@ namespace NcDonalds.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("LancheId,Nome,DescricaoCurta,DescricaoDetalhada,Preco,ImagemURL,ImagemThumbURL,EmEstoque,CategoriaId")] Lanche lanche)
+        public async Task<IActionResult> Edit(Lanche lanche)
         {
             if (ModelState.IsValid)
             {

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace NcDonalds.Controllers
@@ -220,12 +221,11 @@ namespace NcDonalds.Controllers
             return View(pedidos);
         }
 
-        [HttpPost]
-        public IActionResult GetEnderecosUser()
+        [HttpGet]
+        public JsonResult GetEnderecosUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var enderecos = _appUserRepository.GetEnderecosByUserId(userId);
-
             return Json(enderecos);
         }
 

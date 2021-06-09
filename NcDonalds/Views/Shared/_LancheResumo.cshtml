@@ -24,19 +24,12 @@
                 <p class="descricao-curta"> @Model.DescricaoCurta </p>
 
 
-                <div class="compra">
-                    <span class="preco"> @Model.Preco.ToString("c") </span>
-
-
-                    <a class="btn-carrinho" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
-                        Incluir no Carrinho
-                    </a>
-            <!--
-                 <a class="btn-carrinho" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
-                Incluir no Carrinho
-            </a>
-            -->
-
+        <div class="compra">
+            <span class="preco"> @Model.Preco.ToString("c") </span>
+             
+            <div class="spinner-border" id="@string.Concat("spinner",Model.LancheId)" role="status" style="display:none">
+                <span class="visually-hidden">Loading...</span>
+            </div>
 
                 </div>
             </div>
