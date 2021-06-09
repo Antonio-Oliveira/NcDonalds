@@ -136,7 +136,19 @@ a:hover{
     display: flex;
     text-align: left;
 }
-
+.accordion-button {
+   
+    color: #e92438;
+    text-align: left;
+    
+}
+.text-dark {
+    color: #e92438 !important;
+    font-weight: 500;
+}
+.accordion-button:not(.collapsed) {
+    color: #e92438;
+}
 
 
 
