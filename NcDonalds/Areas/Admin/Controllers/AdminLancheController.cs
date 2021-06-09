@@ -60,7 +60,7 @@ namespace NcDonalds.Areas.Admin.Controllers
                 EmEstoque = adminLancheVM.EmEstoque,
             };
 
-
+            lanche.Categoria = _categoriaRepository.GetCategoriaById(lanche.CategoriaId);
             lanche = (Lanche)await Save(adminLancheVM.Image, lanche);
             var result = await _lancheRepository.AddLanche(lanche);
 
@@ -128,6 +128,7 @@ namespace NcDonalds.Areas.Admin.Controllers
                     CategoriaId = adminLancheVM.CategoriaId
                 };
 
+                lanche.Categoria = _categoriaRepository.GetCategoriaById(lanche.CategoriaId);
                 lanche = (Lanche)await Save(adminLancheVM.Image, lanche);
                 var result = await _lancheRepository.UpdateLanche(lanche);
 
@@ -139,7 +140,6 @@ namespace NcDonalds.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Lanche não criado");
 
             }
-
             var categorias = _categoriaRepository.Categorias;
             ViewData["CategoriaId"] = new SelectList(categorias, "CategoriaId", "Nome");
             return View(adminLancheVM);
@@ -167,12 +167,12 @@ namespace NcDonalds.Areas.Admin.Controllers
         [HttpPost]
         public async Task<Lanche> Save(IFormFile file, Lanche lanche)
         {
-            var imagemUrl = await Upload(file, lanche.Nome);
+            var imagemUrl = await Upload(file, lanche.Nome, lanche.Categoria);
             lanche.ImagemURL = imagemUrl;
             return lanche;
         }
 
-        private async Task<string> Upload(IFormFile file, string nome)
+        private async Task<string> Upload(IFormFile file, string nome, Categoria categoria)
         {
             //Obtem as configurações blob do 'appsettings.json' e atribui as variaveis
             var accountName = _configuration.GetSection("StorageConfiguration")["AccountName"];
@@ -190,7 +190,8 @@ namespace NcDonalds.Areas.Admin.Controllers
             var container = blobAzure.GetContainerReference(containerName);
 
             //Atribui o nome do arquivo dentro do blob (podemos tratar com regex)
-            var nameProductF = "images-products/" + nome.Replace(" ", "_").ToLower() + ".jpg";
+            string nameProductF = "group-category_" + categoria.Nome.Replace(" ", "_").ToLower() + "/" + "image_product-" 
+                + nome.Replace(" ", "_").ToLower() + ".jpg";
             var blob = container.GetBlockBlobReference(nameProductF);
 
             //Define o tipo do arquivo
