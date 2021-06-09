@@ -32,7 +32,7 @@ namespace NcDonalds.Controllers
             if (string.IsNullOrEmpty(_categoria))
             {
                 lanches = _lancheRepository.Lanches.OrderBy(l => l.LancheId);
-                categoriaAtual = "Todos os Lanches";
+                categoriaAtual = "OS BURGERS QUE VOCÊ AMA";
             }
             else
             {

@@ -7,12 +7,12 @@
     --preto: #141414;
     --branco: #FFFFFF;
     --amarelo: #F1B104;
+      font: 'Montserrat';
 }
 
 .img-header {
-    width: 120px;
+    width: 100px;
 }
-
 
 .container-header {
     display: flex;
@@ -21,17 +21,20 @@
     justify-content: space-between;
     padding: 20px;
     font-size: 1.3rem;
-
     width: 95%;
     margin: 0 auto;
 }
 
 
 .burguer {
-    margin-top: -50px;
-    margin-left: 30px;
-    margin-bottom: -40px;
+    margin-top: -35px;
+    margin-left: 20px;
+    margin-bottom: -30px;
     width: 80%;
+}
+
+h1 {
+    margin-bottom:30px;
 }
 
 .container-row {
@@ -48,14 +51,17 @@
     color: var(--branco);
 }
 
-
-.img-mulher, .img-login{
+.img-mulher {
     margin-top: -50px;
     margin-left: 30px;
     margin-bottom: -40px;
-    width: 80%;
+    width: 90%;
+
 }
 
+img.burger {
+    width: 500px;
+}
 
 .inputs {
     width: 50%;
@@ -71,18 +77,18 @@
     .inputs input {
         color: var(--preto);
         width: 100%;
-        border-radius: 999px;
+        border-radius: 10px;
         padding: 15px;
         border-width: 0px;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 
 .inputs span{
-    color: var(--amarelo);
+    color: black;
 }
 
 .field {
-    width: 50%;
+    width: 55%;
 }
 
 .section-container {
@@ -98,12 +104,20 @@
 }
 
 
+.botao {
+    width: 100px;
+    
+}
+
 .botao-entrar, .botao-cadastrar {
     padding: 12px 20px;
     border-radius: 999px;
     background-color: var(--amarelo);
     border: 3px solid var(--amarelo);
     color: var(--preto);
+    cursor: pointer;
+    transition: 1s;
+    font-weight: 600;
 }
 
 .submit-input {
