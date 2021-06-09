@@ -49,31 +49,32 @@ namespace NcDonalds.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AdminLancheViewModel adminLancheVM)
         {
-            if (ModelState.IsValid)
-            {
-                
-                Lanche lanche = new Lanche()
-                {
-                    Nome = adminLancheVM.Nome,
-                    Preco = adminLancheVM.Preco,
-                    LancheId = adminLancheVM.LancheId,
-                    CategoriaId = adminLancheVM.CategoriaId,
-                    DescricaoCurta = adminLancheVM.DescricaoCurta,
-                    DescricaoDetalhada = adminLancheVM.DescricaoDetalhada,
-                    EmEstoque = adminLancheVM.EmEstoque,
-                };
-                
+            //if (ModelState.IsValid)
+            //{
 
-                lanche = (Lanche) await Save(lanche.Image, lanche);
-                var result = await _lancheRepository.AddLanche(lanche);
+            //    Lanche lanche = new Lanche()
+            //    {
+            //        Nome = adminLancheVM.Nome,
+            //        Preco = adminLancheVM.Preco,
+            //        LancheId = adminLancheVM.LancheId,
+            //        CategoriaId = adminLancheVM.CategoriaId,
+            //        DescricaoCurta = adminLancheVM.DescricaoCurta,
+            //        DescricaoDetalhada = adminLancheVM.DescricaoDetalhada,
+            //        EmEstoque = adminLancheVM.EmEstoque,
+            //    };
 
-                if (result)
-                {
-                    return RedirectToAction("Index");
-                }
 
-            }
-            return View(lanche);
+            //    lanche = (Lanche) await Save(lanche.Image, lanche);
+            //    var result = await _lancheRepository.AddLanche(lanche);
+
+            //    if (result)
+            //    {
+            //        return RedirectToAction("Index");
+            //    }
+
+            //}
+            //return View(lanche);
+            return null;
         }
 
         [HttpGet]
