@@ -76,6 +76,9 @@ namespace NcDonalds.Repositories
 
         public IEnumerable<Endereco> GetEnderecosByUserId(string userId) => _context.Enderecos.Where(e => e.UserId == userId).ToList();
 
+        public Endereco GetEnderecoUserById(string userId, int enderecoId) => _context.Enderecos.FirstOrDefault(e => e.UserId == userId && e.EnderecoId == enderecoId);
+
+
         public Endereco GetEnderecosById(int enderecoId) =>  _context.Enderecos.Find(enderecoId);
 
         public async Task<bool> AddEndereco(Endereco endereco)

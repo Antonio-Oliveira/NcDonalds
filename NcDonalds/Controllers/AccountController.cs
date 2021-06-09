@@ -222,10 +222,10 @@ namespace NcDonalds.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetEnderecosUser()
+        public JsonResult GetEnderecoUserById(int enderecoId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var enderecos = _appUserRepository.GetEnderecosByUserId(userId);
+            var enderecos = _appUserRepository.GetEnderecoUserById(userId, enderecoId);
             return Json(enderecos);
         }
 

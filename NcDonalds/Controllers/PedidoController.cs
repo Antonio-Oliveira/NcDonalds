@@ -31,7 +31,7 @@ namespace NcDonalds.Controllers
         }
 
         [HttpGet]
-        public IActionResult Checkout(Cupom cupom)
+        public IActionResult Checkout()
         {
             List<CarrinhoCompraItem> itensCarinho = _carrinhoCompra.GetCarrinhoCompraItens();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -41,7 +41,6 @@ namespace NcDonalds.Controllers
             var checkoutVM = new CheckoutViewModel()
             {
                 itens = itensCarinho,
-                cupom = cupom,
                 enderecoUser = userEnderecos
             };
 
@@ -49,7 +48,7 @@ namespace NcDonalds.Controllers
         }
 
         [HttpPost]
-        public IActionResult ValidarCupom(string codigoCupom)
+        public JsonResult ValidarCupom(string codigoCupom)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _appUserRepository.GetUserById(userId);
@@ -77,7 +76,6 @@ namespace NcDonalds.Controllers
             var teste = checkoutVM;
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _appUserRepository.GetUserById(userId);
-            var cupom = checkoutVM.cupom;
 
             if (user == null)
             {
@@ -101,28 +99,11 @@ namespace NcDonalds.Controllers
                 pedidoTotal += item.Lanche.Preco * item.Quantidade;
             }
 
-            if (cupom != null)
-            {
-                if (cupom.Tipo.Equals("Porcetagem"))
-                {
-                    pedidoTotal = pedidoTotal - (pedidoTotal * cupom.Valor / 100);
-                }
-                else
-                {
-                    pedidoTotal = pedidoTotal - cupom.Valor;
-                }
-
-                pedidoTotal = pedidoTotal >= 0 ? pedidoTotal : pedidoTotal = 0;
-            }
-
-            
-
             Pedido pedido = new Pedido()
             {
                 PedidoTotal = pedidoTotal,
                 TotalItensPedido = pedidoTotalItens,
                 UserId = userId,
-                CupomId = cupom.CupomId
             };
 
             if (ModelState.IsValid)

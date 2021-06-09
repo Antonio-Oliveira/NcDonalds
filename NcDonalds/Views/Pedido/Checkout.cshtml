@@ -6,108 +6,123 @@
 }
 
 
-<h1>Checkout</h1>
 
-<div id="form-tipo-entrega">
+<div class="container">
 
-    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-tipo-entrega" aria-expanded="false" aria-controls="collapse-tipo-entrega">
-        Entrega
-    </button>
+    <h1 class="title-checkout">Checkout</h1>
 
-    <div class="collapse" id="collapse-tipo-entrega">
 
-        <h3 style="margin: 20px 0"> Endereços cadastrados </h3>
+    <form asp-action="CheckoutFinal" asp-controller="Pedido" method="post" role="form">
 
-        @foreach (var endereco in Model.enderecoUser)
-        {
-            <button class="btn btn-dark" onclick="fillInputEndereco(@endereco)"> @endereco.Detalhe </button>
-        }
-
-        <div class="inputs">
-
-            <input id="endereco-id" type="hidden" asp-for="enderecoPedido.EnderecoId" class="" />
-
-            <div class="field">
-                <label asp-for="enderecoPedido.Detalhe" class=""></label>
-                <span asp-validation-for="enderecoPedido.Detalhe" class=""></span>
-                <input id="endereco-detalhe" asp-for="enderecoPedido.Detalhe" class="" />
+        <div class="cupom-body">
+            <div class="form-floating">
+                <input asp-for="codCupom" type="text" class="form-control" id="codigo-cupom">
+                <label for="codigo-cupom">CodidoCupom</label>
             </div>
 
-            <div class="field">
-                <label asp-for="enderecoPedido.Estado" class=""></label>
-                <span asp-validation-for="enderecoPedido.Estado" class=""></span>
-                <input id="endereco-estado" asp-for="enderecoPedido.Estado" class="" />
+            <button type="button" onclick="validarCupom()" class="botao-entrar botao-validar-cupom"> Validar Cupom </button>
+        </div>
+
+
+
+
+        <div id="form-tipo-entrega">
+            <button class="btn btn-primary" type="button" checked data-bs-toggle="collapse" data-bs-target="#collapse-tipo-entrega" aria-expanded="false" aria-controls="collapse-tipo-entrega">
+                Entrega
+            </button>
+
+            <button id="retirada" onclick="removerEndereco()" class="btn btn-primary" type="button" checked data-bs-toggle="collapse" data-bs-target="#collapse-tipo-entrega" aria-expanded="false" aria-controls="collapse-tipo-entrega">
+                Retirada
+            </button>
+        </div>
+
+
+        <div class="collapse" id="collapse-tipo-entrega">
+
+            <h3 style="margin: 20px 0"> Meus Endereços </h3>
+            <div id="groupRadioEntrega">
+                @foreach (var endereco in Model.enderecoUser)
+                {
+                    <div class="form-check">
+                        <input onclick="getEndereco(@endereco.EnderecoId)" class="form-check-input" type="radio" name="radioEntrega" id="@string.Concat("radioEntrega", endereco.EnderecoId)">
+                        <label class="form-check-label" for="@string.Concat("radioEntrega", endereco.EnderecoId)">
+                            @endereco.Detalhe
+                        </label>
+                    </div>
+                }
+
+                <div class="form-check">
+                    <input onclick="removeIdAndUser()" class="form-check-input" type="radio" name="radioEntrega" id="radioEntregaEmpty">
+                    <label class="form-check-label" for="radioEntregaEmpty">
+                        Outro Endereço
+                    </label>
+                </div>
             </div>
 
-            <div class="field">
-                <label asp-for="enderecoPedido.Cidade" class=""></label>
-                <span asp-validation-for="enderecoPedido.Cidade" class=""></span>
-                <input id="endereco-cidade" asp-for="enderecoPedido.Cidade" class="" />
-            </div>
+            <div id="form-enderecoEntrega" class="inputs">
 
-            <div class="field">
-                <label asp-for="enderecoPedido.Bairro" class=""></label>
-                <span asp-validation-for="enderecoPedido.Bairro" class=""></span>
-                <input id="endereco-bairro" asp-for="enderecoPedido.Bairro" class="" />
-            </div>
+                <input type="hidden" id="endereco-Id" asp-for="enderecoPedido.EnderecoId" class="" />
+                <input type="hidden" id="endereco-userId" asp-for="enderecoPedido.UserId" class="" />
 
-            <div class="field">
-                <label asp-for="enderecoPedido.Rua" class=""></label>
-                <span asp-validation-for="enderecoPedido.Rua" class=""></span>
-                <input id="endereco-rua" asp-for="enderecoPedido.Rua" class="" />
-            </div>
 
-            <div class="field">
-                <label asp-for="enderecoPedido.Numero" class=""></label>
-                <span asp-validation-for="enderecoPedido.Numero" class=""></span>
-                <input id="endereco-numero" asp-for="enderecoPedido.Numero" class="" />
-            </div>
+                <div class="field">
+                    <label asp-for="enderecoPedido.Detalhe" class=""></label>
+                    <span asp-validation-for="enderecoPedido.Detalhe" class=""></span>
+                    <input id="endereco-detalhe" asp-for="enderecoPedido.Detalhe" class="" />
+                </div>
 
-            <div class="field">
-                <label asp-for="enderecoPedido.Complemento" class=""></label>
-                <span asp-validation-for="enderecoPedido.Complemento" class=""></span>
-                <input id="endereco-complemento" asp-for="enderecoPedido.Complemento" class="" />
-            </div>
+                <div class="field">
+                    <label asp-for="enderecoPedido.Estado" class=""></label>
+                    <span asp-validation-for="enderecoPedido.Estado" class=""></span>
+                    <input id="endereco-estado" asp-for="enderecoPedido.Estado" class="" />
+                </div>
 
-            <div class="field">
-                <label asp-for="enderecoPedido.Cep" class=""></label>
-                <span asp-validation-for="enderecoPedido.Cep" class=""></span>
-                <input endereco-cep asp-for="enderecoPedido.Cep" class="" />
+                <div class="field">
+                    <label asp-for="enderecoPedido.Cidade" class=""></label>
+                    <span asp-validation-for="enderecoPedido.Cidade" class=""></span>
+                    <input id="endereco-cidade" asp-for="enderecoPedido.Cidade" class="" />
+                </div>
+
+                <div class="field">
+                    <label asp-for="enderecoPedido.Bairro" class=""></label>
+                    <span asp-validation-for="enderecoPedido.Bairro" class=""></span>
+                    <input id="endereco-bairro" asp-for="enderecoPedido.Bairro" class="" />
+                </div>
+
+                <div class="field">
+                    <label asp-for="enderecoPedido.Rua" class=""></label>
+                    <span asp-validation-for="enderecoPedido.Rua" class=""></span>
+                    <input id="endereco-rua" asp-for="enderecoPedido.Rua" class="" />
+                </div>
+
+                <div class="field">
+                    <label asp-for="enderecoPedido.Numero" class=""></label>
+                    <span asp-validation-for="enderecoPedido.Numero" class=""></span>
+                    <input id="endereco-numero" asp-for="enderecoPedido.Numero" class="" />
+                </div>
+
+                <div class="field">
+                    <label asp-for="enderecoPedido.Complemento" class=""></label>
+                    <span asp-validation-for="enderecoPedido.Complemento" class=""></span>
+                    <input id="endereco-complemento" asp-for="enderecoPedido.Complemento" class="" />
+                </div>
+
+                <div class="field">
+                    <label asp-for="enderecoPedido.Cep" class=""></label>
+                    <span asp-validation-for="enderecoPedido.Cep" class=""></span>
+                    <input id="endereco-cep" asp-for="enderecoPedido.Cep" class="" />
+                </div>
             </div>
         </div>
-    </div>
+
+
+
+
+        <div class="submit-input">
+            <input type="submit" class="botao-cadastrar" value="Finalizar Pedido" />
+        </div>
+
+    </form>
+
 </div>
-
-
-
-
-<form method="post" role="form" class="">
-
-    <input type="hidden" asp-for="cupom" />
-
-
-    <div class="form-pagamento">
-
-        <h2> Forma de Pagamento </h2>
-
-        <div class="form-check">
-            <input asp-for="formaPagamento" class="form-check-input" name="formaPagamento" type="radio" id="flexRadioDefault1" value="Dinheiro">
-            <label asp-for="formaPagamento" class="form-check-label">Dinheiro</label>
-        </div>
-
-        <div class="form-check">
-            <input asp-for="formaPagamento" class="form-check-input" name="formaPagamento" type="radio" id="flexRadioDefault1" value="Cartão">
-            <label asp-for="formaPagamento" class="form-check-label">Cartão</label>
-        </div>
-
-        <span asp-validation-for="tipoEntrega"></span>
-    </div>
-
-    <div class="submit-input">
-        <input type="submit" class="botao-cadastrar" value="Registrar" />
-    </div>
-
-</form>
-
-
 
