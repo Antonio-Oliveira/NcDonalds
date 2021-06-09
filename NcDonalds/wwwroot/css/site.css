@@ -19,6 +19,10 @@
         outline: 0 !important;
     }
 
+    img {
+        border-radius: 8px;
+    }
+
 html,
 body {
     height: 100%
@@ -41,8 +45,10 @@ ul {
     list-style: none;
 }
 
-button, a{
+button, a:hover{
     cursor: pointer;
+    color:black;
+    transition: 1s;
 }
 
 /* Geral */
@@ -75,15 +81,14 @@ button, a{
     width: 120px;
 }
 
-
 /* Header Nav */
 
 header ul {
     align-items: center;
 }
 
-.nav-principal ul li {
-    margin-left: 25px;
+.nav-principal li {
+    margin-left: 30px;
 }
 
     .nav-principal ul li a {
@@ -176,7 +181,6 @@ header ul {
     align-items: center;
     margin-bottom: 100px;
 }
-
 
 
 /* Footer */

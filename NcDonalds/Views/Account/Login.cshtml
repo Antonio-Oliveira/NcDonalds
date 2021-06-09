@@ -7,8 +7,8 @@
 @model LoginViewModel
 
 @section navMessage{
-    <a class="title-account" asp-area="" asp-controller="Account" asp-action="Register" style="color:white">Não Tem Registro?</a>
-    <a class="title-account login-button" asp-area="" asp-controller="Account" asp-action="Register">Registrar</a>
+    <a class="title-account" asp-area="" asp-controller="Account" asp-action="Register" style="color:white">Não tem uma conta?</a>
+    <a class="title-account login-button" asp-area="" asp-controller="Account" asp-action="Register">Registrar-se</a>
 }
 
 <!-- Page content -->
@@ -22,21 +22,23 @@
 
     <form asp-controller="Account" asp-action="Login" method="post" role="form" class="inputs">
 
+        <h1>
+            Falta pouco para matar sua fome!
+        </h1>
+
         <input type="hidden" asp-for="ReturnUrl" />
 
         <div class="field">
-            <label asp-for="Email" class=""></label>
-            <input asp-for="Email" id="email" />
+            <input asp-for="Email" id="email" placeholder="Email" />
             <span asp-validation-for="Email" class=""></span>
         </div>
 
         <div class="field">
-            <label asp-for="Password" class=""></label>
-            <input asp-for="Password" class="" />
+            <input asp-for="Password" class="" placeholder="Senha" />
             <span asp-validation-for="Password" class=""></span>
         </div>
 
-        <div class="field">
+        <div class="botao">
             <input type="submit" class="botao-entrar" value="Entrar" />
         </div>
     </form>
