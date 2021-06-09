@@ -21,26 +21,33 @@ namespace NcDonalds.Controllers
         private readonly CarrinhoCompra _carrinhoCompra;
         private readonly IAppUserRepository _appUserRepository;
         private readonly PedidoService _pedidoService;
+        private readonly ICupomRepository _cupomRepository;
+        private readonly IEnderecoRepository _enderecoRepository;
 
-        public PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, IAppUserRepository appUserRepository, PedidoService pedidoService)
+        public PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, IAppUserRepository appUserRepository, PedidoService pedidoService, ICupomRepository cupomRepository, IEnderecoRepository enderecoRepository)
         {
             _pedidoRepository = pedidoRepository;
             _carrinhoCompra = carrinhoCompra;
             _appUserRepository = appUserRepository;
             _pedidoService = pedidoService;
+            _cupomRepository = cupomRepository;
+            _enderecoRepository = enderecoRepository;
         }
 
         [HttpGet]
         public IActionResult Checkout()
         {
-            List<CarrinhoCompraItem> itensCarinho = _carrinhoCompra.GetCarrinhoCompraItens();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userEnderecos = _appUserRepository.GetEnderecosByUserId(userId);
-            
+
+            var itens = _carrinhoCompra.GetCarrinhoCompraItens();
+            _carrinhoCompra.CarrinhoCompraItens = itens;
+
 
             var checkoutVM = new CheckoutViewModel()
             {
-                itens = itensCarinho,
+                lanches = _carrinhoCompra,
+                totalCarrinho = _carrinhoCompra.GetCarrinhoCompraTotal(),
                 enderecoUser = userEnderecos
             };
 
@@ -73,9 +80,9 @@ namespace NcDonalds.Controllers
         [HttpPost]
         public IActionResult CheckoutFinal(CheckoutViewModel checkoutVM)
         {
-            var teste = checkoutVM;
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _appUserRepository.GetUserById(userId);
+            var cupom = _cupomRepository.GetCupomById(checkoutVM.idCupom);
 
             if (user == null)
             {
@@ -99,6 +106,11 @@ namespace NcDonalds.Controllers
                 pedidoTotal += item.Lanche.Preco * item.Quantidade;
             }
 
+            if (cupom != null)
+            {
+                pedidoTotal = pedidoTotal - cupom.Valor;
+            }
+
             Pedido pedido = new Pedido()
             {
                 PedidoTotal = pedidoTotal,
@@ -106,28 +118,40 @@ namespace NcDonalds.Controllers
                 UserId = userId,
             };
 
-            if (ModelState.IsValid)
+            if (cupom != null)
             {
-                _pedidoRepository.CriarPedido(pedido);
-                _carrinhoCompra.LimparCarrinho();
-
-                var pedidoVM = new PedidoViewModel()
-                {
-                    Itens = itens,
-                    User = user,
-                    pedido = pedido
-                };
-
-
-                return View("~/Views/Pedido/CheckoutCompleto.cshtml", pedidoVM);
+                pedido.CupomId = cupom.CupomId;
             }
 
-            return View(pedido);
+            if (checkoutVM.enderecoPedido != null && checkoutVM.enderecoPedido.EnderecoId != 0)
+            {
+                pedido.EnderecoId = checkoutVM.enderecoPedido.EnderecoId;
+            }
+
+
+            _pedidoRepository.CriarPedido(pedido);
+            _carrinhoCompra.LimparCarrinho();
+
+            var pedidoVM = new PedidoViewModel()
+            {
+                Itens = itens,
+                User = user,
+                pedido = pedido,
+            };
+
+            if (cupom != null)
+            {
+                pedidoVM.cupom = cupom;
+            }
+
+            return View("~/Views/Pedido/CheckoutCompleto.cshtml", pedidoVM);
+
+
         }
 
-        public IActionResult CheckoutCompleto()
+        public IActionResult CheckoutCompleto(PedidoViewModel pedidoVM)
         {
-            return View();
+            return View(pedidoVM);
         }
 
 

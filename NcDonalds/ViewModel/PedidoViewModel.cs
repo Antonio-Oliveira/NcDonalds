@@ -14,5 +14,7 @@ namespace NcDonalds.ViewModel
 
         public Pedido pedido { get; set; }
 
+        public Cupom cupom { get; set; }
+
     }
 }

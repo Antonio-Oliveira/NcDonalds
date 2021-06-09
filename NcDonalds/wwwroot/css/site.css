@@ -225,9 +225,6 @@ footer {
     width: 50%
 }
 
-.check-endereco{
-
-}
 
 .container-checkout{
     width: 50%;
@@ -237,4 +234,13 @@ footer {
     color: black;
     margin-top: 10px;
     width: 90% !important;
+}
+
+.tabela-lanches {
+    background: white;
+    margin: 15px 0
+}
+
+.finalizar-pedido{
+    margin: auto;
 }

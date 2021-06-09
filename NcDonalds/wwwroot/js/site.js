@@ -94,8 +94,7 @@ function validarCupom() {
         url: "/Pedido/ValidarCupom",
         data: { codigoCupom: cdCupom },
         success: function (dados) {
-            console.log(dados);
-            alert("aq");
+            $("#id-cupom-checkout").val(dados.cupomId); 
         },
         error(err) {
             console.error(err);

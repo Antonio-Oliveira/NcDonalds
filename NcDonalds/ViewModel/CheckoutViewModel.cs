@@ -9,7 +9,9 @@ namespace NcDonalds.ViewModel
 {
     public class CheckoutViewModel
     {
-        public List<CarrinhoCompraItem> itens { get; set; }
+        public CarrinhoCompra lanches { get; set; }
+
+        public decimal totalCarrinho { get; set; }
 
         [Display(Name = "Código do Cupom")]
         public string codCupom { get; set; }
@@ -17,12 +19,8 @@ namespace NcDonalds.ViewModel
         public Endereco enderecoPedido { get; set; }
 
         public IEnumerable<Endereco> enderecoUser { get; set; }
-
-        public decimal total { get; set; }
-
-        public decimal pedidoTotal { get; set; }
-
-        public decimal desconto { get; set; }
+        
+        public int idCupom { get; set; }
 
     }
 }

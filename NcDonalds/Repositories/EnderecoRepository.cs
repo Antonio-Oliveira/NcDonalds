@@ -36,6 +36,7 @@ namespace NcDonalds.Repositories
 
         }
 
+
         public async Task<bool> RemoveEndereco(int enderecoId)
         {
             var endereco = await _context.Enderecos.FindAsync(enderecoId);

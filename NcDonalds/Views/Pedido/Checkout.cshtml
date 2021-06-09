@@ -22,6 +22,38 @@
 
                     <button type="button" onclick="validarCupom()" class="botao-entrar botao-validar-cupom"> Validar Cupom </button>
                 </div>
+
+
+                <table class="table tabela-lanches">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Quantidade</th>
+                            <th scope="col">Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var lanche in Model.lanches.CarrinhoCompraItens)
+                        {
+                            <tr>
+                                <td>@lanche.Lanche.Nome</td>
+                                <td>@lanche.Quantidade</td>
+                                <td>@lanche.Lanche.Preco</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Total</th>
+                            <th scope="col">@Model.totalCarrinho</th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="submit-input">
+                    <input type="submit" class="botao-cadastrar botao-validar-cupom finalizar-pedido" value="Finalizar Pedido" />
+                </div>
             </div>
 
             <div class="container-checkout">
@@ -37,7 +69,7 @@
                 </div>
 
 
-                <div class="collapse" id="collapse-tipo-entrega">
+                <div class="collapse show" id="collapse-tipo-entrega">
 
                     <h3 style="margin: 20px 0"> Meus Endereços </h3>
 
@@ -120,10 +152,7 @@
 
         </div>
 
-
-        <div class="submit-input">
-            <input type="submit" class="botao-cadastrar" value="Finalizar Pedido" />
-        </div>
+        <input id="id-cupom-checkout" type="hidden" asp-for="idCupom" />
 
     </form>
 

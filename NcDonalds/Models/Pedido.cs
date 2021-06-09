@@ -40,5 +40,7 @@ namespace NcDonalds.Models
         
         public virtual List<PedidoDetalhe> PedidoItens { get; set; }
 
+        public int EnderecoId { get; set; }
+
     }
 }
