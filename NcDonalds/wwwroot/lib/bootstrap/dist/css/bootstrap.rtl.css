@@ -90,6 +90,7 @@ h2, .h2 {
 @media (min-width: 1200px) {
   h2, .h2 {
     font-size: 2rem;
+    padding: 20px;
   }
 }
 
