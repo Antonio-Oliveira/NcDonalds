@@ -12,7 +12,9 @@ namespace NcDonalds.ViewModel
 
         public Cupom cupom { get; set; }
 
-        public IEnumerable<Endereco> enderecos { get; set; }
+        public Endereco enderecoPedido { get; set; }
+
+        public IEnumerable<Endereco> enderecoUser { get; set; }
 
         public string tipoEntrega { get; set; }
 

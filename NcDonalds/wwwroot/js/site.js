@@ -3,9 +3,11 @@
 
 // Write your JavaScript code.
 
-function getUserEndereco() {
-    alert("asasasdasdasdadasd");
-    $("#form-entrega").css("display", "block");
+
+function fillInputEndereco(endereco) {
+    alert("aqqq");
+    console.log(endereco);
+    $("#endereco-detalhe").value(endereco.Detalhe);
 }
 
 function getEnderecos() {

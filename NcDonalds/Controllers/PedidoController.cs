@@ -42,7 +42,7 @@ namespace NcDonalds.Controllers
             {
                 itens = itensCarinho,
                 cupom = cupom,
-                enderecos = userEnderecos
+                enderecoUser = userEnderecos
             };
 
             return View(checkoutVM);

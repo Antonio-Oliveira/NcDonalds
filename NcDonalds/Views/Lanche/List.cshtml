@@ -25,10 +25,8 @@
 
 @foreach (var lanche in Model.Lanches)
 {
-    if (lanche.EmEstoque && lanche.CategoriaId == 1)
-    {
-        @await Html.PartialAsync("_LancheResumo", lanche);
-    }
+
+    @await Html.PartialAsync("_LancheResumo", lanche);
 }
 
 

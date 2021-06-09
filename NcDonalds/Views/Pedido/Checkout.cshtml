@@ -8,52 +8,83 @@
 
 <h1>Checkout</h1>
 
-<div class="form-entrega">
+<div id="form-tipo-entrega">
 
-    <h2> Tipo de entrega </h2>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-tipo-entrega" aria-expanded="false" aria-controls="collapse-tipo-entrega">
+        Entrega
+    </button>
 
-    <div class="form-check">
-        <input onclick="getUserEndereco()" asp-for="tipoEntrega" class="form-check-input entrega-type" type="radio" name="tipoEntrega" id="flexRadioDefault1" value="Entrega">
-        <label asp-for="tipoEntrega" class="form-check-label" id=""> Entrega </label>
+    <div class="collapse" id="collapse-tipo-entrega">
+
+        <h3 style="margin: 20px 0"> Endereços cadastrados </h3>
+
+        @foreach (var endereco in Model.enderecoUser)
+        {
+            <button class="btn btn-dark" onclick="fillInputEndereco(@endereco)"> @endereco.Detalhe </button>
+        }
+
+        <div class="inputs">
+
+            <input id="endereco-id" type="hidden" asp-for="enderecoPedido.EnderecoId" class="" />
+
+            <div class="field">
+                <label asp-for="enderecoPedido.Detalhe" class=""></label>
+                <span asp-validation-for="enderecoPedido.Detalhe" class=""></span>
+                <input id="endereco-detalhe" asp-for="enderecoPedido.Detalhe" class="" />
+            </div>
+
+            <div class="field">
+                <label asp-for="enderecoPedido.Estado" class=""></label>
+                <span asp-validation-for="enderecoPedido.Estado" class=""></span>
+                <input id="endereco-estado" asp-for="enderecoPedido.Estado" class="" />
+            </div>
+
+            <div class="field">
+                <label asp-for="enderecoPedido.Cidade" class=""></label>
+                <span asp-validation-for="enderecoPedido.Cidade" class=""></span>
+                <input id="endereco-cidade" asp-for="enderecoPedido.Cidade" class="" />
+            </div>
+
+            <div class="field">
+                <label asp-for="enderecoPedido.Bairro" class=""></label>
+                <span asp-validation-for="enderecoPedido.Bairro" class=""></span>
+                <input id="endereco-bairro" asp-for="enderecoPedido.Bairro" class="" />
+            </div>
+
+            <div class="field">
+                <label asp-for="enderecoPedido.Rua" class=""></label>
+                <span asp-validation-for="enderecoPedido.Rua" class=""></span>
+                <input id="endereco-rua" asp-for="enderecoPedido.Rua" class="" />
+            </div>
+
+            <div class="field">
+                <label asp-for="enderecoPedido.Numero" class=""></label>
+                <span asp-validation-for="enderecoPedido.Numero" class=""></span>
+                <input id="endereco-numero" asp-for="enderecoPedido.Numero" class="" />
+            </div>
+
+            <div class="field">
+                <label asp-for="enderecoPedido.Complemento" class=""></label>
+                <span asp-validation-for="enderecoPedido.Complemento" class=""></span>
+                <input id="endereco-complemento" asp-for="enderecoPedido.Complemento" class="" />
+            </div>
+
+            <div class="field">
+                <label asp-for="enderecoPedido.Cep" class=""></label>
+                <span asp-validation-for="enderecoPedido.Cep" class=""></span>
+                <input endereco-cep asp-for="enderecoPedido.Cep" class="" />
+            </div>
+        </div>
     </div>
-
-
-
-    <div class="form-check">
-        <input asp-for="tipoEntrega" class="form-check-input" type="radio" name="tipoEntrega" id="flexRadioDefault1" value="Retirar no local">
-        <label asp-for="tipoEntrega" class="form-check-label" onclick="getEnderecos()"> Retirada </label>
-    </div>
-
 </div>
 
-<div id="form-entrega" style="display:none">
-
-    @foreach (var endereco in Model.enderecos)
-    {
-        <button > @endereco.Detalhe </button>
-    }
-
-</div>
-
-<div style="margin-top: 300px">
-    <div class="field">
-
-        <label class="">Cupom</label>
-        <input id="codigo-cupom" asp-for="cupom.CodigoCupom" class="" />
-        <span asp-validation-for="cupom.CodigoCupom" class=""></span>
-
-    </div>
-
-    <div class="submit-input">
-        <input type="submit" class="botao-cadastrar" value="Validar Cupom" onclick="validarCupom(@Model.cupom.CodigoCupom)" />
-    </div>
-</div>
 
 
 
 <form method="post" role="form" class="">
 
     <input type="hidden" asp-for="cupom" />
+
 
     <div class="form-pagamento">
 
