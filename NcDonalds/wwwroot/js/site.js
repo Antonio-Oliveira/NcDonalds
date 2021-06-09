@@ -9,7 +9,6 @@ $(document).ready(function () {
     });
 });
 
-form - entrega
 
 function getEnderecos() {
     $.ajax({
