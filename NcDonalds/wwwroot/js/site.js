@@ -3,13 +3,12 @@
 
 // Write your JavaScript code.
 
-$(document).ready(function () {
-    $("#entrega").click(function () {
-        $("#form-entrega").css("display", "block")
-    });
-});
+function getUserEndereco() {
+    $(".btn-carrinho").click(function () {
+        alert("asdasdasd");
 
-form - entrega
+    });
+}
 
 function getEnderecos() {
     $.ajax({
