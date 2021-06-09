@@ -5,6 +5,16 @@
     --amarelo: #F1B104;
 }
 
+ul {
+    columns: 2;
+    width: 500px;
+    margin: 0 auto;
+}
+
+a {
+    border: 1px solid var(--vermelho);
+    padding: 10px;
+}
 /* Lanche Index */
 .content-admin {
     width: 80%;
