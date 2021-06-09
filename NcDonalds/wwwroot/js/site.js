@@ -4,10 +4,8 @@
 // Write your JavaScript code.
 
 function getUserEndereco() {
-    $(".btn-carrinho").click(function () {
-        alert("asdasdasd");
-
-    });
+    alert("asasasdasdasdadasd");
+    $("#form-entrega").css("display", "block");
 }
 
 function getEnderecos() {
