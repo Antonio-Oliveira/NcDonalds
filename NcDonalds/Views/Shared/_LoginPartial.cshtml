@@ -14,10 +14,10 @@
             <span class="visually-hidden">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu">
-            <li><a asp-area="" asp-controller="Account" asp-action="Perfil" class="dropdown-item">Perfil</a></li>
+            <li><a asp-area="" asp-controller="Account" asp-action="Profile" class="dropdown-item">Perfil</a></li>
             <li><a asp-area="" asp-controller="Account" asp-action="Pedidos" class="dropdown-item">Pedidos</a></li>
-            <li><a asp-area="" asp-controller="Account" asp-action="Endereços" class="dropdown-item">Endereços</a></li>
-            <li><a asp-area="" asp-controller="Account" asp-action="Sair" class="dropdown-item">Sair</a></li>
+            <li><a asp-area="" asp-controller="Account" asp-action="Enderecos" class="dropdown-item">Endereços</a></li>
+            <li><a asp-area="" asp-controller="Account" asp-action="Logout" class="dropdown-item">Sair</a></li>
 
             @if (User.IsInRole("Admin"))
             {
