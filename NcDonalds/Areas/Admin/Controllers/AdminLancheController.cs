@@ -21,13 +21,13 @@ namespace NcDonalds.Areas.Admin.Controllers
     {
         private readonly ILancheRepository _lancheRepository;
         private readonly ICategoriaRepository _categoriaRepository;
-
         private readonly IConfiguration _configuration;
 
-        public AdminLancheController(ILancheRepository lancheRepository, ICategoriaRepository categoriaRepository)
+        public AdminLancheController(ILancheRepository lancheRepository, ICategoriaRepository categoriaRepository, IConfiguration configuration)
         {
             _lancheRepository = lancheRepository;
             _categoriaRepository = categoriaRepository;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -49,81 +49,107 @@ namespace NcDonalds.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AdminLancheViewModel adminLancheVM)
         {
-            //if (ModelState.IsValid)
-            //{
 
-            //    Lanche lanche = new Lanche()
-            //    {
-            //        Nome = adminLancheVM.Nome,
-            //        Preco = adminLancheVM.Preco,
-            //        LancheId = adminLancheVM.LancheId,
-            //        CategoriaId = adminLancheVM.CategoriaId,
-            //        DescricaoCurta = adminLancheVM.DescricaoCurta,
-            //        DescricaoDetalhada = adminLancheVM.DescricaoDetalhada,
-            //        EmEstoque = adminLancheVM.EmEstoque,
-            //    };
+            Lanche lanche = new Lanche()
+            {
+                Nome = adminLancheVM.Nome,
+                Preco = adminLancheVM.Preco,
+                CategoriaId = adminLancheVM.CategoriaId,
+                DescricaoCurta = adminLancheVM.DescricaoCurta,
+                DescricaoDetalhada = adminLancheVM.DescricaoDetalhada,
+                EmEstoque = adminLancheVM.EmEstoque,
+            };
 
 
-            //    lanche = (Lanche) await Save(lanche.Image, lanche);
-            //    var result = await _lancheRepository.AddLanche(lanche);
+            lanche = (Lanche)await Save(adminLancheVM.Image, lanche);
+            var result = await _lancheRepository.AddLanche(lanche);
 
-            //    if (result)
-            //    {
-            //        return RedirectToAction("Index");
-            //    }
+            if (result)
+            {
+                return RedirectToAction("Index");
+            }
 
-            //}
-            //return View(lanche);
-            return null;
+
+            var categorias = _categoriaRepository.Categorias;
+            ViewData["CategoriaId"] = new SelectList(categorias, "CategoriaId", "Nome");
+            return View(adminLancheVM);
         }
 
         [HttpGet]
         public IActionResult Edit(int? id)
         {
 
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var lanche = _lancheRepository.GetLancheById((int)id);
 
-            if(lanche == null)
+            if (lanche == null)
             {
                 ModelState.AddModelError("", "Lanche não encontrado");
                 return RedirectToAction("Index");
             }
 
+            var adminLancheVM = new AdminLancheViewModel()
+            {
+                DescricaoCurta = lanche.DescricaoCurta,
+                DescricaoDetalhada = lanche.DescricaoDetalhada,
+                EmEstoque = lanche.EmEstoque,
+                ImagemURL = lanche.ImagemURL,
+                Nome = lanche.Nome,
+                Preco = lanche.Preco,
+                CategoriaId = lanche.CategoriaId,
+                LancheId = lanche.LancheId
+            };
+
             var categorias = _categoriaRepository.Categorias;
             ViewData["CategoriaId"] = new SelectList(categorias, "CategoriaId", "Nome");
-            return View(lanche);
+            return View(adminLancheVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Lanche lanche)
+        public async Task<IActionResult> Edit(AdminLancheViewModel adminLancheVM)
         {
             if (ModelState.IsValid)
             {
-                var result =  await _lancheRepository.UpdateLanche(lanche);
+
+                var lanche = new Lanche()
+                {
+                    Nome = adminLancheVM.Nome,
+                    Preco = adminLancheVM.Preco,
+                    ImagemURL = adminLancheVM.ImagemURL,
+                    LancheId = adminLancheVM.LancheId,
+                    EmEstoque = adminLancheVM.EmEstoque,
+                    DescricaoDetalhada = adminLancheVM.DescricaoDetalhada,
+                    DescricaoCurta = adminLancheVM.DescricaoCurta,
+                    CategoriaId = adminLancheVM.CategoriaId
+                };
+
+                lanche = (Lanche)await Save(adminLancheVM.Image, lanche);
+                var result = await _lancheRepository.UpdateLanche(lanche);
 
                 if (result)
                 {
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError("","Lanche não criado");
+                ModelState.AddModelError("", "Lanche não criado");
 
             }
 
-            return View(lanche);
+            var categorias = _categoriaRepository.Categorias;
+            ViewData["CategoriaId"] = new SelectList(categorias, "CategoriaId", "Nome");
+            return View(adminLancheVM);
         }
 
         public async Task<IActionResult> Delete(int? id)
-        { 
-            if(id == null)
+        {
+            if (id == null)
             {
-                ModelState.AddModelError("","Id do lanche vázio");
+                ModelState.AddModelError("", "Id do lanche vázio");
                 return RedirectToAction("Index");
             }
 
@@ -138,26 +164,24 @@ namespace NcDonalds.Areas.Admin.Controllers
             return RedirectToAction("Index", "AdminLanche");
         }
 
-        public AdminLancheController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Save(IFormFile file, [FromForm] Lanche command)
+        public async Task<Lanche> Save(IFormFile file, Lanche lanche)
         {
             var imagemUrl = await Upload(file);
-            command.ImagemURL = imagemUrl;
-            return Ok(command);
+            lanche.ImagemURL = imagemUrl;
+            return lanche;
 
         }
 
         private async Task<string> Upload(IFormFile file)
         {
             //Obtem as configurações blob do 'appsettings.json' e atribui as variaveis
-            var accountName = _configuration["StorageConfiguration: AccountName"];
-            var accountKey = _configuration["StorageConfiguration: AccountKey"];
-            var containerName = _configuration["StorageConfiguration: ContainerName"];
+            var accountName = _configuration.GetSection("StorageConfiguration")["AccountName"];
+            //var accountName = _configuration["StorageConfiguration: AccountName"];
+            var accountKey = _configuration.GetSection("StorageConfiguration")["AccountKey"];
+            //var accountKey = _configuration["StorageConfiguration: AccountKey"];
+            var containerName = _configuration.GetSection("StorageConfiguration")["ContainerName"];
+            //var containerName = _configuration["StorageConfiguration: ContainerName"];
 
             //Cria as credenciais de acesso do blob do Azure Storage e abre uma conexão com as APIs
             var storageCredentials = new StorageCredentials(accountName, accountKey);

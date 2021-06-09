@@ -9,24 +9,19 @@ namespace NcDonalds.ViewModel
 {
     public class AdminLancheViewModel
     {
-         //Chave Primaria
         public int LancheId { get; set; }
 
-        
         public string Nome { get; set; }
 
-        
         public int Preco { get; set; }
-
         
         public string DescricaoCurta { get; set; } 
-
        
         public string DescricaoDetalhada { get; set; }
 
-        public string ImagemURL { get; set; }
-
         public virtual IFormFile Image { get; set; }
+
+        public string ImagemURL { get; set; }
 
         public bool EmEstoque { get; set; }
 
@@ -35,5 +30,7 @@ namespace NcDonalds.ViewModel
         
         // Relacionamento 1 : N
         public virtual Categoria Categoria { get; set; }
+
+
     }
 }
