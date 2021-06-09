@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - NcDonalds</title>
-
+    <link rel="shortcut icon" href="~/images/Logo.png" />
     <partial name="_Stylus" />
     <partial name="_Fonts" />
 
@@ -15,11 +15,10 @@
         <div class="container-header">
             <nav class="nav-principal">
                 <ul class="container-row">
-                    <li>
-                        <a asp-controller="Home" asp-action="Index">
-                            <img src="/images/Logo.png" class="img-header">
-                        </a>
-                    </li>
+                    <a asp-controller="Home" asp-action="Index">
+                        <img src="/images/Logo.png" class="img-header">
+                    </a>
+                   
                     <li>
                         <a asp-controller="Home" asp-action="Index">Ínicio</a>
                     </li>
