@@ -34,11 +34,15 @@ namespace NcDonalds.Controllers
         public IActionResult Checkout(Cupom cupom)
         {
             List<CarrinhoCompraItem> itensCarinho = _carrinhoCompra.GetCarrinhoCompraItens();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userEnderecos = _appUserRepository.GetEnderecosByUserId(userId);
+            
 
             var checkoutVM = new CheckoutViewModel()
             {
                 itens = itensCarinho,
-                cupom = cupom
+                cupom = cupom,
+                enderecos = userEnderecos
             };
 
             return View(checkoutVM);

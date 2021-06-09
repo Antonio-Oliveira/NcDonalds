@@ -24,13 +24,10 @@
 
         <div class="compra">
             <span class="preco"> @Model.Preco.ToString("c") </span>
-
-            <!--
-                 <a class="btn-carrinho" asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-lancheId="@Model.LancheId">
-                Incluir no Carrinho
-            </a>
-            -->
-
+             
+            <div class="spinner-border" id="@string.Concat("spinner",Model.LancheId)" role="status" style="display:none">
+                <span class="visually-hidden">Loading...</span>
+            </div>
 
             <button class="btn-carrinho" onclick="incluirLanche(@Model.LancheId)">Incluir no Carrinho</button>
         </div>
