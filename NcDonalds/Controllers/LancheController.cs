@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
 using NcDonalds.Models;
-using NcDonalds.Repositories;
 using NcDonalds.Repositories.Interfaces;
 using NcDonalds.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,5 +67,6 @@ namespace NcDonalds.Controllers
             };
             return View(lanchesListViewModel);
         }
-    }
+
+    }   
 }

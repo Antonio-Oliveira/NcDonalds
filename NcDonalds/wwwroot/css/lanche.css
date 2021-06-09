@@ -113,14 +113,15 @@
     background: white;
     font: 16px 'Montserrat';
 }
-    
+
 
 a {
     text-decoration: none !important;
     color: white;
+ 
 }
 a:hover{
-    color:#F1B104;
+    color:white;
 }
 .tipo {
     display: flex;

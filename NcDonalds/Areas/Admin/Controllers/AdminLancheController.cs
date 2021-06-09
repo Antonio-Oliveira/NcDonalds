@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
 using NcDonalds.Models;
 using NcDonalds.Repositories.Interfaces;
+using NcDonalds.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +21,8 @@ namespace NcDonalds.Areas.Admin.Controllers
     {
         private readonly ILancheRepository _lancheRepository;
         private readonly ICategoriaRepository _categoriaRepository;
+
+        private readonly IConfiguration _configuration;
 
         public AdminLancheController(ILancheRepository lancheRepository, ICategoriaRepository categoriaRepository)
         {
@@ -40,19 +47,34 @@ namespace NcDonalds.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Lanche lanche)
+        public async Task<IActionResult> Create(AdminLancheViewModel adminLancheVM)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await _lancheRepository.AddLanche(lanche);
+            //if (ModelState.IsValid)
+            //{
 
-                if (result)
-                {
-                    return RedirectToAction("Index");
-                }
+            //    Lanche lanche = new Lanche()
+            //    {
+            //        Nome = adminLancheVM.Nome,
+            //        Preco = adminLancheVM.Preco,
+            //        LancheId = adminLancheVM.LancheId,
+            //        CategoriaId = adminLancheVM.CategoriaId,
+            //        DescricaoCurta = adminLancheVM.DescricaoCurta,
+            //        DescricaoDetalhada = adminLancheVM.DescricaoDetalhada,
+            //        EmEstoque = adminLancheVM.EmEstoque,
+            //    };
 
-            }
-            return View(lanche);
+
+            //    lanche = (Lanche) await Save(lanche.Image, lanche);
+            //    var result = await _lancheRepository.AddLanche(lanche);
+
+            //    if (result)
+            //    {
+            //        return RedirectToAction("Index");
+            //    }
+
+            //}
+            //return View(lanche);
+            return null;
         }
 
         [HttpGet]
@@ -115,5 +137,48 @@ namespace NcDonalds.Areas.Admin.Controllers
 
             return RedirectToAction("Index", "AdminLanche");
         }
+
+        public AdminLancheController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(IFormFile file, [FromForm] Lanche command)
+        {
+            var imagemUrl = await Upload(file);
+            command.ImagemURL = imagemUrl;
+            return Ok(command);
+
+        }
+
+        private async Task<string> Upload(IFormFile file)
+        {
+            //Obtem as configurações blob do 'appsettings.json' e atribui as variaveis
+            var accountName = _configuration["StorageConfiguration: AccountName"];
+            var accountKey = _configuration["StorageConfiguration: AccountKey"];
+            var containerName = _configuration["StorageConfiguration: ContainerName"];
+
+            //Cria as credenciais de acesso do blob do Azure Storage e abre uma conexão com as APIs
+            var storageCredentials = new StorageCredentials(accountName, accountKey);
+            var storageAccount = new CloudStorageAccount(storageCredentials, true);
+            var blobAzure = storageAccount.CreateCloudBlobClient();
+            //Pega a referência do container que será feito o upload
+            var container = blobAzure.GetContainerReference(containerName);
+
+            //Atribui o nome do arquivo dentro do blob (podemos tratar com regex)
+            var blob = container.GetBlockBlobReference(file.FileName);
+
+            //Define o tipo do arquivo
+            blob.Properties.ContentType = file.ContentType;
+            //Realiza o upload do arquivo para o Blob
+            await blob.UploadFromStreamAsync(file.OpenReadStream());
+
+            //Obtem o URL do arquvivo no blob
+            return blob.SnapshotQualifiedStorageUri.PrimaryUri.ToString();
+
+        }
+
     }
 }
+
