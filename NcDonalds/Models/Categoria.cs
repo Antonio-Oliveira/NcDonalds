@@ -9,11 +9,14 @@ namespace NcDonalds.Models
     public class Categoria
     {
         //Chave Primaria
+        [Display(Name = "Id de categoria: ")]
         public int CategoriaId { get; set; }
 
+        [Display(Name = "Nome: ")]
         [StringLength(200)]
         public string Nome { get; set; }
 
+        [Display(Name = "Descrição: ")]
         [StringLength(300)]
         public string Descricao { get; set; }
 
