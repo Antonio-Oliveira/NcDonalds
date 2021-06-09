@@ -1,5 +1,5 @@
 ﻿
-@model Lanche
+@model AdminLancheViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -45,10 +45,9 @@
                 <span asp-validation-for="DescricaoDetalhada"></span>
             </div>
 
-            <div class="field">
-                <label asp-for="ImagemURL"></label>
-                <input asp-for="ImagemURL" />
-                <span asp-validation-for="ImagemURL"></span>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Escolha a imagem do lanche:</label>
+                <input asp-for="Image" class="form-control" type="file" id="formFile">
             </div>
 
             <div class="field">
