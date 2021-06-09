@@ -13,18 +13,20 @@
     <h2> Tipo de entrega </h2>
 
     <div class="form-check">
-        <input asp-for="tipoEntrega" class="form-check-input" type="radio" name="tipoEntrega" id="flexRadioDefault1 entrega" value="Entrega">
+        <input onclick="getUserEndereco()" asp-for="tipoEntrega" class="form-check-input" type="radio" name="tipoEntrega" id="flexRadioDefault1" value="Entrega">
         <label asp-for="tipoEntrega" class="form-check-label" id=""> Entrega </label>
     </div>
 
+
+
     <div class="form-check">
-        <input onclick="getEnderecos()" asp-for="tipoEntrega" class="form-check-input" type="radio" name="tipoEntrega" id="flexRadioDefault1" value="Retirar no local">
+        <input asp-for="tipoEntrega" class="form-check-input" type="radio" name="tipoEntrega" id="flexRadioDefault1" value="Retirar no local">
         <label asp-for="tipoEntrega" class="form-check-label" onclick="getEnderecos()"> Retirada </label>
     </div>
-    <span asp-validation-for="tipoEntrega"></span>
+
 </div>
 
-<div id="form-entrega" style="display: none">
+<div id="form-entrega" style="display:none">
 
     @foreach (var endereco in Model.enderecos)
     {

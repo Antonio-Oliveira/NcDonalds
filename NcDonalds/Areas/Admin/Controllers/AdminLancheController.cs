@@ -167,13 +167,12 @@ namespace NcDonalds.Areas.Admin.Controllers
         [HttpPost]
         public async Task<Lanche> Save(IFormFile file, Lanche lanche)
         {
-            var imagemUrl = await Upload(file);
+            var imagemUrl = await Upload(file, lanche.Nome);
             lanche.ImagemURL = imagemUrl;
             return lanche;
-
         }
 
-        private async Task<string> Upload(IFormFile file)
+        private async Task<string> Upload(IFormFile file, string nome)
         {
             //Obtem as configurações blob do 'appsettings.json' e atribui as variaveis
             var accountName = _configuration.GetSection("StorageConfiguration")["AccountName"];
@@ -191,7 +190,8 @@ namespace NcDonalds.Areas.Admin.Controllers
             var container = blobAzure.GetContainerReference(containerName);
 
             //Atribui o nome do arquivo dentro do blob (podemos tratar com regex)
-            var blob = container.GetBlockBlobReference(file.FileName);
+            var nameProductF = "images-products/" + nome.Replace(" ", "_").ToLower() + ".jpg";
+            var blob = container.GetBlockBlobReference(nameProductF);
 
             //Define o tipo do arquivo
             blob.Properties.ContentType = file.ContentType;
