@@ -19,6 +19,8 @@ namespace NcDonalds.Repositories.Interfaces
 
         void Logout();
 
+        Endereco GetEnderecoUserById(string userId, int enderecoId);
+
         IEnumerable<Endereco> GetEnderecosByUserId(string userId);
 
         Endereco GetEnderecosById(int enderecoId);

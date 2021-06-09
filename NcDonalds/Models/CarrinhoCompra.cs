@@ -112,12 +112,10 @@ namespace NcDonalds.Models
 
         public decimal GetCarrinhoCompraTotal()
         {
-            var total = _context.CarrinhoCompraItens
+            return _context.CarrinhoCompraItens
                 .Where(cp => cp.CarrinhoCompraId == CarrinhoCompraId)
                     .Select(q => q.Lanche.Preco * q.Quantidade)
                         .Sum();
-
-            return total;
         }
 
         public int GetCarrinhoTotalItens()
