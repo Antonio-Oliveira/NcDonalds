@@ -19,9 +19,6 @@ namespace NcDonalds.Componets
 
         public IViewComponentResult Invoke()
         {
-            var itens = _carrinhoCompra.GetCarrinhoCompraItens();
-            _carrinhoCompra.CarrinhoCompraItens = itens;
-
             var carrinhoCompraVM = new CarrinhoCompraViewModel()
             {
                 CarrinhoCompra = _carrinhoCompra,

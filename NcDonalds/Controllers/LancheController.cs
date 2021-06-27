@@ -25,46 +25,36 @@ namespace NcDonalds.Controllers
 
         public IActionResult List(string categoria)
         {
-            string _categoria = categoria;
             string categoriaAtual = string.Empty;
-            IEnumerable<Lanche> lanches;
+            var categorias = _categoriaRepository.Categorias;
+            IEnumerable<Lanche> lanches = _lancheRepository.Lanches.OrderBy(l => l.LancheId);
 
-            if (string.IsNullOrEmpty(_categoria))
+            if (!(string.IsNullOrEmpty(categoria) || string.IsNullOrWhiteSpace(categoria)))
             {
-                lanches = _lancheRepository.Lanches.OrderBy(l => l.LancheId);
-                categoriaAtual = "OS BURGERS QUE VOCÊ AMA";
-            }
-            else
-            {
-                switch (_categoria)
+                foreach (var value in categorias)
                 {
-                    case "Sanduíche":
-                        lanches = _lancheRepository.Lanches.Where(l => l.Categoria.Nome.Equals("Sanduíche")).OrderBy(l => l.Nome);
-                        categoriaAtual = "Sanduíche";
+                    if (value.Nome.ToLower().Equals(categoria.ToLower()))
+                    {
+                        lanches = _lancheRepository.Lanches.Where(l => l.Categoria.Nome.Equals(categoria)).OrderBy(l => l.Nome);
+                        categoriaAtual = categoria;
                         break;
-
-                    case "Bebidas":
-                        lanches = _lancheRepository.Lanches.Where(l => l.Categoria.Nome.Equals("Bebidas")).OrderBy(l => l.Nome);
-                        categoriaAtual = "Bebidas";
-                        break;
-
-                    case "Acompanhamentos":
-                        lanches = _lancheRepository.Lanches.Where(l => l.Categoria.Nome.Equals("Acompanhamentos")).OrderBy(l => l.Nome);
-                        categoriaAtual = "Acompanhamentos";
-                        break;
-
-                    default:
-                        lanches = _lancheRepository.Lanches.OrderBy(l => l.LancheId);
-                        categoriaAtual = "Categoria não encontrada";
-                        break;
+                    }
                 }
+
+            }
+
+            if ((string.IsNullOrEmpty(categoriaAtual) || string.IsNullOrWhiteSpace(categoriaAtual)))
+            {
+                categoriaAtual = "OS LANCHES QUE VOCÊ AMA";
             }
 
             var lanchesListViewModel = new LancheListViewModel()
             {
                 CategoriaAtual = categoriaAtual,
-                Lanches = lanches
+                Lanches = lanches,
+                Categorias = categorias
             };
+
             return View(lanchesListViewModel);
         }
 

@@ -3,6 +3,10 @@
 
 // Write your JavaScript code.
 
+$(document).ready(function () {
+    $("#cupom-desconto").hide();
+    $("#valor-final").hide();
+});
 
 function removeIdAndUser() {
     $("#endereco-userId").val("");
@@ -19,13 +23,6 @@ function removerEndereco() {
     $("#endereco-numero").val("");
     $("#endereco-rua").val("");
     $("#endereco-userId").val("");
-    /*setTimeout(function () {
-        $("#collapse-tipo-entrega").removeClass("show collapse").addClass("collapsing");
-    }, 2000)
-    setTimeout(function () {
-        $("#collapse-tipo-entrega").removeClass("collapsing").addClass("collapse");
-    }, 2000)*/
-    
 }
 
 
@@ -87,14 +84,30 @@ function incluirLanche(id) {
 
 function validarCupom() {
     var cdCupom = document.getElementById('codigo-cupom').value;
-    alert(cdCupom);
     $.ajax({
         dataType: "json",
         type: "POST",
         url: "/Pedido/ValidarCupom",
         data: { codigoCupom: cdCupom },
         success: function (dados) {
-            $("#id-cupom-checkout").val(dados.cupomId); 
+            var desconto = parseFloat(dados.valor);
+            console.log(desconto);
+
+            function teste() {
+                return parseFloat($("valor-carrinho").text());
+            };
+
+            var valor = teste();
+            console.log(valor);
+
+            var final = parseFloat() + desconto;
+            console.log(final);
+
+            $("#id-cupom-checkout").text(dados.cupomId);
+            $("#valor-desconto").text(desconto);
+            $("#cupom-desconto").show();
+            $("#valor-final").text(final);
+            $("#valor-final").show();
         },
         error(err) {
             console.error(err);

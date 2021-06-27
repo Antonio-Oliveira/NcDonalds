@@ -19,7 +19,7 @@ namespace NcDonalds.Models
         }
 
         public string CarrinhoCompraId { get; set; }
-        public List<CarrinhoCompraItem> CarrinhoCompraItens { get; set; }
+        public List<CarrinhoCompraItem> CarrinhoCompraItens => GetCarrinhoCompraItens();
 
         public static CarrinhoCompra GetCarrinho(IServiceProvider services)
         {
@@ -71,15 +71,15 @@ namespace NcDonalds.Models
 
         public int RemoverDoCarrinho(Lanche lanche)
         {
-            var carrinhoCompraItem = _context.CarrinhoCompraItens.SingleOrDefault( 
+            var carrinhoCompraItem = _context.CarrinhoCompraItens.SingleOrDefault(
                 cp => cp.Lanche.LancheId == lanche.LancheId && cp.CarrinhoCompraId == CarrinhoCompraId);
 
             var quantidadeLocal = 0;
 
-            
-            if(carrinhoCompraItem != null)
+
+            if (carrinhoCompraItem != null)
             {
-                if(carrinhoCompraItem.Quantidade > 1)
+                if (carrinhoCompraItem.Quantidade > 1)
                 {
                     carrinhoCompraItem.Quantidade--;
                     quantidadeLocal = carrinhoCompraItem.Quantidade;
@@ -95,13 +95,10 @@ namespace NcDonalds.Models
 
         }
 
-        public List<CarrinhoCompraItem> GetCarrinhoCompraItens()
-        {
-            return CarrinhoCompraItens ?? (CarrinhoCompraItens = 
-                _context.CarrinhoCompraItens.Where(
+        public List<CarrinhoCompraItem> GetCarrinhoCompraItens() =>
+            _context.CarrinhoCompraItens.Where(
                     cp => cp.CarrinhoCompraId == CarrinhoCompraId)
-                        .Include(l => l.Lanche).ToList());
-        }
+                        .Include(l => l.Lanche).ToList();
 
         public void LimparCarrinho()
         {

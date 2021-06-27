@@ -10,6 +10,8 @@ namespace NcDonalds.ViewModel
     {
         public IEnumerable<Lanche> Lanches { get; set; }
 
+        public IEnumerable<Categoria> Categorias { get; set; }
+
         public string CategoriaAtual { get; set; }
 
         public int Count { get; set; }

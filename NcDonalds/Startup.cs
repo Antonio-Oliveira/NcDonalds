@@ -33,7 +33,7 @@ namespace NcDonalds
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
 
             // Conexão com o banco
             services.AddDbContext<AppDbContext>(
@@ -120,21 +120,21 @@ namespace NcDonalds
 
             app.UseEndpoints(endpoints =>
             {
-            endpoints.MapRazorPages();
+                endpoints.MapRazorPages();
 
-            endpoints.MapControllerRoute(
-                name: "AreaAdmin",
-                pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "AreaAdmin",
+                    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                 name: "Filtar",
                 pattern: "Lanche/{action}/{categoria?}",
                 defaults: new { Controller = "Lanche", action = "List" });
 
-            endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-        });
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
-}
+    }
 }

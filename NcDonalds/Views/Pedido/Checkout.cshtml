@@ -5,15 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <div class="container">
+
     <h1 class="title-checkout">Checkout</h1>
 
     <form asp-action="CheckoutFinal" asp-controller="Pedido" method="post" role="form">
 
+        <div style="color: yellow" asp-validation-summary="ModelOnly" class="text-danger"></div>
+
         <div class="row">
             <div class="container-checkout">
+
                 <div class="cupom-body">
                     <div class="form-floating">
                         <input asp-for="codCupom" type="text" class="form-control" id="codigo-cupom" placeholder="Código Cupom">
@@ -33,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var lanche in Model.lanches.CarrinhoCompraItens)
+                        @foreach (var lanche in Model.Carrinho.CarrinhoCompraItens)
                         {
                             <tr>
                                 <td>@lanche.Lanche.Nome</td>
@@ -45,8 +47,18 @@
                     <tfoot>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Total</th>
-                            <th scope="col">@Model.totalCarrinho</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.TotalCarrinho):</th>
+                            <th id="valor-carrinho" scope="col">@Html.DisplayFor(model => model.TotalCarrinho)</th>
+                        </tr>
+                        <tr id="cupom-desconto">
+                            <th scope="col"></th>
+                            <th scope="col">Desconto:</th>
+                            <th id="valor-desconto" scope="col"></th>
+                        </tr>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.TotalFinal):</th>
+                            <th id="valor-final" scope="col">@Html.DisplayFor(model => model.TotalFinal)</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -71,10 +83,10 @@
 
                 <div class="collapse show" id="collapse-tipo-entrega">
 
-                    <h3 style="margin: 20px 0"> Meus Endereços </h3>
+                    <h3 style="margin: 20px 0"> @Html.DisplayNameFor(model => model.EnderecoUser) </h3>
 
                     <div id="groupRadioEntrega">
-                        @foreach (var endereco in Model.enderecoUser)
+                        @foreach (var endereco in Model.EnderecoUser)
                         {
                             <div class="form-check check-endereco">
                                 <input onclick="getEndereco(@endereco.EnderecoId)" class="form-check-input" type="radio" name="radioEntrega" id="@string.Concat("radioEntrega", endereco.EnderecoId)">
@@ -95,54 +107,54 @@
 
                     <div id="form-enderecoEntrega" class="">
 
-                        <input type="hidden" id="endereco-Id" asp-for="enderecoPedido.EnderecoId" class="" />
-                        <input type="hidden" id="endereco-userId" asp-for="enderecoPedido.UserId" class="" />
+                        <input type="hidden" id="endereco-Id" asp-for="EnderecoPedido.EnderecoId" class="" />
+                        <input type="hidden" id="endereco-userId" asp-for="EnderecoPedido.UserId" class="" />
 
                         <div class="form-floating inputs-endereco">
-                            <span asp-validation-for="enderecoPedido.Detalhe" class=""></span>
-                            <input asp-for="enderecoPedido.Detalhe" type="text" class="form-control" id="endereco-detalhe" placeholder="Detalhe">
+                            <span asp-validation-for="EnderecoPedido.Detalhe" class=""></span>
+                            <input asp-for="EnderecoPedido.Detalhe" type="text" class="form-control" id="endereco-detalhe" placeholder="Detalhe">
                             <label for="endereco-detalhe">Detalhe</label>
                         </div>
 
                         <div class="form-floating inputs-endereco">
-                            <span asp-validation-for="enderecoPedido.Estado" class=""></span>
-                            <input asp-for="enderecoPedido.Estado" type="text" class="form-control" id="endereco-estado" placeholder="Estado">
+                            <span asp-validation-for="EnderecoPedido.Estado" class=""></span>
+                            <input asp-for="EnderecoPedido.Estado" type="text" class="form-control" id="endereco-estado" placeholder="Estado">
                             <label for="endereco-estado">Estado</label>
                         </div>
 
                         <div class="form-floating inputs-endereco">
-                            <span asp-validation-for="enderecoPedido.Cidade" class=""></span>
-                            <input asp-for="enderecoPedido.Cidade" type="text" class="form-control" id="endereco-cidade" placeholder="Cidade">
+                            <span asp-validation-for="EnderecoPedido.Cidade" class=""></span>
+                            <input asp-for="EnderecoPedido.Cidade" type="text" class="form-control" id="endereco-cidade" placeholder="Cidade">
                             <label for="endereco-cidade">Cidade</label>
                         </div>
 
                         <div class="form-floating inputs-endereco">
-                            <span asp-validation-for="enderecoPedido.Bairro" class=""></span>
-                            <input asp-for="enderecoPedido.Bairro" type="text" class="form-control" id="endereco-bairro" placeholder="Bairro">
+                            <span asp-validation-for="EnderecoPedido.Bairro" class=""></span>
+                            <input asp-for="EnderecoPedido.Bairro" type="text" class="form-control" id="endereco-bairro" placeholder="Bairro">
                             <label for="endereco-bairro">Bairro</label>
                         </div>
 
                         <div class="form-floating inputs-endereco">
-                            <span asp-validation-for="enderecoPedido.Rua" class=""></span>
-                            <input asp-for="enderecoPedido.Rua" type="text" class="form-control" id="endereco-rua" placeholder="Rua">
+                            <span asp-validation-for="EnderecoPedido.Rua" class=""></span>
+                            <input asp-for="EnderecoPedido.Rua" type="text" class="form-control" id="endereco-rua" placeholder="Rua">
                             <label for="endereco-rua">Rua</label>
                         </div>
 
                         <div class="form-floating inputs-endereco">
-                            <span asp-validation-for="enderecoPedido.Numero" class=""></span>
-                            <input asp-for="enderecoPedido.Numero" type="text" class="form-control" id="endereco-numero" placeholder="Número">
+                            <span asp-validation-for="EnderecoPedido.Numero" class=""></span>
+                            <input asp-for="EnderecoPedido.Numero" type="text" class="form-control" id="endereco-numero" placeholder="Número">
                             <label for="endereco-numero">Bairro</label>
                         </div>
 
                         <div class="form-floating inputs-endereco">
-                            <span asp-validation-for="enderecoPedido.Complemento" class=""></span>
-                            <input asp-for="enderecoPedido.Complemento" type="text" class="form-control" id="endereco-complemento" placeholder="Complemento">
+                            <span asp-validation-for="EnderecoPedido.Complemento" class=""></span>
+                            <input asp-for="EnderecoPedido.Complemento" type="text" class="form-control" id="endereco-complemento" placeholder="Complemento">
                             <label for="endereco-complemento">Complemento</label>
                         </div>
 
                         <div class="form-floating inputs-endereco">
-                            <span asp-validation-for="enderecoPedido.Cep" class=""></span>
-                            <input asp-for="enderecoPedido.Cep" type="text" class="form-control" id="endereco-cep" placeholder="CEP">
+                            <span asp-validation-for="EnderecoPedido.Cep" class=""></span>
+                            <input asp-for="EnderecoPedido.Cep" type="text" class="form-control" id="endereco-cep" placeholder="CEP">
                             <label for="endereco-cep">CEP</label>
                         </div>
                     </div>

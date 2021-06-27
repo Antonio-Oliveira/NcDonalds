@@ -4,31 +4,35 @@
     ViewData["Title"] = "Lanches";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <nav class="nav-principal">
     <ul class="container-row">
-        <li>
-            <a>Lanches</a>
-        </li>
-        <li>
-            <a>Sobremesas</a>
-        </li>
-        <li>
-            <a>Sorvetes</a>
-        </li>
-        <li>
-            <a>Bebidas</a>
-        </li>
+
+        @foreach (var categoria in Model.Categorias)
+        {
+            <li>
+                <a asp-area="" asp-controller="Lanche" asp-action="List" asp-route-categoria="@categoria.Nome">@categoria.Nome</a>
+            </li>
+        }
     </ul>
 </nav>
+
 <h2 class="title-lanches"> @Model.CategoriaAtual </h2>
 
-
-@foreach (var lanche in Model.Lanches)
+@if (Model.Lanches.Count() > 0)
 {
-    if (lanche.EmEstoque)
+    foreach (var lanche in Model.Lanches)
     {
-        @await Html.PartialAsync("_LancheResumo", lanche);
+        if (lanche.EmEstoque)
+        {
+            @await Html.PartialAsync("_LancheResumo", lanche);
+        }
     }
 }
+else
+{
+    <h2 class="title-lanches"> Nenhum lanche encontrado </h2>
+}
+
 
 

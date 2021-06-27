@@ -40,22 +40,19 @@ namespace NcDonalds.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userEnderecos = _appUserRepository.GetEnderecosByUserId(userId);
 
-            var itens = _carrinhoCompra.GetCarrinhoCompraItens();
-            _carrinhoCompra.CarrinhoCompraItens = itens;
-
-
             var checkoutVM = new CheckoutViewModel()
             {
-                lanches = _carrinhoCompra,
-                totalCarrinho = _carrinhoCompra.GetCarrinhoCompraTotal(),
-                enderecoUser = userEnderecos
+                Carrinho = _carrinhoCompra,
+                TotalCarrinho = _carrinhoCompra.GetCarrinhoCompraTotal(),
+                EnderecoUser = userEnderecos,
+                TotalFinal = _carrinhoCompra.GetCarrinhoCompraTotal()
             };
 
             return View(checkoutVM);
         }
 
         [HttpPost]
-        public JsonResult ValidarCupom(string codigoCupom)
+        public IActionResult ValidarCupom(string codigoCupom)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _appUserRepository.GetUserById(userId);
@@ -74,6 +71,12 @@ namespace NcDonalds.Controllers
             }
 
             var cupom = _pedidoService.validarCupom(codigoCupom, _carrinhoCompra, userId);
+
+            if(cupom == null)
+            {
+                return NotFound("Cupom inválido");
+            }
+
             return Json(cupom);
         }
 
@@ -123,11 +126,6 @@ namespace NcDonalds.Controllers
                 pedido.CupomId = cupom.CupomId;
             }
 
-            if (checkoutVM.enderecoPedido != null && checkoutVM.enderecoPedido.EnderecoId != 0)
-            {
-                pedido.EnderecoId = checkoutVM.enderecoPedido.EnderecoId;
-            }
-
 
             _pedidoRepository.CriarPedido(pedido);
             _carrinhoCompra.LimparCarrinho();
@@ -142,6 +140,11 @@ namespace NcDonalds.Controllers
             if (cupom != null)
             {
                 pedidoVM.cupom = cupom;
+            }
+
+            if (ModelState.IsValid)
+            {
+                return View(checkoutVM);
             }
 
             return View("~/Views/Pedido/CheckoutCompleto.cshtml", pedidoVM);
