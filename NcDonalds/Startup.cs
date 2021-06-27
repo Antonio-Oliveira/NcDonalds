@@ -33,7 +33,7 @@ namespace NcDonalds
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
 
             // Conexão com o banco
             services.AddDbContext<AppDbContext>(
