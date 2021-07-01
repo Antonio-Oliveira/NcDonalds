@@ -25,6 +25,30 @@ function removerEndereco() {
     $("#endereco-userId").val("");
 }
 
+function pedidoEntrega() {
+    $("#endereco-bairro").attr('data-val', true).prop('disabled', false);
+    $("#endereco-cep").attr('data-val', true).prop('disabled', false);
+    $("#endereco-cidade").attr('data-val', true).prop('disabled', false);
+    $("#endereco-complemento").attr('data-val', true).prop('disabled', false);
+    $("#endereco-estado").attr('data-val', true).prop('disabled', false);
+    $("#endereco-numero").attr('data-val', true).prop('disabled', false);
+    $("#endereco-rua").attr('data-val', true).prop('disabled', false);
+    $("#endereco-userId").attr('data-val', true).prop('disabled', false);
+    $("#endereco-detalhe").attr('data-val', true);
+}
+
+function pedidoRetirada() {
+    $("#endereco-detalhe").attr('data-val', false).prop('disabled', true);
+    $("#endereco-bairro").attr('data-val', false).prop('disabled', true);
+    $("#endereco-cep").attr('data-val', false).prop('disabled', true);
+    $("#endereco-cidade").attr('data-val', false).prop('disabled', true);
+    $("#endereco-complemento").attr('data-val', false).prop('disabled', true);
+    $("#endereco-estado").attr('data-val', false).prop('disabled', true);
+    $("#endereco-numero").attr('data-val', false).prop('disabled', true);
+    $("#endereco-rua").attr('data-val', false).prop('disabled', true);
+    $("#endereco-userId").attr('data-val', false).prop('disabled', true);
+}
+
 
 function getEndereco(id) {
     $.ajax({

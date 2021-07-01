@@ -14,9 +14,9 @@
     <div class="chekout-content">
 
         <div class="chekout-user">
-            <p>Cliente : <strong>@Model.User.UserName</strong>
-            <p>Data do Pedido :  <strong>@Model.pedido.PedidoRecebido</strong>
-            <p>Número do Pedido   : <strong>@Model.pedido.PedidoId</strong></p>
+            <p>Cliente : <strong>@Model.Nome</strong>
+            <p>Data do Pedido :  <strong>@Model.Pedido.PedidoRecebido</strong>
+            <p>Número do Pedido   : <strong>@Model.Pedido.PedidoId</strong></p>
         </div>
 
 
@@ -46,7 +46,7 @@
 
         <div class="chekout-preco">
             <h4>Valor Total do Pedido: </h4>
-            <p> <strong>@Model.pedido.PedidoTotal.ToString("C2") </strong> </p>
+            <p> <strong>@Model.Pedido.PedidoTotal.ToString("C2") </strong> </p>
         </div>
     </div>
 </div>

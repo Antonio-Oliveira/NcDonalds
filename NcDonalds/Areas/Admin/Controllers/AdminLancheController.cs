@@ -203,7 +203,6 @@ namespace NcDonalds.Areas.Admin.Controllers
             return blob.SnapshotQualifiedStorageUri.PrimaryUri.ToString();
 
         }
-
     }
 }
 

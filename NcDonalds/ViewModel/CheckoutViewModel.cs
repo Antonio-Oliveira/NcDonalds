@@ -14,9 +14,9 @@ namespace NcDonalds.ViewModel
         public CarrinhoCompra Carrinho { get; set; }
 
         [Display(Name = "Endereço da entrega")]
-        public Endereco EnderecoPedido { get; set; }
+        public EnderecoViewModel EnderecoPedido { get; set; }
 
-        [Display(Name = "Endereços pré-cadastrados pelo usuário")]
+        [Display(Name = "Endereços pré-cadastrados")]
         public IEnumerable<Endereco> EnderecoUser { get; set; }
 
         [Display(Name = "Preço total do carrinho")]

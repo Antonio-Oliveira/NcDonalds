@@ -20,11 +20,11 @@ namespace NcDonalds.Controllers
         private readonly IPedidoRepository _pedidoRepository;
         private readonly CarrinhoCompra _carrinhoCompra;
         private readonly IAppUserRepository _appUserRepository;
-        private readonly PedidoService _pedidoService;
+        private readonly CupomService _pedidoService;
         private readonly ICupomRepository _cupomRepository;
         private readonly IEnderecoRepository _enderecoRepository;
 
-        public PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, IAppUserRepository appUserRepository, PedidoService pedidoService, ICupomRepository cupomRepository, IEnderecoRepository enderecoRepository)
+        public PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, IAppUserRepository appUserRepository, CupomService pedidoService, ICupomRepository cupomRepository, IEnderecoRepository enderecoRepository)
         {
             _pedidoRepository = pedidoRepository;
             _carrinhoCompra = carrinhoCompra;
@@ -60,7 +60,6 @@ namespace NcDonalds.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Cupom Invalido");
-                //return RedirectToAction("Checkout", "Pedido");
                 return Json("Cupom Invalido");
             }
 
@@ -70,9 +69,9 @@ namespace NcDonalds.Controllers
                 return Json("Cupom Invalido");
             }
 
-            var cupom = _pedidoService.validarCupom(codigoCupom, _carrinhoCompra, userId);
+            var cupom = _pedidoService.ValidarCupom(codigoCupom, _carrinhoCompra, userId);
 
-            if(cupom == null)
+            if (cupom == null)
             {
                 return NotFound("Cupom inválido");
             }
@@ -87,32 +86,34 @@ namespace NcDonalds.Controllers
             var user = _appUserRepository.GetUserById(userId);
             var cupom = _cupomRepository.GetCupomById(checkoutVM.idCupom);
 
-            if (user == null)
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Erro em verificar o usuário");
-                return RedirectToAction("Index", "CarrinhoCompra");
+                ModelState.AddModelError("", "Erro ao finalizar pedido");
+                return RedirectToAction("Checkout");
             }
 
-            decimal pedidoTotal = 0.0m;
-            int pedidoTotalItens = 0;
-            List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhoCompraItens();
+            if (String.IsNullOrEmpty(userId) || String.IsNullOrWhiteSpace(userId))
+            {
+                ModelState.AddModelError("", "Erro em verificar o usuário");
+                return RedirectToAction("Checkout");
+            }
 
             if (_carrinhoCompra.CarrinhoCompraItens.Count == 0)
             {
                 ModelState.AddModelError("", "Seu carrinho estar vazio, inclua um lanche");
-                return RedirectToAction("Index", "CarrinhoCompra");
+                return RedirectToAction("Checkout");
             }
 
-            foreach (var item in itens)
-            {
-                pedidoTotalItens += item.Quantidade;
-                pedidoTotal += item.Lanche.Preco * item.Quantidade;
-            }
+            decimal pedidoTotal = _carrinhoCompra.GetCarrinhoCompraTotal();
+            int pedidoTotalItens = _carrinhoCompra.GetCarrinhoTotalItens();
+            List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhoCompraItens();
+
 
             if (cupom != null)
             {
                 pedidoTotal = pedidoTotal - cupom.Valor;
             }
+
 
             Pedido pedido = new Pedido()
             {
@@ -121,37 +122,26 @@ namespace NcDonalds.Controllers
                 UserId = userId,
             };
 
+            var pedidoVM = new PedidoViewModel()
+            {
+                Itens = itens,
+                Nome = user.UserName,
+                Pedido = pedido,
+            };
+
             if (cupom != null)
             {
+                pedidoVM.Cupom = cupom;
                 pedido.CupomId = cupom.CupomId;
             }
 
 
             _pedidoRepository.CriarPedido(pedido);
             _carrinhoCompra.LimparCarrinho();
-
-            var pedidoVM = new PedidoViewModel()
-            {
-                Itens = itens,
-                User = user,
-                pedido = pedido,
-            };
-
-            if (cupom != null)
-            {
-                pedidoVM.cupom = cupom;
-            }
-
-            if (ModelState.IsValid)
-            {
-                return View(checkoutVM);
-            }
-
             return View("~/Views/Pedido/CheckoutCompleto.cshtml", pedidoVM);
-
-
         }
 
+        [HttpGet]
         public IActionResult CheckoutCompleto(PedidoViewModel pedidoVM)
         {
             return View(pedidoVM);

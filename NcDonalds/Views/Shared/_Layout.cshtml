@@ -28,15 +28,6 @@
                     <li>
                         <a asp-controller="Lanche" asp-action="List">Cardápio</a>
                     </li>
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li>
-                            <a asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
-                        </li>
-                    }
-
-
                 </ul>
             </nav>
 
