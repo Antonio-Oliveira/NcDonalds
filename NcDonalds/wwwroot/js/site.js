@@ -97,7 +97,7 @@ function incluirLanche(id) {
                 $("#icon-carrinho path").css("fill", "yellow");
                 $(spinnerId).css("display", "none");
                 $(".btn-carrinho").prop('disabled', false);
-            }, 1500);
+            }, 500);
 
         },
         error(err) {
@@ -108,30 +108,26 @@ function incluirLanche(id) {
 
 function validarCupom() {
     var cdCupom = document.getElementById('codigo-cupom').value;
+    console.log(cdCupom);
+
     $.ajax({
         dataType: "json",
         type: "POST",
         url: "/Pedido/ValidarCupom",
         data: { codigoCupom: cdCupom },
         success: function (dados) {
-            var desconto = parseFloat(dados.valor);
-            console.log(desconto);
+            var desconto = dados.valor;
+            var total = $("#total-final #valor").html();
+            total = parseFloat(total.replace('R$', ''));
 
-            function teste() {
-                return parseFloat($("valor-carrinho").text());
-            };
+            valorFinal = total - desconto;
+            valorFinal = valorFinal > 0 ? valorFinal : 0;
 
-            var valor = teste();
-            console.log(valor);
+            desconto = parseFloat(desconto).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            valorFinal = parseFloat(valorFinal).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-            var final = parseFloat() + desconto;
-            console.log(final);
-
-            $("#id-cupom-checkout").text(dados.cupomId);
-            $("#valor-desconto").text(desconto);
-            $("#cupom-desconto").show();
-            $("#valor-final").text(final);
-            $("#valor-final").show();
+            $("#desconto #valor").html('- '+desconto);
+            $("#total-final #valor").html(valorFinal);
         },
         error(err) {
             console.error(err);

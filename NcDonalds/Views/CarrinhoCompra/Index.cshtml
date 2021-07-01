@@ -8,48 +8,81 @@
 
 <div class="carrinho-compra" style="width:80%; margin:0 auto; padding: 20px;">
 
-    <div>
-        <h2 style="padding: 20px; font-size: 1.5rem;"> Seu carrinho de compras: </h2> 
+    <div class="d-flex">
+        <img class="icons-form" src="~/images/cart-full.svg" />
+        <h2 class="">Carrinho de Compras</h2>
     </div>
 
 
-    <table class="carrinho-itens">
+    <table class="table text-white table-borderless">
         <thead>
             <tr>
-                <th>Quantidade</th>
-                <th>Lanche</th>
-                <th class="text-right">Preço</th>
-                <th></th>
+                <th scope="col">Lanche</th>
+                <th scope="col">Complemento</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Preço</th>
+                <th scope="col">SubTotal</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.CarrinhoCompra.CarrinhoCompraItens)
             {
                 <tr>
-                    <td class="text-center">
-                        @item.Quantidade
-                    </td>
-                    <td class="text-left">
+                    <td>
                         @item.Lanche.Nome
                     </td>
-                    <td class="text-right">
+                    <td>
+                        Sem cebola
+                    </td>
+                    <td>
+                        @item.Quantidade
+                    </td>
+                    <td>
+                        @item.Lanche.Preco.ToString("c")
+                    </td>
+                    <td>
                         @((item.Quantidade * item.Lanche.Preco).ToString("c"))
                     </td>
-                    <td class="text-center">
-                        <a asp-controller="CarrinhoCompra" asp-action="RemoverItem" asp-route-lancheId="@item.Lanche.LancheId"><img src="~/images/Lanches/delete.png" /></a>
+                    <td>
+                        <a asp-controller="CarrinhoCompra" asp-action="RemoverItem" asp-route-lancheId="@item.Lanche.LancheId"><img src="~/images/remove.svg" /></a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 
-    <div class="carrinho-total">
-        <p> Total:</p>
-        <p>@Model.CarrinhoCompraTotal.ToString("C2") </p>
+    <div class="cupom-body">
+        <div class="form-floating">
+            <input type="text" class="form-control" id="codigo-cupom" placeholder="Código Cupom">
+            <label for="codigo-cupom">CodidoCupom</label>
+        </div>
+
+        <button type="button" onclick="validarCupom()" class="botao-entrar botao-validar-cupom"> Validar Cupom </button>
     </div>
 
-    <div class="carrinho-op" role="group" aria-label="basic">
-            <a class="btn btn-success" asp-controller="Pedido" asp-action="Checkout">Encerrar Pedido</a>
+    <div class="col-3">
+        <table class="table text-white">
+            <tr>
+                <th scope="col">SubTotal:</th>
+                <th scope="col" class="text-end">+ @Model.CarrinhoCompraTotal.ToString("c")</th>
+            </tr>
+            <tr id="desconto">
+                <th scope="col">Desconto:</th>
+                <th id="valor" class="text-end" scope="col">- R$ 00,00</th>
+            </tr>
+            <tr id="total-final">
+                <th scope="col">Total:</th>
+                <th id="valor" class="text-end" scope="col">@Model.CarrinhoCompraTotal.ToString("c")</th>
+            </tr>
+        </table>
+
+        <div>
             <a asp-controller="Lanche" asp-action="List"><b>Adicionar mais lanches</b></a>
         </div>
     </div>
+
+    <div class="carrinho-op" role="group" aria-label="basic">
+        <a class="btn btn-success" asp-controller="Pedido" asp-action="Checkout">Encerrar Pedido</a>
+    </div>
+</div>
