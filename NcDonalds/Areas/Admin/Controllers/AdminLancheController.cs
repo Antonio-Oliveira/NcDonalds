@@ -31,16 +31,16 @@ namespace NcDonalds.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var lanches = _lancheRepository.Lanches;
+            var lanches = await _lancheRepository.GetLanches();
             return View(lanches);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var categorias = _categoriaRepository.Categorias;
+            var categorias = await _categoriaRepository.GetCategorias();
             ViewData["CategoriaId"] = new SelectList(categorias, "CategoriaId", "Nome");
             return View();
         }
@@ -70,13 +70,13 @@ namespace NcDonalds.Areas.Admin.Controllers
             }
 
 
-            var categorias = _categoriaRepository.Categorias;
+            var categorias = await _categoriaRepository.GetCategorias();
             ViewData["CategoriaId"] = new SelectList(categorias, "CategoriaId", "Nome");
             return View(adminLancheVM);
         }
 
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
 
             if (id == null)
@@ -104,7 +104,7 @@ namespace NcDonalds.Areas.Admin.Controllers
                 LancheId = lanche.LancheId
             };
 
-            var categorias = _categoriaRepository.Categorias;
+            var categorias = await _categoriaRepository.GetCategorias();
             ViewData["CategoriaId"] = new SelectList(categorias, "CategoriaId", "Nome");
             return View(adminLancheVM);
         }
@@ -140,7 +140,7 @@ namespace NcDonalds.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Lanche não criado");
 
             }
-            var categorias = _categoriaRepository.Categorias;
+            var categorias = await _categoriaRepository.GetCategorias();
             ViewData["CategoriaId"] = new SelectList(categorias, "CategoriaId", "Nome");
             return View(adminLancheVM);
         }

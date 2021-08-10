@@ -8,7 +8,8 @@ namespace NcDonalds.Repositories.Interfaces
 {
     public interface ILancheRepository
     {
-        IEnumerable<Lanche> Lanches { get; }
+        Task<List<Lanche>> GetLanches();
+
         Lanche GetLancheById(int lancheId);
 
         Task<bool> AddLanche(Lanche lanche);

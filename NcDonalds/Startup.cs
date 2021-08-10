@@ -13,6 +13,8 @@ using NcDonalds.Models;
 using NcDonalds.Repositories;
 using NcDonalds.Repositories.Interfaces;
 using NcDonalds.services;
+using NcDonalds.Services;
+using NcDonalds.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +34,6 @@ namespace NcDonalds
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            services.AddRazorPages().AddRazorRuntimeCompilation();
-
             // Conexão com o banco
             services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -49,7 +48,6 @@ namespace NcDonalds
             // Configurações do Identity
             services.AddIdentity<AppUser, IdentityRole>(options =>
            {
-
                // Password settings.
                options.Password.RequireDigit = true;
                options.Password.RequireLowercase = true;
@@ -75,24 +73,32 @@ namespace NcDonalds
 
            }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
 
-            // Registro de serviços, para injeções de dependências.
-            services.AddTransient<ICategoriaRepository, CategoriaRepository>();
-            services.AddTransient<ILancheRepository, LancheRepository>();
-            services.AddTransient<IPedidoRepository, PedidoRepository>();
-            services.AddTransient<IAppUserRepository, AppUserRepository>();
-            services.AddTransient<IEnderecoRepository, EnderecoRepository>();
-            services.AddTransient<ICupomRepository, CupomRepository>();
+            // Repository
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            services.AddScoped<ILancheRepository, LancheRepository>();
+            services.AddScoped<IPedidoRepository, PedidoRepository>();
+            services.AddScoped<IAppUserRepository, AppUserRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<ICupomRepository, CupomRepository>();
+
+            // Service
+            services.AddScoped<ICupomService, CupomService>();
+            services.AddScoped<ICategoriaService, CategoriaService>();
+            services.AddScoped<ILancheService, LancheService>();
+
+
+
+            //Carrinho cookie
+            services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));
-            services.AddScoped<CupomService>();
-
-
-            //configura o uso da Sessão
+            //Configura o uso da Sessão
             services.AddMemoryCache();
             services.AddSession();
 
+            services.AddControllersWithViews();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -127,9 +133,9 @@ namespace NcDonalds
                     pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
-                name: "Filtar",
-                pattern: "Lanche/{action}/{categoria?}",
-                defaults: new { Controller = "Lanche", action = "List" });
+                    name: "filtrarPorCategoria",
+                    pattern: "Lanche/{action}/{categoria?}",
+                    defaults: new { Controller = "Lanche", action = "List" });
 
                 endpoints.MapControllerRoute(
                     name: "default",

@@ -19,7 +19,7 @@ namespace NcDonalds.Repositories
             _context = context;
         }
 
-        public IEnumerable<Lanche> Lanches => _context.Lanches.Include(c => c.Categoria);
+        public Task<List<Lanche>> GetLanches() => Task.FromResult(_context.Lanches.Include(c => c.Categoria).ToList());
 
         public Lanche GetLancheById(int lancheId) => _context.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
 
