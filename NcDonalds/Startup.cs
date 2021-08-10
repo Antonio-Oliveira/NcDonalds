@@ -13,6 +13,7 @@ using NcDonalds.Models;
 using NcDonalds.Repositories;
 using NcDonalds.Repositories.Interfaces;
 using NcDonalds.services;
+using NcDonalds.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,7 +76,7 @@ namespace NcDonalds
 
            }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
 
-            // Registro de serviços, para injeções de dependências.
+            // Repository
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ILancheRepository, LancheRepository>();
             services.AddTransient<IPedidoRepository, PedidoRepository>();
@@ -83,16 +84,15 @@ namespace NcDonalds
             services.AddTransient<IEnderecoRepository, EnderecoRepository>();
             services.AddTransient<ICupomRepository, CupomRepository>();
 
+            // Service
+            services.AddTransient<ICupomService, CupomService>();
+            services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));
-            services.AddScoped<CupomService>();
-
-
-            //configura o uso da Sessão
+            //Configura o uso da Sessão
             services.AddMemoryCache();
             services.AddSession();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

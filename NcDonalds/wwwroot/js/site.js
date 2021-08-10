@@ -4,8 +4,7 @@
 // Write your JavaScript code.
 
 $(document).ready(function () {
-    $("#cupom-desconto").hide();
-    $("#valor-final").hide();
+    $("#desconto").hide();
 });
 
 function removeIdAndUser() {

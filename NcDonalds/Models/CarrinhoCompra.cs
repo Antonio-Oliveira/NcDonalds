@@ -20,6 +20,7 @@ namespace NcDonalds.Models
 
         public string CarrinhoCompraId { get; set; }
         public List<CarrinhoCompraItem> CarrinhoCompraItens => GetCarrinhoCompraItens();
+        public Cupom cupom { get; set; }
 
         public static CarrinhoCompra GetCarrinho(IServiceProvider services)
         {
