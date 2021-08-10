@@ -23,7 +23,7 @@ namespace NcDonalds.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var categorias = _categoriaRepository.Categorias;
+            var categorias = _categoriaRepository.GetCategorias();
             return View(categorias);
         }
 

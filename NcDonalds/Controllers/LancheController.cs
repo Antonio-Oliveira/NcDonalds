@@ -5,7 +5,9 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using NcDonalds.Models;
 using NcDonalds.Repositories.Interfaces;
+using NcDonalds.Services.Interfaces;
 using NcDonalds.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,49 +16,34 @@ namespace NcDonalds.Controllers
 {
     public class LancheController : Controller
     {
-        private readonly ILancheRepository _lancheRepository;
-        private readonly ICategoriaRepository _categoriaRepository;
+        private readonly ILancheService _lancheService;
+        private readonly ICategoriaService _categoriaService;
 
-        public LancheController(ILancheRepository lancheRepository, ICategoriaRepository categoriaRepository)
+        public LancheController(ILancheService lancheService, ICategoriaService categoriaService)
         {
-            _lancheRepository = lancheRepository;
-            _categoriaRepository = categoriaRepository;
+            _lancheService = lancheService;
+            _categoriaService = categoriaService;
         }
 
-        public IActionResult List(string categoria)
+        [HttpGet]
+        public async Task<ActionResult<LancheListViewModel>> List([FromRoute] string categoria)
         {
-            string categoriaAtual = string.Empty;
-            var categorias = _categoriaRepository.Categorias;
-            IEnumerable<Lanche> lanches = _lancheRepository.Lanches.OrderBy(l => l.LancheId);
-
-            if (!(string.IsNullOrEmpty(categoria) || string.IsNullOrWhiteSpace(categoria)))
+            try
             {
-                foreach (var value in categorias)
-                {
-                    if (value.Nome.ToLower().Equals(categoria.ToLower()))
-                    {
-                        lanches = _lancheRepository.Lanches.Where(l => l.Categoria.Nome.Equals(categoria)).OrderBy(l => l.Nome);
-                        categoriaAtual = categoria;
-                        break;
-                    }
-                }
+                var categorias = await _categoriaService.GetCategorias();
 
+                var lanchesListViewModel = await _lancheService.LancheList(categoria, categorias);
+
+                return View(lanchesListViewModel);
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine("Error: {0}", error);
+
+                return RedirectToAction("Index", "Home");
             }
 
-            if ((string.IsNullOrEmpty(categoriaAtual) || string.IsNullOrWhiteSpace(categoriaAtual)))
-            {
-                categoriaAtual = "OS LANCHES QUE VOCÊ AMA";
-            }
-
-            var lanchesListViewModel = new LancheListViewModel()
-            {
-                CategoriaAtual = categoriaAtual,
-                Lanches = lanches,
-                Categorias = categorias
-            };
-
-            return View(lanchesListViewModel);
         }
 
-    }   
+    }
 }

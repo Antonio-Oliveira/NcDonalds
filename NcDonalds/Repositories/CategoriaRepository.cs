@@ -17,9 +17,11 @@ namespace NcDonalds.Repositories
             _context = context;
         }
 
-        public IEnumerable<Categoria> Categorias => _context.Categorias.ToList();
+        public Task<List<Categoria>> GetCategorias() => Task.FromResult(_context.Categorias.ToList());
 
         public Categoria GetCategoriaById(int categoriaId) => _context.Categorias.FirstOrDefault(c => c.CategoriaId == categoriaId);
+
+        public Task<Categoria> GetCategoriaByName(string categoria) => Task.FromResult(_context.Categorias.FirstOrDefault(c => c.Nome == categoria));
 
         public async Task<bool> AddCategoria(Categoria categoria)
         {

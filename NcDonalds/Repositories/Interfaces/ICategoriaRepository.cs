@@ -8,9 +8,11 @@ namespace NcDonalds.Repositories.Interfaces
 {
     public interface ICategoriaRepository
     {
-        IEnumerable<Categoria> Categorias { get; }
+        Task<List<Categoria>> GetCategorias();
 
         Categoria GetCategoriaById(int categoriaId);
+
+        Task<Categoria> GetCategoriaByName(string categoria);
 
         Task<bool> AddCategoria(Categoria categoria);
 

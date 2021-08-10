@@ -7,7 +7,6 @@
 
 <nav class="nav-principal">
     <ul class="container-row">
-
         @foreach (var categoria in Model.Categorias)
         {
             <li>
@@ -17,22 +16,32 @@
     </ul>
 </nav>
 
-<h2 class="title-lanches"> @Model.CategoriaAtual </h2>
 
-@if (Model.Lanches.Count() > 0)
+@if (!string.IsNullOrEmpty(Model.CategoriaAtual))
 {
-    foreach (var lanche in Model.Lanches)
-    {
-        if (lanche.EmEstoque)
-        {
-            @await Html.PartialAsync("_LancheResumo", lanche);
-        }
-    }
+    <h2 class="title-lanches"> @Model.CategoriaAtual </h2>
 }
 else
 {
-    <h2 class="title-lanches"> Nenhum lanche encontrado </h2>
+    <h2 class="title-lanches"> Os Lanches que você ama!!!</h2>
 }
 
+<div class="lanches">
+
+    @if (Model.Lanches.Count() > 0)
+    {
+        foreach (var lanche in Model.Lanches)
+        {
+            if (lanche.EmEstoque)
+            {
+                @await Html.PartialAsync("_LancheResumo", lanche);
+            }
+        }
+    }
+    else
+    {
+        <h2 class="title-lanches"> Nenhum lanche encontrado </h2>
+    }
+</div>
 
 

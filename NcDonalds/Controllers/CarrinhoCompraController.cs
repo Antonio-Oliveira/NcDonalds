@@ -17,7 +17,7 @@ namespace NcDonalds.Controllers
     {
         private readonly ILancheRepository _lancheRepository;
         private readonly CarrinhoCompra _carrinhoCompra;
-        private readonly IPedidoRepository _PedidoRepository;
+        private readonly IPedidoRepository _pedidoRepository;
         private readonly IAppUserRepository _appUserRepository;
         private readonly ICupomService _cupomService;
         private readonly AppDbContext _context;
@@ -26,7 +26,7 @@ namespace NcDonalds.Controllers
         {
             _lancheRepository = lancheRepository;
             _carrinhoCompra = carrinhoCompra;
-            _PedidoRepository = PedidoRepository;
+            _pedidoRepository = PedidoRepository;
             _appUserRepository = appUserRepository;
             _cupomService = cupomService;
             _context = Context;
@@ -46,7 +46,7 @@ namespace NcDonalds.Controllers
         [HttpPost]
         public decimal AdicionarItem(int lancheId)
         {
-            var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
+            var lancheSelecionado = _lancheRepository.GetLancheById(lancheId);
 
             if (lancheSelecionado != null)
             {
@@ -59,7 +59,7 @@ namespace NcDonalds.Controllers
         [HttpPost]
         public decimal RemoverItem(int lancheId)
         {
-            var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
+            var lancheSelecionado = _lancheRepository.GetLancheById(lancheId);
 
             if (lancheSelecionado != null)
             {
@@ -87,7 +87,7 @@ namespace NcDonalds.Controllers
                 return Json("Cupom Invalido");
             }
 
-            var cupom = _pedidoService.ValidarCupom(codigoCupom, _carrinhoCompra, userId);
+            var cupom = _cupomService.ValidarCupom(codigoCupom, _carrinhoCompra, userId);
 
             if (cupom == null)
             {
