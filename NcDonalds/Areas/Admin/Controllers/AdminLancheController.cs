@@ -61,7 +61,7 @@ namespace NcDonalds.Areas.Admin.Controllers
             };
 
             lanche.Categoria = _categoriaRepository.GetCategoriaById(lanche.CategoriaId);
-            lanche = (Lanche)await Save(adminLancheVM.Image, lanche);
+            lanche = await Save(adminLancheVM.Image, lanche);
             var result = await _lancheRepository.AddLanche(lanche);
 
             if (result)
@@ -84,7 +84,7 @@ namespace NcDonalds.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var lanche = _lancheRepository.GetLancheById((int)id);
+            var lanche = await _lancheRepository.GetLancheById((int)id);
 
             if (lanche == null)
             {

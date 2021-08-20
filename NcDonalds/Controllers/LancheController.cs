@@ -31,15 +31,12 @@ namespace NcDonalds.Controllers
             try
             {
                 var categorias = await _categoriaService.GetCategorias();
-
                 var lanchesListViewModel = await _lancheService.LancheList(categoria, categorias);
-
                 return View(lanchesListViewModel);
             }
             catch (Exception error)
             {
                 Console.WriteLine("Error: {0}", error);
-
                 return RedirectToAction("Index", "Home");
             }
 

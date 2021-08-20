@@ -10,13 +10,12 @@ namespace NcDonalds.Repositories.Interfaces
     {
         Task<List<Lanche>> GetLanches();
 
-        Lanche GetLancheById(int lancheId);
+        Task<Lanche> GetLancheById(int lancheId);
 
         Task<bool> AddLanche(Lanche lanche);
 
         Task<bool> EmEstoque(int lancheId);
 
         Task<bool> UpdateLanche(Lanche lanche);
-
     }
 }

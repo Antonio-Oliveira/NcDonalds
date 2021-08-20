@@ -44,7 +44,7 @@ namespace NcDonalds.Models
             };
         }
 
-        public void AdicionarAoCarrinho(Lanche lanche, int quantidade)
+        public async Task AdicionarAoCarrinho(Lanche lanche, int quantidade)
         {
             var carrinhoCompraItem =
                     _context.CarrinhoCompraItens.FirstOrDefault(
@@ -66,17 +66,16 @@ namespace NcDonalds.Models
             {
                 carrinhoCompraItem.Quantidade++;
             }
-            _context.SaveChanges();
 
+            await _context.SaveChangesAsync();
         }
 
-        public int RemoverDoCarrinho(Lanche lanche)
+        public async Task RemoverDoCarrinho(Lanche lanche)
         {
             var carrinhoCompraItem = _context.CarrinhoCompraItens.SingleOrDefault(
                 cp => cp.Lanche.LancheId == lanche.LancheId && cp.CarrinhoCompraId == CarrinhoCompraId);
 
             var quantidadeLocal = 0;
-
 
             if (carrinhoCompraItem != null)
             {
@@ -91,9 +90,7 @@ namespace NcDonalds.Models
                 }
             }
 
-            _context.SaveChanges();
-            return quantidadeLocal;
-
+            await _context.SaveChangesAsync();
         }
 
         public List<CarrinhoCompraItem> GetCarrinhoCompraItens() =>

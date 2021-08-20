@@ -21,7 +21,7 @@ namespace NcDonalds.Repositories
 
         public Task<List<Lanche>> GetLanches() => Task.FromResult(_context.Lanches.Include(c => c.Categoria).ToList());
 
-        public Lanche GetLancheById(int lancheId) => _context.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
+        public Task<Lanche> GetLancheById(int lancheId) => Task.FromResult(_context.Lanches.FirstOrDefault(l => l.LancheId == lancheId));
 
         public async Task<bool> AddLanche(Lanche lanche)
         {

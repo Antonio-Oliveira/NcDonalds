@@ -82,9 +82,9 @@ namespace NcDonalds
             services.AddScoped<ICupomRepository, CupomRepository>();
 
             // Service
-            services.AddScoped<ICupomService, CupomService>();
-            services.AddScoped<ICategoriaService, CategoriaService>();
-            services.AddScoped<ILancheService, LancheService>();
+            services.AddTransient<ICupomService, CupomService>();
+            services.AddTransient<ICategoriaService, CategoriaService>();
+            services.AddTransient<ILancheService, LancheService>();
 
 
 

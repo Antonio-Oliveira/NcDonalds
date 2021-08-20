@@ -12,12 +12,10 @@ namespace NcDonalds.Services
     public class LancheService : ILancheService
     {
         private readonly ILancheRepository _lancheRepository;
-        private readonly ICategoriaRepository _categoriaRepository;
 
-        public LancheService(ILancheRepository lancheRepository, ICategoriaRepository categoriaRepository)
+        public LancheService(ILancheRepository lancheRepository)
         {
             _lancheRepository = lancheRepository;
-            _categoriaRepository = categoriaRepository;
         }
 
         public async Task<LancheListViewModel> LancheList(string categoria, List<Categoria> categorias)

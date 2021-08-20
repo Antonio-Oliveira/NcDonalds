@@ -17,19 +17,15 @@ namespace NcDonalds.Controllers
     {
         private readonly ILancheRepository _lancheRepository;
         private readonly CarrinhoCompra _carrinhoCompra;
-        private readonly IPedidoRepository _pedidoRepository;
         private readonly IAppUserRepository _appUserRepository;
         private readonly ICupomService _cupomService;
-        private readonly AppDbContext _context;
 
         public CarrinhoCompraController(ILancheRepository lancheRepository, CarrinhoCompra carrinhoCompra, IPedidoRepository PedidoRepository, AppDbContext Context, IAppUserRepository appUserRepository, ICupomService cupomService)
         {
             _lancheRepository = lancheRepository;
             _carrinhoCompra = carrinhoCompra;
-            _pedidoRepository = PedidoRepository;
             _appUserRepository = appUserRepository;
             _cupomService = cupomService;
-            _context = Context;
         }
 
         public IActionResult Index()
@@ -44,26 +40,26 @@ namespace NcDonalds.Controllers
         }
 
         [HttpPost]
-        public decimal AdicionarItem(int lancheId)
+        public async Task<decimal> AdicionarItem(int lancheId)
         {
-            var lancheSelecionado = _lancheRepository.GetLancheById(lancheId);
+            var lancheSelecionado = await _lancheRepository.GetLancheById(lancheId);
 
             if (lancheSelecionado != null)
             {
-                _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado, 1);
+                await _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado, 1);
             }
 
             return _carrinhoCompra.GetCarrinhoTotalItens();
         }
 
         [HttpPost]
-        public decimal RemoverItem(int lancheId)
+        public async Task<decimal> RemoverItem(int lancheId)
         {
-            var lancheSelecionado = _lancheRepository.GetLancheById(lancheId);
+            var lancheSelecionado = await _lancheRepository.GetLancheById(lancheId);
 
             if (lancheSelecionado != null)
             {
-                _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
+                await _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
             }
 
             return _carrinhoCompra.GetCarrinhoTotalItens();

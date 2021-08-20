@@ -1,4 +1,5 @@
-﻿using NcDonalds.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using NcDonalds.Models;
 using NcDonalds.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,6 @@ namespace NcDonalds.Services.Interfaces
     public interface ILancheService
     {
         Task<LancheListViewModel> LancheList(string categoria, List<Categoria> categorias);
+
     }
 }
