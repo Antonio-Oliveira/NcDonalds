@@ -5,6 +5,7 @@ using NcDonalds.Models;
 using NcDonalds.Repositories;
 using NcDonalds.Repositories.Interfaces;
 using NcDonalds.services;
+using NcDonalds.Services.Interfaces;
 using NcDonalds.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -20,18 +21,18 @@ namespace NcDonalds.Controllers
         private readonly IPedidoRepository _pedidoRepository;
         private readonly CarrinhoCompra _carrinhoCompra;
         private readonly IAppUserRepository _appUserRepository;
-        private readonly CupomService _pedidoService;
         private readonly ICupomRepository _cupomRepository;
         private readonly IEnderecoRepository _enderecoRepository;
+        private readonly ICupomService _cupomService;
 
-        public PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, IAppUserRepository appUserRepository, CupomService pedidoService, ICupomRepository cupomRepository, IEnderecoRepository enderecoRepository)
+        public PedidoController(IPedidoRepository pedidoRepository, CarrinhoCompra carrinhoCompra, IAppUserRepository appUserRepository, ICupomRepository cupomRepository, IEnderecoRepository enderecoRepository, ICupomService cupomService)
         {
             _pedidoRepository = pedidoRepository;
             _carrinhoCompra = carrinhoCompra;
             _appUserRepository = appUserRepository;
-            _pedidoService = pedidoService;
             _cupomRepository = cupomRepository;
             _enderecoRepository = enderecoRepository;
+            _cupomService = cupomService;
         }
 
         [HttpGet]
@@ -69,7 +70,7 @@ namespace NcDonalds.Controllers
                 return Json("Cupom Invalido");
             }
 
-            var cupom = _pedidoService.ValidarCupom(codigoCupom, _carrinhoCompra, userId);
+            var cupom = _cupomService.ValidarCupom(codigoCupom, _carrinhoCompra, userId);
 
             if (cupom == null)
             {
